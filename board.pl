@@ -24,7 +24,18 @@ put_number(GameBoard, Row, Column, Elem) :-
 
 /*
 testPawn([
-    [    1, empty,     1, empty, empty, empty, empty, empty],
+    [    0, empty,     3, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     0, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty]
+]).
+*/
+testPawn([
+    [    0, empty,     1, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -33,13 +44,23 @@ testPawn([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty]
 ]).
-*/
+
+testAll([
+    [    0, empty,     2, empty,     2, empty, empty, empty],
+    [empty,     1,     1,     1,     1, empty, empty, empty],
+    [empty, empty,     0, empty, empty, empty, empty, empty],
+    [    1,     1,     1, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty, 1, 1,  1, empty, 1, 1]
+]).
 
 problemPawn(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
-    put_number(GameBoard, 1, 1, 0),
-    put_number(GameBoard, 1, 3, 1).
+    put_number(GameBoard, 1, 2, 1),
+    put_number(GameBoard, 1, 4, 0).
 
 build_board([]).
 build_board([Row|GameBoard]) :-
