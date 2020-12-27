@@ -4,7 +4,7 @@ problemOne([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty,     4, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     4, empty, empty, empty, empty, empty]
 ]).
@@ -20,6 +20,61 @@ problemTwo([
     [   0, empty, empty, empty, empty, empty, empty, empty],
     [   0, empty, empty, empty, empty, empty,     0, empty]
 ]).
+
+problemSix([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1,     1,     1,     1,     1,     1,     1,     1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [   1,      1,      1,     2,     2,     1,    1,     2],
+    [empty, empty, empty, empty, empty,     2,     1, empty]
+    ]).
+
+onlyRook([
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [    1,     1,     1,     1, empty,     1,     1,     1],
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty,     1, empty, empty, empty]
+    ]).
+
+onlyKing([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, 1, 1, 1, empty, empty],
+    [empty, empty, empty, 1, empty, 1, empty, empty],
+    [empty, empty, empty, 1, 1, 1, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty]
+    ]).
+
+problemSixWithoutQueen([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty,     1, empty,     1, empty,     1,     1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty,     1,     1,     1,     2,     1, empty,     2],
+    [empty, empty, empty, empty, empty,     2,     1, empty]
+    ]).
+
+problemTen([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     2, empty, empty, empty,     3, empty],
+    [empty, empty, empty,     2, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty,     3, empty, empty, empty, empty,     3, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty,     3, empty, empty, empty],
+    [empty, empty,     1, empty, empty, empty, empty, empty]
+    ]).
 
 problemOne(GameBoard) :-
     length(GameBoard, 8),
