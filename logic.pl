@@ -30,7 +30,7 @@ percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing]) :-
     (KingX #\= X #\/ KingY #\= Y),
     percorrer_lista(KingX-KingY, CellsAttackedKing).
 
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], Row-Column-0) :- 
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Row-Column-0) :- 
     %write('Para a cell ['), write(Row), write(', '), write(Column), write(']'), nl,
     (PawnX #\= Xa #\/ PawnY #\= Ya),
     pawn([Xa, Ya], [Row, Column], 1), !, % ????? VER ISTO
@@ -45,7 +45,7 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     percorrer_lista(RookX-RookY, CellsAttackedRook).
 
 
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], Row-Column-Number) :-    % 3º param - Positions [PawnX, PawnY, KnightX, KnightY, KingX, KingY]
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Row-Column-Number) :-    % 3º param - Positions [PawnX, PawnY, KnightX, KnightY, KingX, KingY]
    
     /*findall(X, pawn_TEST([PawnX, PawnY], X), CellsAttackedPawn),
     findall(X, knight_TEST([KnightX, KnightY], X), CellsAttackedKnight),
@@ -67,6 +67,8 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
     rook(GameBoard, [RookX, RookY], [Row, Column], RookAttack),
+    bishop(GameBoard, [BishopX, BishopY], [Row, Column], BishopAttack),
+    queen(GameBoard, [QueenX, QueenY], [Row, Column], QueenAttack),
 
     % write('PAWNATTACK: '), write(PawnAttack), nl,
     % write('NUMBER: '), write(Number), nl,
@@ -127,7 +129,7 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     write(' KINGATTACK: '), write(KingAttack), nl,*/
 
     %PawnAttack #= Number.
-    PawnAttack + KnightAttack + KingAttack + RookAttack #= Number.
+    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
     X1 is X + 1,
@@ -276,14 +278,47 @@ nothing_between_column_other(GameBoard, Y, X, X1) :-
     nothing_between_column_other(GameBoard, Y, NewX, X1).
 
 /**************************************/
+constrain([]).
+constrain([H | RCols]) :-
+    safe(H, RCols, 1),
+    constrain(RCols).
 
+safe(_, [], _).
+safe(X, [Y | T], K) :-
+    noattack(X, Y, K),
+    K1 is K + 1,
+    safe(X, T, K1).
 
-bishop(GameBoard, [X, Y], [X1, Y1]) :-
-    domain([X1, Y1], 1, 8),
-    X1 #< X,
-    nothing_blocking_bishop(GameBoard, X-Y, X1-Y1).
-    %inside(X1),
-    %inside(Y1).
+noattack(X, Y, K) :-
+    X #\= Y,
+    X + K #\= Y,
+    X - K #\= Y.
+
+diagonal(X-Y, X1-Y1) :-
+    K in 1..8,
+    X #= X1 - K,
+    Y #= Y1 - K.
+diagonal(X-Y, X1-Y1) :-
+    K in 1..8,
+    X #= X1 + K,
+    Y #= Y1 + K.
+diagonal(X-Y, X1-Y1) :-
+    K in 1..8,
+    X #= X1 + K,
+    Y #= Y1 - K.
+diagonal(X-Y, X1-Y1) :-
+    K in 1..8,
+    X #= X1 - K,
+    Y #= Y1 + K.
+
+bishop(GameBoard, [X, Y], [X1, Y1], 1) :-
+    %domain([X1, Y1], 1, 8),
+    K in 1..8,
+    diagonal(X-Y, X1-Y1),
+    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1).
+    inside(X1),
+    inside(Y1).
+bishop(GameBoard, [X, Y], [X1, Y1], 0).
 
 nothing_blocking_bishop(GameBoard, X-Y, X1-Y1) :-
     %X1 #< X, Y1 #< Y,
@@ -337,6 +372,24 @@ nothing_between_diagonal_right_bottom(GameBoard, X-Y, X1-Y1) :-
 /**************************************/
 /* To Do */
 % queen([X, Y], [X1, Y1]).
+queen(GameBoard, [X, Y], [X1, Y1], 1) :-
+    X1 #= X,
+    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    inside(X1),
+    inside(Y1).
+queen(GameBoard, [X, Y], [X1, Y1], 1) :-
+    Y1 #= Y,
+    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    inside(X1),
+    inside(Y1).
+queen(GameBoard, [X, Y], [X1, Y1], 1) :-
+    %domain([X1, Y1], 1, 8),
+    K in 1..8,
+    diagonal(X-Y, X1-Y1),
+    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1).
+    inside(X1),
+    inside(Y1).
+queen(GameBoard, [X, Y], [X1, Y1], 0).
 
 /**************************************/
 king_attack(-1, 1).
