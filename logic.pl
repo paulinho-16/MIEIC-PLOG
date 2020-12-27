@@ -10,7 +10,7 @@ get_next_cell(Row-Column, NextRow-NextColumn) :-
     NextColumn is Column + 1.
 
 getCellsNumber(GameBoard, 9-1, []).
-getCellsNumber(GameBoard, Row-Column, [Row-Column-Value|Cells]) :-
+getCellsNumber(GameBoard, Row-Column, [Value-Row-Column|Cells]) :-
     get_value(Row, Column, GameBoard, Value),
     number(Value), !,                       
     get_next_cell(Row-Column, NextRow-NextColumn),
@@ -32,8 +32,7 @@ percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing], Acc, ListRestrict) :-
     percorrer_lista(KingX-KingY, CellsAttackedKing, NewAcc, ListRestrict).
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY], Row-Column-0) :-
-    !,
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], 0-Row-Column) :-
     %write('Para a cell ['), write(Row), write(', '), write(Column), write(']'), nl,
     pawn([Xa, Ya], [Row, Column], 1),
     findall(Teste, knight(Teste, [Row, Column], 1), CellsAttackedKnight),
@@ -47,99 +46,19 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY], Row-Colu
     %percorrer_lista(RookX-RookY, CellsAttackedRook, [], Restrictions),
     append(Restrictions1, Restrictions2, Restrictions3),
     append(Restrictions3, [PawnX #\= Xa #\/ PawnY #\= Ya], Restrictions),
-    fd_batch(Restrictions).
+    fd_batch(Restrictions), !.
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY], Row-Column-Number) :-    % 3º param - Positions [PawnX, PawnY, KnightX, KnightY, KingX, KingY]
-   
-    /*findall(X, pawn_TEST([PawnX, PawnY], X), CellsAttackedPawn),
-    findall(X, knight_TEST([KnightX, KnightY], X), CellsAttackedKnight),
-    findall(X, king_TEST([KingX, KingY], X), CellsAttackedKing),
-
-    write(PawnAttack), nl,
-    write(CellsAttackedPawn), nl,
-    write(KnightAttack), nl,
-    write(CellsAttackedKnight), nl,
-    write(KingAttack), nl,
-    write(CellsAttackedKing), nl,*/
-
-    %repeat,
-    %(PawnX #\= KnightX #\/ PawnY #\= KnightY),
-    %(PawnX #\= KingX #\/ PawnY #\= KingY),
-    %(KnightX #\= KingX #\/ KnightY #\= KingY),
-    %rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], RookAttack), % , QueenX, QueenY
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], Number-Row-Column) :- 
+    
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
     %bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], BishopAttack), % , QueenX, QueenY
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
-    %queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
+    rook([RookX, RookY], [Row, Column], RookAttack), % , QueenX, QueenY
+    %queen(GameBoard, [RookX, RookY], [Row, Column], [], RookAttack),
 
-    % write('PAWNATTACK: '), write(PawnAttack), nl,
-    % write('NUMBER: '), write(Number), nl,
-    % isAttacked([Row, Column], CellsAttackedPawn, PawnAttack),
-    
-    % findall(X, knight([3, 2], X), CellsAttackedKnight),
-    % isAttacked([Row, Column], CellsAttackedKnight, KnightAttack),
-
-    % findall(X, king([2, 3], X), CellsAttackedKing),
-    % isAttacked([Row, Column], CellsAttackedKing, KingAttack),
-
-    /*findall(X, rook(GameBoard, [4, 3], X), CellsAttackedRook),
-    isAttacked([Row, Column], CellsAttackedRook, RookAttack),
-
-    % findall(X, bishop(GameBoard, [4, 4], X), CellsAttackedBishop),
-    getDiagonalValue_BOTTOM_right(2-4, BR),
-    getDiagonalValue_BOTTOM_left(2-4, BL),
-    getDiagonalValue_top_right(2-4, TR),
-    getDiagonalValue_top_left(2-4, TL),
-    append(BR, BL, Bottom),
-    append(TR, TL, Top),
-    append(Bottom, Top, CellsAttackedBishop),
-    isAttacked([Row, Column], CellsAttackedBishop, BishopAttack),
-
-    findall(X, rook(GameBoard, [3, 5], X), QueenVerticalHorizontal),
-    getDiagonalValue_BOTTOM_right(3-5, BRQ),
-    getDiagonalValue_BOTTOM_left(3-5, BLQ),
-    getDiagonalValue_top_right(3-5, TRQ),
-    getDiagonalValue_top_left(3-5, TLQ),
-    append(BRQ, BLQ, BottomQ),
-    append(TRQ, TLQ, TopQ),
-    append(BottomQ, TopQ, DiagonalQueen),
-    append(QueenVerticalHorizontal, DiagonalQueen, CellsAttackedQueen),
-    isAttacked([Row, Column], CellsAttackedQueen, QueenAttack),
-*/
-    %write(PawnAttack), nl,
-    %write(CellsAttackedPawn), nl,
-  /*  write(KnightAttack), nl,
-    write(CellsAttackedKnight), nl,
-    write(KingAttack), nl,
-    write(CellsAttackedKing), nl,
-    write(RookAttack), nl,
-    write(CellsAttackedRook), nl,
-    write(BishopAttack), nl,
-    write(CellsAttackedBishop), nl,
-    write(QueenAttack), nl,
-    write(CellsAttackedQueen), nl,
-    TimesAtacked is PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack,
-    TimesAtacked == Number.
-*/
-
-    % write('Para a cell ['), write(Row), write(', '), write(Column), write(']\n - VALORES: '), write(PawnX), write(PawnY), nl,
-    %write(KnightX), write(KnightY), nl,
-    %write(KingX), write(KingY), nl,
-
-    /*write('PAWNATTACK: '), write(PawnAttack),
-    write(' KNIGHTATTACK: '), write(KnightAttack),
-    write(' KINGATTACK: '), write(KingAttack), nl,*/
-
-    /*write('CELL: '), write(Row), write(' - '), write(Column), nl,
-    write('PawnAttack: '), write(PawnAttack), nl,
-    write('KnightAttack: '), write(KnightAttack), nl,
-    write('KingAttack: '), write(KingAttack), nl,
-    write('RookAttack: '), write(RookAttack), nl,
-    write('BishopAttack: '), write(BishopAttack), nl,*/
-
-    PawnAttack + KnightAttack + KingAttack #= Number.
+    PawnAttack + KnightAttack + KingAttack + RookAttack #= Number, !.
     %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
@@ -205,11 +124,7 @@ pawn_attack(-1,-1).
 pawn([X, Y], [X1, Y1], 1) :-
     pawn_attack(Distx, Disty),
     X1 #= X+Distx,
-    Y1 #= Y+Disty,
-    inside(X1),
-    inside(Y1), 
-    inside(X), 
-    inside(Y).
+    Y1 #= Y+Disty.
 pawn([X, Y], [X1, Y1], 0).
 
 /**************************************/
@@ -226,24 +141,30 @@ knight_attack(-1,-2).
 
 knight([X ,Y], [X1, Y1], 1) :-  
     knight_attack(Distx, Disty),
-    X1 #= X+Distx,
-    Y1 #= Y+Disty,
+    X1 #= X + Distx,
+    Y1 #= Y + Disty,
     inside(X1),
     inside(Y1).
 knight([X ,Y], [X1, Y1], 0).
 
 /**************************************/
-rook(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    X1 #= X,
-    %nothing_blocking_tower_x(Positions, X-Y, X1-Y1),
-    inside(X1),
+rook_attack(-1).
+rook_attack(-2).
+rook_attack(-3).
+rook_attack(-4).
+rook_attack(-5).
+rook_attack(-6).
+rook_attack(-7).
+
+rook([X, Y], [X, Y1], 1) :-
+    rook_attack(DistY),
+    Y1 #= Y + DistY,
     inside(Y1).
-rook(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    Y1 #= Y,
-    %nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
-    inside(X1),
-    inside(Y1).
-rook(GameBoard, [X, Y], [X1, Y1], Positions, 0).
+rook([X, Y], [X1, Y], 1) :-
+    rook_attack(DistX),
+    X1 #= X + DistX,
+    inside(X1).
+rook([X, Y], [X1, Y1], 0).
 
 nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
     Y #> Y1,    % torre à direita
@@ -289,20 +210,6 @@ check_no_piece([], _, _).
 check_no_piece([PX, PY|Positions], X, Y) :-
     (PX #\= X #\/ PY #\= Y),
     check_no_piece(Positions, X, Y).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -484,7 +391,7 @@ queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     inside(Y1).
 queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     K in 1..8,
-    diagonal(X-Y, X1-Y1),
+    diagonal(X-Y, X1-Y1, K),
     %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions),
     inside(X1),
     inside(Y1).
