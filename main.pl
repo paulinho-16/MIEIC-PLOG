@@ -14,10 +14,10 @@ testar(Positions) :-
     display_board(GameBoard),
     %cell_attacks(GameBoard, 1-3, TimesAtacked),
 
-    getCellsNumber(GameBoard, 1-1, RevCells), !,
-    write('Cells: '), write(RevCells), nl, reverse(RevCells, Cells),
+    getCellsNumber(GameBoard, 1-1, NotSortedCells), !, sort(NotSortedCells, Cells),
+    write('Cells: '), write(Cells), nl,
 
-    Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY],
+    Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY],
     %Positions = [PawnX, PawnY, QueenX, QueenY],
     domain(Positions, 1, 8),
 
@@ -32,8 +32,8 @@ testar(Positions) :-
     get_value(PawnX, PawnY, GameBoard, empty),
     get_value(KnightX, KnightY, GameBoard, empty),
     get_value(KingX, KingY, GameBoard, empty),
-    get_value(RookX, RookY, GameBoard, empty),
-    get_value(BishopX, BishopY, GameBoard, empty),
+    %get_value(RookX, RookY, GameBoard, empty),
+    %get_value(BishopX, BishopY, GameBoard, empty),
     %get_value(QueenX, QueenY, GameBoard, empty),
 
     show_results(Positions, 1).     % Solução única, ou pode haver mais do que uma???

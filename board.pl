@@ -56,13 +56,13 @@ onlyKing([
 
 problemSixWithoutQueen([
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty,     1, empty,     1, empty,     1,     1],
+    [    1, empty, empty, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty,     0, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty,     1,     1,     1,     2,     1, empty,     2],
-    [empty, empty, empty, empty, empty,     2,     1, empty]
+    [empty, empty,     1,     1,     2,     1, empty, empty],
+    [empty, empty, empty, empty, empty,     1, empty, empty]
     ]).
 
 problemTen([
