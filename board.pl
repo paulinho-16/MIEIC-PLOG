@@ -9,6 +9,18 @@ problemOne([
     [empty, empty,     4, empty, empty, empty, empty, empty]
 ]).
 
+
+problemTwo([
+    [   0, empty, empty, empty, empty, empty, empty,    1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [   0, empty, empty, empty, empty, empty, empty, empty],
+    [   0, empty, empty, empty, empty, empty,     0, empty]
+]).
+
 problemOne(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
@@ -34,26 +46,75 @@ testPawn([
     [empty, empty, empty, empty, empty, empty, empty, empty]
 ]).
 */
+
+/* ZERO TESTING - rook
 testPawn([
-    [    0, empty,     1, empty, empty, empty, empty, empty],
+    [   1, 1, empty, empty, empty, empty, 1,    1],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1,     1,    1, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty,   0, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty]
 ]).
+*/
+/*
+testPawn([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [1, empty, 1, empty,    empty, empty, 1, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     1, empty, empty, empty],
+    [empty, 1, empty, empty, empty, 1, empty, empty],
+    [1, empty, empty, empty, empty, empty, 1, empty]
+]).
+*/
+testPawn([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty, empty, empty, empty, empty,     1, empty],
+    [empty,     1, empty, empty, empty,    1,  empty, empty],
+    [empty, empty,     1,     1,     1, empty, empty, empty],
+    [   1,     1,     1, empty,     1,     1,     1,     1],
+    [empty, empty,    1,     1,     2, empty, 1, empty],
+    [empty,     1, empty,     empty, empty, empty, empty, empty],
+    [    1, empty, empty,     empty, empty, empty,     empty, empty]
+]).
+/*
+testPawn([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     2, empty,    1, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty,     1, empty]
+]).
+*/
+/*
+testPawn([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty,  empty,empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     1, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [   1, empty,      2, empty,     1, empty, empty, empty],
+    [empty,empty, empty, empty, empty,     1, empty, empty],
+    [    1, empty, empty, empty, empty, empty, empty, empty]
+]).
+*/
 
 testAll([
-    [    0, empty,     2, empty,     2, empty, empty, empty],
+    [ empty, empty,     2, empty,     2, empty, empty, empty],
     [empty,     1,     1,     1,     1, empty, empty, empty],
     [empty, empty,     0, empty, empty, empty, empty, empty],
     [    1,     1,     1, empty, empty, empty, empty, empty],
     [    0, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty, 1, 1,  1, empty, 1, 1]
+    [    1, empty,    1, 1,  1, empty, 1, 1]
 ]).
 
 problemPawn(GameBoard) :-

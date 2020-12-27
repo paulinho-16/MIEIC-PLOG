@@ -9,7 +9,7 @@ testar(Positions) :-
     %Pieces = [Pawn],
     %problemOne(GameBoard),
     %problemPawn(GameBoard),
-    problemOne(GameBoard),
+    testPawn(GameBoard),
 
     display_board(GameBoard),
     %cell_attacks(GameBoard, 1-3, TimesAtacked),
@@ -17,8 +17,8 @@ testar(Positions) :-
     getCellsNumber(GameBoard, 1-1, Cells), !,
     write('Cells: '), write(Cells), nl,
 
-    Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
-    % Positions = [PawnX, PawnY],
+    %Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
+    Positions = [PawnX, PawnY, QueenX, QueenY],
     domain(Positions, 1, 8),
 
     %attack_all_with_number(GameBoard, Cells, Positions),       % [1-1, 1-3]cell_attacks(GameBoard, Row-Column-Number)
@@ -30,15 +30,11 @@ testar(Positions) :-
     labeling([], Positions),
 
     get_value(PawnX, PawnY, GameBoard, empty),
-    get_value(KnightX, KnightY, GameBoard, empty),
-    get_value(KingX, KingY, GameBoard, empty),
-    get_value(RookX, RookY, GameBoard, empty),
-    get_value(BishopX, BishopY, GameBoard, empty),
+    %get_value(KnightX, KnightY, GameBoard, empty),
+    %get_value(KingX, KingY, GameBoard, empty),
+    %get_value(RookX, RookY, GameBoard, empty),
+    %get_value(BishopX, BishopY, GameBoard, empty),
     get_value(QueenX, QueenY, GameBoard, empty),
-
-    /*\+ (PawnX #= KnightX, PawnY #= KnightY),
-    \+ (PawnX #= KingX, PawnY #= KingY),
-    \+ (KnightX #= KingX, KnightY #= KingY),*/
 
     show_results(Positions, 1).     % Solução única, ou pode haver mais do que uma???
 

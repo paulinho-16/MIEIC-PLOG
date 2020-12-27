@@ -9,7 +9,7 @@ get_next_cell(Row-Column, NextRow-NextColumn) :-
     NextRow is Row + Column // 8,
     NextColumn is Column + 1.
 
-getCellsNumber(GameBoard, 8-8, []).
+getCellsNumber(GameBoard, 9-1, []).
 getCellsNumber(GameBoard, Row-Column, [Row-Column-Value|Cells]) :-
     get_value(Row, Column, GameBoard, Value),
     number(Value), !,                       
@@ -25,27 +25,30 @@ attack_all_with_number(GameBoard, [Cell | Cells], Positions) :-
     cell_attacks(GameBoard, Cell, Positions),
     attack_all_with_number(GameBoard, Cells, Positions).*/
 
-percorrer_lista(_, []).
-percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing]) :-
-    (KingX #\= X #\/ KingY #\= Y),
-    percorrer_lista(KingX-KingY, CellsAttackedKing).
+percorrer_lista(_, [], ListRestrict, ListRestrict).
+percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing], Acc, ListRestrict) :-
+    append([(KingX #\= X #\/ KingY #\= Y)], Acc, NewAcc),
+    %(KingX #\= X #\/ KingY #\= Y),
+    percorrer_lista(KingX-KingY, CellsAttackedKing, NewAcc, ListRestrict).
 
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Row-Column-0) :- 
+% [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
+cell_attacks(GameBoard, [PawnX, PawnY, RookX, RookY], Row-Column-0) :-
     %write('Para a cell ['), write(Row), write(', '), write(Column), write(']'), nl,
     (PawnX #\= Xa #\/ PawnY #\= Ya),
-    pawn([Xa, Ya], [Row, Column], 1), !, % ????? VER ISTO
-    findall(Teste, knight(Teste, [Row, Column], 1), CellsAttackedKnight),
+    pawn([Xa, Ya], [Row, Column], 1), % ????? VER ISTO
+    %findall(Teste, knight(Teste, [Row, Column], 1), CellsAttackedKnight),
     %write(CellsAttackedKnight), nl,
-    percorrer_lista(KnightX-KnightY, CellsAttackedKnight),
-    findall(ABC, king(ABC, [Row, Column], 1), CellsAttackedKing), 
+    %percorrer_lista(KnightX-KnightY, CellsAttackedKnight),
+    %findall(ABC, king(ABC, [Row, Column], 1), CellsAttackedKing), 
     %write(CellsAttackedKing), nl,
-    percorrer_lista(KingX-KingY, CellsAttackedKing),
-    findall(BCD, rook(GameBoard, BCD, [Row, Column], 1), CellsAttackedRook), 
+    %percorrer_lista(KingX-KingY, CellsAttackedKing),
+    findall(BCD, rook(GameBoard, BCD, [Row, Column], [PawnX, PawnY, RookX, RookY], 1), CellsAttackedRook), 
     % write(CellsAttackedRook), nl,
-    percorrer_lista(RookX-RookY, CellsAttackedRook).
+    percorrer_lista(RookX-RookY, CellsAttackedRook, [], Restrictions),
+    fd_batch(Restrictions).
 
-
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Row-Column-Number) :-    % 3º param - Positions [PawnX, PawnY, KnightX, KnightY, KingX, KingY]
+% [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
+cell_attacks(GameBoard, [PawnX, PawnY, QueenX, QueenY], Row-Column-Number) :-    % 3º param - Positions [PawnX, PawnY, KnightX, KnightY, KingX, KingY]
    
     /*findall(X, pawn_TEST([PawnX, PawnY], X), CellsAttackedPawn),
     findall(X, knight_TEST([KnightX, KnightY], X), CellsAttackedKnight),
@@ -64,11 +67,11 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     %(KnightX #\= KingX #\/ KnightY #\= KingY),
 
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
-    knight([KnightX, KnightY], [Row, Column], KnightAttack),
-    king([KingX, KingY], [Row, Column], KingAttack),
-    rook(GameBoard, [RookX, RookY], [Row, Column], RookAttack),
-    bishop(GameBoard, [BishopX, BishopY], [Row, Column], BishopAttack),
-    queen(GameBoard, [QueenX, QueenY], [Row, Column], QueenAttack),
+    %knight([KnightX, KnightY], [Row, Column], KnightAttack),
+    %king([KingX, KingY], [Row, Column], KingAttack),
+    %rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, RookX, RookY], RookAttack),
+    %bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, RookX, RookY], BishopAttack),
+    queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, QueenX, QueenY], QueenAttack),
 
     % write('PAWNATTACK: '), write(PawnAttack), nl,
     % write('NUMBER: '), write(Number), nl,
@@ -128,8 +131,8 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     write(' KNIGHTATTACK: '), write(KnightAttack),
     write(' KINGATTACK: '), write(KingAttack), nl,*/
 
-    %PawnAttack #= Number.
-    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
+    PawnAttack + QueenAttack #= Number.
+    %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
     X1 is X + 1,
@@ -224,17 +227,78 @@ knight([X ,Y], [X1, Y1], 1) :-
 knight([X ,Y], [X1, Y1], 0).
 
 /**************************************/
-rook(GameBoard, [X, Y], [X1, Y1], 1) :-
+rook(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     X1 #= X,
-    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    nothing_blocking_tower_x(Positions, X-Y, X1-Y1),
     inside(X1),
     inside(Y1).
-rook(GameBoard, [X, Y], [X1, Y1], 1) :-
+rook(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     Y1 #= Y,
-    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
     inside(X1),
     inside(Y1).
-rook(GameBoard, [X, Y], [X1, Y1], 0).
+rook(GameBoard, [X, Y], [X1, Y1], Positions, 0).
+
+nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
+    Y #> Y1,    % torre à direita
+    tower_cycle_x_left(Positions, X, Y, Y1).
+
+nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
+    Y #< Y1,    % torre à esquerda
+    tower_cycle_x_right(Positions, X, Y, Y1).
+
+nothing_blocking_tower_y(Positions, X-Y, X1-Y1) :-
+    X #> X1, % torre em cima
+    tower_cycle_y_up(Positions, Y, X, X1).
+
+nothing_blocking_tower_y(Positions, X-Y, X1-Y1) :-
+    X #< X1, % torre em baixo
+    tower_cycle_y_down(Positions, Y, X, X1).
+
+tower_cycle_x_left(_, _, Y, Y).
+tower_cycle_x_left(Positions, X, Y, Y1) :-
+    check_no_piece(Positions, X, Y1),
+    NY1 is Y1 + 1,
+    tower_cycle_x_left(Positions, X, Y, NY1).
+
+tower_cycle_x_right(_, _, Y, Y).
+tower_cycle_x_right(Positions, X, Y, Y1) :-
+    check_no_piece(Positions, X, Y1),
+    NY1 is Y1 - 1,
+    tower_cycle_x_right(Positions, X, Y, NY1).
+
+tower_cycle_y_up(_, _, X, X).
+tower_cycle_y_up(Positions, Y, X, X1) :-
+    check_no_piece(Positions, X1, Y),
+    NX1 is X1 + 1,
+    tower_cycle_y_up(Positions, Y, X, NX1).
+
+tower_cycle_y_down(_, _, X, X).
+tower_cycle_y_down(Positions, Y, X, X1) :-
+    check_no_piece(Positions, X1, Y),
+    NX1 is X1 - 1,
+    tower_cycle_y_down(Positions, Y, X, NX1).
+
+check_no_piece([], _, _).
+check_no_piece([PX, PY|Positions], X, Y) :-
+    (PX #\= X #\/ PY #\= Y),
+    check_no_piece(Positions, X, Y).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 nothing_blocking_tower(GameBoard, X-Y, _-Y1) :-
     Y #> Y1,
@@ -311,33 +375,69 @@ diagonal(X-Y, X1-Y1) :-
     X #= X1 - K,
     Y #= Y1 + K.
 
-bishop(GameBoard, [X, Y], [X1, Y1], 1) :-
+bishop(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     %domain([X1, Y1], 1, 8),
     K in 1..8,
     diagonal(X-Y, X1-Y1),
-    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1).
+    nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions),
     inside(X1),
-    inside(Y1).
-bishop(GameBoard, [X, Y], [X1, Y1], 0).
+    inside(Y1),
+    inside(X),
+    inside(Y).
 
-nothing_blocking_bishop(GameBoard, X-Y, X1-Y1) :-
-    %X1 #< X, Y1 #< Y,
-    Y1 #< Y,
-    nothing_between_diagonal_left_top(GameBoard, X-Y, X1-Y1).
+bishop(GameBoard, [X, Y], [X1, Y1], Positions, 0).
+
+nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
+    X #> X1, Y #< Y1, % cima direita
+    nothing_between_diagonal_right_top(Positions, X-Y, X1-Y1).
+nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
+    X #> X1, Y #> Y1, % cima esquerda
+    nothing_between_diagonal_left_top(Positions, X-Y, X1-Y1).
+nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
+    X #< X1, Y #< Y1, % baixo direita
+    nothing_between_diagonal_right_bot(Positions, X-Y, X1-Y1).
+nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
+    X #< X1, Y #> Y1, % baixo esquerda
+    nothing_between_diagonal_left_bot(Positions, X-Y, X1-Y1).
+
+
+nothing_between_diagonal_right_top(_, X-Y, X-Y).
+nothing_between_diagonal_right_top(Positions, X-Y, X1-Y1) :-
+    check_no_piece(Positions, X1, Y1),
+    NewX1 #= X1 + 1,
+    NewY1 #= Y1 - 1,
+    inside(NewX1),
+    inside(NewY1),
+    nothing_between_diagonal_right_top(Positions, X-Y, NewX1-NewY1).
+
+nothing_between_diagonal_left_top(_, X-Y, X-Y).
+nothing_between_diagonal_left_top(Positions, X-Y, X1-Y1) :-
+    check_no_piece(Positions, X1, Y1),
+    NewX1 #= X1 + 1,
+    NewY1 #= Y1 + 1,
+    inside(NewX1),
+    inside(NewY1),
+    nothing_between_diagonal_left_top(Positions, X-Y, NewX1-NewY1).
+
+nothing_between_diagonal_right_bot(_, X-Y, X-Y).
+nothing_between_diagonal_right_bot(Positions, X-Y, X1-Y1) :-
+    check_no_piece(Positions, X1, Y1),
+    NewX1 #= X1 - 1,
+    NewY1 #= Y1 - 1,
+    inside(NewX1),
+    inside(NewY1),
+    nothing_between_diagonal_right_bot(Positions, X-Y, NewX1-NewY1).
+
+nothing_between_diagonal_left_bot(_, X-Y, X-Y).
+nothing_between_diagonal_left_bot(Positions, X-Y, X1-Y1) :-
+    check_no_piece(Positions, X1, Y1),
+    NewX1 #= X1 - 1,
+    NewY1 #= Y1 + 1,
+    inside(NewX1),
+    inside(NewY1),
+    nothing_between_diagonal_left_bot(Positions, X-Y, NewX1-NewY1).
+
 /*
-nothing_blocking_bishop(GameBoard, X-Y, X1-Y1) :-
-    X1 #> X, Y1 #< Y,
-    nothing_between_diagonal_left_bottom(GameBoard, X-Y, X1-Y1).
-
-nothing_blocking_bishop(GameBoard, X-Y, X1-Y1) :-
-    X1 #< X, Y1 #> Y,
-    nothing_between_diagonal_right_top(GameBoard, X-Y, X1-Y1).
-
-nothing_blocking_bishop(GameBoard, X-Y, X1-Y1) :-
-    X1 #> X, Y1 #> Y,
-    nothing_between_diagonal_right_bottom(GameBoard, X-Y, X1-Y1).
-*/
-
 nothing_between_diagonal_left_top(_, X-Y, X-Y).
 nothing_between_diagonal_left_top(GameBoard, X-Y, X1-Y1) :-
     write('[X1,Y1] = '), write(X1 - Y1), nl,
@@ -372,24 +472,23 @@ nothing_between_diagonal_right_bottom(GameBoard, X-Y, X1-Y1) :-
 /**************************************/
 /* To Do */
 % queen([X, Y], [X1, Y1]).
-queen(GameBoard, [X, Y], [X1, Y1], 1) :-
+queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     X1 #= X,
-    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    nothing_blocking_tower_x(Positions, X-Y, X1-Y1),
     inside(X1),
     inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], 1) :-
+queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     Y1 #= Y,
-    % nothing_blocking_tower(GameBoard, X-Y, X1-Y1),
+    nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
     inside(X1),
     inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], 1) :-
-    %domain([X1, Y1], 1, 8),
+queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
     K in 1..8,
     diagonal(X-Y, X1-Y1),
-    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1).
+    nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions),
     inside(X1),
     inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], 0).
+queen(GameBoard, [X, Y], [X1, Y1], _, 0).
 
 /**************************************/
 king_attack(-1, 1).
