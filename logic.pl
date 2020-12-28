@@ -30,11 +30,11 @@ percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing], Acc, ListRestrict) :-
     append([(KingX #\= X #\/ KingY #\= Y)], Acc, NewAcc),
     %(KingX #\= X #\/ KingY #\= Y),
     percorrer_lista(KingX-KingY, CellsAttackedKing, NewAcc, ListRestrict).
-
+/*
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
 cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], 0-Row-Column) :-
     %write('Para a cell ['), write(Row), write(', '), write(Column), write(']'), nl,
-    pawn([Xa, Ya], [Row, Column], 1),
+    pawn([Xa, Ya], [Row, Column]),
     findall(Teste, knight(Teste, [Row, Column], 1), CellsAttackedKnight),
     %write(CellsAttackedKnight), nl,
     percorrer_lista(KnightX-KnightY, CellsAttackedKnight, [], Restrictions1),
@@ -47,6 +47,7 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     append(Restrictions1, Restrictions2, Restrictions3),
     append(Restrictions3, [PawnX #\= Xa #\/ PawnY #\= Ya], Restrictions),
     fd_batch(Restrictions), !.
+*/
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
 cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], Number-Row-Column) :- 
@@ -54,11 +55,10 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
     %bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], BishopAttack), % , QueenX, QueenY
-    pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     rook([RookX, RookY], [Row, Column], RookAttack), % , QueenX, QueenY
     %queen(GameBoard, [RookX, RookY], [Row, Column], [], RookAttack),
-
-    PawnAttack + KnightAttack + KingAttack + RookAttack #= Number, !.
+    pawn([PawnX, PawnY], [Row, Column], B),
+    B + KnightAttack + KingAttack + RookAttack #= Number.
     %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
@@ -118,15 +118,8 @@ isAttacked(_, _, 0).
     inside(X1), 
     inside(Y1).*/
 
-pawn_attack(-1, 1).
-pawn_attack(-1,-1).
-
-pawn([X, Y], [X1, Y1], 1) :-
-    pawn_attack(Distx, Disty),
-    X1 #= X+Distx,
-    Y1 #= Y+Disty.
-pawn([X, Y], [X1, Y1], 0).
-
+pawn([X, Y], [X1, Y1], Attack) :-
+    (X1 #= X - 1 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #<=> Attack.
 /**************************************/
 
 knight_attack(2,1).
@@ -148,22 +141,44 @@ knight([X ,Y], [X1, Y1], 1) :-
 knight([X ,Y], [X1, Y1], 0).
 
 /**************************************/
-rook_attack(-1).
-rook_attack(-2).
-rook_attack(-3).
-rook_attack(-4).
-rook_attack(-5).
-rook_attack(-6).
-rook_attack(-7).
+rook_attack(0, 1).
+rook_attack(0, 2).
+rook_attack(0, 3).
+rook_attack(0, 4).
+rook_attack(0, 5).
+rook_attack(0, 6).
+rook_attack(0, 7).
 
-rook([X, Y], [X, Y1], 1) :-
-    rook_attack(DistY),
-    Y1 #= Y + DistY,
+rook_attack(0, -1).
+rook_attack(0, -2).
+rook_attack(0, -3).
+rook_attack(0, -4).
+rook_attack(0, -5).
+rook_attack(0, -6).
+rook_attack(0, -7).
+
+rook_attack(1, 0).
+rook_attack(2, 0).
+rook_attack(3, 0).
+rook_attack(4, 0).
+rook_attack(5, 0).
+rook_attack(6, 0).
+rook_attack(7, 0).
+
+rook_attack(-1, 0).
+rook_attack(-2, 0).
+rook_attack(-3, 0).
+rook_attack(-4, 0).
+rook_attack(-5, 0).
+rook_attack(-6, 0).
+rook_attack(-7, 0).
+
+rook([X, Y], [X1, Y1], 1) :-
+    rook_attack(Distx, Disty),
+    X1 #= X + Distx,
+    Y1 #= Y + Disty,
+    inside(X1),
     inside(Y1).
-rook([X, Y], [X1, Y], 1) :-
-    rook_attack(DistX),
-    X1 #= X + DistX,
-    inside(X1).
 rook([X, Y], [X1, Y1], 0).
 
 nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
