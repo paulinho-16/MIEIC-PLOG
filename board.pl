@@ -138,25 +138,26 @@ testPawn([
 ]).
 */
 testPawn([
+    [empty, empty,     1,     0,     1, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty, empty, empty, empty, empty,     1, empty],
-    [empty,     1, empty, empty, empty,    1,  empty, empty],
-    [empty, empty,     1,     1,     1, empty, empty, empty],
-    [   1,     1,     1, empty,     1,     1,     1,     1],
-    [empty, empty,    1,     1,     2, empty, 1, empty],
-    [empty,     1, empty,     empty, empty, empty, empty, empty],
-    [    1, empty, empty,     empty, empty, empty,     empty, empty]
+    [empty, empty, empty,     1, empty, empty, empty, empty],
+    [empty, empty, empty,     1, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, 1, empty, empty, empty, 1, empty, empty],
+    [empty, empty, 1,   empty, 1, empty, empty, empty]
 ]).
+
 /*
 testPawn([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1, empty,     1, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1, empty,     2, empty,    1, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty,     1, empty]
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty]
 ]).
 */
 /*

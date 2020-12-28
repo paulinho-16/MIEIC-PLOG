@@ -50,26 +50,73 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
 */
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :- 
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, RookX, RookY], Number-Row-Column) :- 
     
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
-    king([KingX, KingY], [Row, Column], KingAttack),
-    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack), % , QueenX, QueenY
-    bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack), % , QueenX, QueenY
-    queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
-    %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack #= Number.
-    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
+    %king([KingX, KingY], [Row, Column], KingAttack),
+    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, RookX, RookY], RookAttack), % , QueenX, QueenY
+    %bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack), % , QueenX, QueenY
+    %queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
+    PawnAttack + KnightAttack + RookAttack #= Number.
+    %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 pawn([X, Y], [X1, Y1], Attack) :-
     (X1 #= X - 1 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #<=> Attack.
 
+/*
+knight_attack(2,1).
+knight_attack(2,-1).
+knight_attack(-2,-1).
+knight_attack(-2,1).
+
+knight_attack(1,2).
+knight_attack(1,-2).
+knight_attack(-1,2).
+knight_attack(-1,-2).
+*/
+
 knight([X, Y], [X1, Y1], Attack) :-
+    /*
     (((X1 #= X + 2 #\/ X1 #= X - 2) #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ 
     ((X1 #= X + 1 #\/ X1 #= X - 1) #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2))) #<=> Attack.
+    */
+    ((X1 #= X + 2 #/\ Y1 #= Y + 1) #\/ 
+    (X1 #= X + 2 #/\ Y1 #= Y - 1) #\/ 
+    (X1 #= X - 2 #/\ Y1 #= Y + 1) #\/ 
+    (X1 #= X - 2 #/\ Y1 #= Y - 1) #\/ 
+    (X1 #= X + 1 #/\ Y1 #= Y + 2) #\/ 
+    (X1 #= X + 1 #/\ Y1 #= Y - 2) #\/ 
+    (X1 #= X - 1 #/\ Y1 #= Y + 2) #\/ 
+    (X1 #= X - 1 #/\ Y1 #= Y - 2)) #<=> Attack.
+/*
+nothing_between([X, Y], [X1, Y1], []).
+nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
+    ((((X1 #= X) #/\ (PX #= X) #/\ (PY #< Y)) #/\ (Y1 #> PY)) #\/ 
+    (((X1 #= X) #/\ (PX #= X) #/\ (PY #> Y)) #/\ (Y1 #< PY)) #\/
+    (((Y1 #= Y) #/\ (PY #= Y) #/\ (PX #< X)) #/\ (X1 #> PX)) #\/
+    (((Y1 #= Y) #/\ (PY #= Y) #/\ (PX #> X)) #/\ (X1 #< PX))),
+    nothing_between([X, Y], [X1, Y1], Positions).
+*/
 
-rook(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
-    ((X1 #= X) #\/ (Y1 #= Y) #<=> Attack.
+rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, RookX, RookY], Attack) :-
+    % nothing_between([X, Y], [X1, Y1], Positions),
+    (
+    ((X1 #= X) #/\ (KnightX #= X) #/\ (KnightY #< Y) #/\ (Y1 #> KnightY)) #\/
+    ((X1 #= X) #/\ (KnightX #= X) #/\ (KnightY #> Y) #/\ (Y1 #< KnightY)) #\/
+    ((X1 #= X) #/\ (PawnX #= X)   #/\ (PawnY #< Y)   #/\ (Y1 #> PawnY)) #\/
+    ((X1 #= X) #/\ (PawnX #= X)   #/\ (KnightY #> Y) #/\ (Y1 #< PawnY)) #\/
+    ((KnightX #\= X) #/\ (PawnX #\= X) #=> (Y1 #= Y)) #\/
+
+    ((Y1 #= Y) #/\ (PawnY #= Y)   #/\ (PawnX #< X)    #/\ (X1 #> PawnX)) #\/
+    ((Y1 #= Y) #/\ (PawnY #= Y)   #/\ (PawnX #> X)    #/\ (X1 #< PawnX)) #\/
+    ((Y1 #= Y) #/\ (KnightY #= Y) #/\ (KnightX #< X) #/\ (X1 #> KnightX)) #\/
+    ((Y1 #= Y) #/\ (KnightY #= Y) #/\ (KnightX #> X) #/\ (X1 #< KnightX)) #\/
+    ((KnightY #\= Y) #/\ (PawnY #\= Y) #=> (X1 #= X))
+
+    %((KnightX #\= X) #/\ (PawnX #\= X) #/\ (PawnY #\= Y) #/\ (KnightY #\= Y) #/\ ((X1 #= X) #\/ (Y1 #= Y)))
+    
+    ) #<=> Attack.
 
 bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
     (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
