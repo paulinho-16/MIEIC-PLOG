@@ -33,7 +33,7 @@ testar(Positions) :-
     (KingX #\= 7)  #/\
     (RookX #\= 7)  #/\
     (BishopX #\= 7) #/\
-    (QueenX #\= 7) , 
+    (QueenX #\= 7), 
 
     (((PawnX #\= KnightX) #\/ (PawnY #\= KnightY)) #/\
     ((PawnX #\= KingX) #\/ (PawnY #\= KingY)) #/\
