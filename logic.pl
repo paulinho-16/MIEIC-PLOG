@@ -61,6 +61,7 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
     %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack #= Number.
     PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
+/*
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
     X1 is X + 1,
     Y1 is Y + 1,
@@ -102,13 +103,13 @@ test :-
     append(TR, TL, Top),
     append(Bottom, Top, Diagonal),
     write(Diagonal), nl.
-
+*/
 /**************************************/ 
-
+/*
 isAttacked(Cell, CellsAttacked, 1) :-
     member(Cell, CellsAttacked), !.
 isAttacked(_, _, 0).
-
+*/
 /**************************************/
 
 /*pawn([X, Y], [X1, Y1]) :-
@@ -121,7 +122,7 @@ isAttacked(_, _, 0).
 pawn([X, Y], [X1, Y1], Attack) :-
     (X1 #= X - 1 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #<=> Attack.
 /**************************************/
-
+/*
 knight_attack(2,1).
 knight_attack(2,-1).
 knight_attack(-2,-1).
@@ -131,6 +132,7 @@ knight_attack(1,2).
 knight_attack(1,-2).
 knight_attack(-1,2).
 knight_attack(-1,-2).
+*/
 
 knight([X, Y], [X1, Y1], Attack) :-
     ((X1 #= X + 2 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ (X1 #= X - 2 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ (X1 #= X + 1 #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2)) #\/ (X1 #= X - 1 #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2))) #<=> Attack.
@@ -144,6 +146,7 @@ knight([X, Y], [X1, Y1], Attack) :-
 knight([X ,Y], [X1, Y1], 0).*/
 
 /**************************************/
+/*
 rook_attack(0, 1).
 rook_attack(0, 2).
 rook_attack(0, 3).
@@ -175,7 +178,7 @@ rook_attack(-4, 0).
 rook_attack(-5, 0).
 rook_attack(-6, 0).
 rook_attack(-7, 0).
-
+*/
 /*rook([X, Y], [X1, Y1], 1) :-
     rook_attack(Distx, Disty),
     X1 #= X + Distx,
@@ -187,7 +190,7 @@ rook([X, Y], [X1, Y1], 0).*/
 rook(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
     ((X1 #= X #/\ Y1 #\= Y) #\/ (Y1 #= Y #/\ X1 #\= X)) #<=> Attack.
     %nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
-
+/*
 nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
     Y #> Y1,    % torre à direita
     tower_cycle_x_left(Positions, X, Y, Y1).
@@ -232,8 +235,9 @@ check_no_piece([], _, _).
 check_no_piece([PX, PY|Positions], X, Y) :-
     (PX #\= X #\/ PY #\= Y),
     check_no_piece(Positions, X, Y).
-
+*/
 /**************************************/
+/*
 constrain([]).
 constrain([H | RCols]) :-
     safe(H, RCols, 1),
@@ -249,7 +253,7 @@ noattack(X, Y, K) :-
     X #\= Y,
     X + K #\= Y,
     X - K #\= Y.
-
+*/
 /*diagonal(X-Y, X1-Y1, K) :-
     X #= X1 - K,
     Y #= Y1 - K.
@@ -262,7 +266,7 @@ diagonal(X-Y, X1-Y1, K) :-
 diagonal(X-Y, X1-Y1, K) :-
     X #= X1 - K,
     Y #= Y1 + K.*/
-
+/*
 diagonal(X-Y, X1-Y1, K) :-
     ((X #= X1 - K) #/\ (Y #= Y1 - K)) #\/ ((X #= X1 + K) #/\ (Y #= Y1 + K)) #\/ ((X #= X1 + K) #/\ (Y #= Y1 - K)) #\/ ((X #= X1 - K) #/\ (Y #= Y1 + K)).
 
@@ -271,7 +275,7 @@ test_shit(List) :-
     domain(List, 1, 8),
     rook(_, [X, Y], [2, 2], _, 1),
     labeling([], List).
-
+*/
 bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
     (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
     /*(
@@ -291,7 +295,7 @@ bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
     #\/
     (((X1 #= X - 8) #/\ (Y1 #= Y - 8)) #\/ ((X1 #= X + 8) #/\ (Y1 #= Y + 8)) #\/ ((X1 #= X + 8) #/\ (Y1 #= Y - 8)) #\/ ((X1 #= X - 8) #/\ (Y1 #= Y + 8)))
     ) */
-
+/*
 nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
     X #> X1, Y #< Y1, % cima direita
     nothing_between_diagonal_right_top(Positions, X-Y, X1-Y1).
@@ -341,7 +345,7 @@ nothing_between_diagonal_left_bot(Positions, X-Y, X1-Y1) :-
     inside(NewX1),
     inside(NewY1),
     nothing_between_diagonal_left_bot(Positions, X-Y, NewX1-NewY1).
-
+*/
 /*
 nothing_between_diagonal_left_top(_, X-Y, X-Y).
 nothing_between_diagonal_left_top(GameBoard, X-Y, X1-Y1) :-
@@ -382,6 +386,7 @@ queen(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
 
 
 /**************************************/
+/*
 king_attack(-1, 1).
 king_attack(-1, 0).
 king_attack(-1, -1).
@@ -390,7 +395,7 @@ king_attack(1, 0).
 king_attack(1, -1).
 king_attack(0, -1).
 king_attack(0, 1).
-
+*/
 /*king([X, Y], [X1, Y1], 1) :-
     king_attack(Distx, Disty), 
     X1 #= X+Distx, 
@@ -400,7 +405,9 @@ king_attack(0, 1).
 king([X, Y], [X1, Y1], 0).*/
 
 king([X, Y], [X1, Y1], Attack) :-
-    (X1 #= X - 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ (X1 #= X + 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ (X1 #= X #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y - 1))) #<=> Attack.
+    (X1 #= X - 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ 
+    (X1 #= X + 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ 
+    (X1 #= X #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y - 1))) #<=> Attack.
 
 /**************************************/
 

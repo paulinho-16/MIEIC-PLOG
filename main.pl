@@ -94,4 +94,4 @@ show_results([X, Y|Positions], N) :-
     piece(N, Piece),
     write(Piece), write(' is at cell ['), write(X), write(', '), write(Y), write(']'), nl,
     N1 is N + 1,
-    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).
+    show_results(Positions, N1).
