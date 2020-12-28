@@ -21,11 +21,46 @@ testar(Positions) :-
     Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
     %Positions = [PawnX, PawnY, QueenX, QueenY],
     domain(Positions, 1, 8),
-    not_overlapping(Positions),
+    (PawnX #\= 2) #/\
+    (KnightX #\= 2)  #/\
+    (KingX #\= 2)  #/\
+    (RookX #\= 2)  #/\
+    (BishopX #\= 2)  #/\
+    (QueenX #\= 2)  #/\
+
+    (PawnX #\= 7)  #/\
+    (KnightX #\= 7)  #/\
+    (KingX #\= 7)  #/\
+    (RookX #\= 7)  #/\
+    (BishopX #\= 7) #/\
+    (QueenX #\= 7) , 
+
+    (((PawnX #\= KnightX) #\/ (PawnY #\= KnightY)) #/\
+    ((PawnX #\= KingX) #\/ (PawnY #\= KingY)) #/\
+    ((PawnX #\= RookX) #\/ (PawnY #\= RookY)) #/\
+    ((PawnX #\= QueenX) #\/ (PawnY #\= QueenY)) #/\
+    ((PawnX #\= BishopX) #\/ (PawnY #\= BishopY)) #/\
+
+    ((KingX #\= KnightX) #\/ (KingY #\= KnightY)) #/\
+    ((KingX #\= RookX) #\/ (KingY #\= RookY)) #/\
+    ((KingX #\= QueenX) #\/ (KingY #\= QueenY)) #/\
+    ((KingX #\= BishopX) #\/ (KingY #\= BishopY)) #/\
+
+    ((KnightX #\= RookX) #\/ (KnightY #\= RookY)) #/\
+    ((KnightX #\= BishopX) #\/ (KnightY #\= BishopY)) #/\
+    ((KnightX #\= QueenX) #\/ (KnightY #\= QueenY)) #/\
+
+    ((RookX #\= BishopX) #\/ (RookY #\= BishopY)) #/\
+    ((RookX #\= QueenX) #\/ (RookY #\= QueenY)) #/\
+
+    ((QueenX #\= BishopX) #\/ (QueenY #\= BishopY))),
+    % not_overlapping(Positions),
+
     %attack_all_with_number(GameBoard, Cells, Positions),       % [1-1, 1-3]cell_attacks(GameBoard, Row-Column-Number)
-
+    
+     
     maplist(cell_attacks(GameBoard, Positions), Cells),
-
+    
     labeling([], Positions),
 
     get_value(PawnX, PawnY, GameBoard, empty),
@@ -59,4 +94,4 @@ show_results([X, Y|Positions], N) :-
     piece(N, Piece),
     write(Piece), write(' is at cell ['), write(X), write(', '), write(Y), write(']'), nl,
     N1 is N + 1,
-    show_results(Positions, N1).
+    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).    show_results(Positions, N1).
