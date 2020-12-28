@@ -11,7 +11,7 @@ problemOne([
 
 
 problemTwo([
-    [   0, empty, empty, empty, empty, empty, empty,    1],
+    [   0, empty, empty, empty, empty, empty, empty,    0],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     1,     1,     1,     1, empty, empty],
     [empty, empty,     1,     1,     1,     1, empty, empty],
@@ -54,7 +54,7 @@ onlyKing([
     [empty, empty, empty, empty, empty, empty, empty, empty]
     ]).
 
-problemSixWithoutQueen([
+problemSixWithoutBishopQueen([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [    1, empty, empty, empty,     1, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -63,6 +63,17 @@ problemSixWithoutQueen([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     1,     1,     2,     1, empty, empty],
     [empty, empty, empty, empty, empty,     1, empty, empty]
+    ]).
+
+problemSixWithoutQueen([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty,     1, empty,     1, empty,     1,     1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty,     1,     1,     1,     2,     1, empty,     2],
+    [empty, empty, empty, empty, empty,     2,     1, empty]
     ]).
 
 problemTen([

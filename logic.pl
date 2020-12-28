@@ -50,16 +50,16 @@ cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, Ro
 */
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], Number-Row-Column) :- 
+cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :- 
     
+    pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
-    %bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], BishopAttack), % , QueenX, QueenY
-    rook([RookX, RookY], [Row, Column], RookAttack), % , QueenX, QueenY
-    %queen(GameBoard, [RookX, RookY], [Row, Column], [], RookAttack),
-    pawn([PawnX, PawnY], [Row, Column], B),
-    B + KnightAttack + KingAttack + RookAttack #= Number.
-    %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
+    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack), % , QueenX, QueenY
+    bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack), % , QueenX, QueenY
+    queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
+    %PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack #= Number.
+    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
     X1 is X + 1,
@@ -132,13 +132,16 @@ knight_attack(1,-2).
 knight_attack(-1,2).
 knight_attack(-1,-2).
 
-knight([X ,Y], [X1, Y1], 1) :-  
+knight([X, Y], [X1, Y1], Attack) :-
+    ((X1 #= X + 2 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ (X1 #= X - 2 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ (X1 #= X + 1 #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2)) #\/ (X1 #= X - 1 #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2))) #<=> Attack.
+
+/*knight([X ,Y], [X1, Y1], 1) :-  
     knight_attack(Distx, Disty),
     X1 #= X + Distx,
     Y1 #= Y + Disty,
     inside(X1),
     inside(Y1).
-knight([X ,Y], [X1, Y1], 0).
+knight([X ,Y], [X1, Y1], 0).*/
 
 /**************************************/
 rook_attack(0, 1).
@@ -173,13 +176,17 @@ rook_attack(-5, 0).
 rook_attack(-6, 0).
 rook_attack(-7, 0).
 
-rook([X, Y], [X1, Y1], 1) :-
+/*rook([X, Y], [X1, Y1], 1) :-
     rook_attack(Distx, Disty),
     X1 #= X + Distx,
     Y1 #= Y + Disty,
     inside(X1),
     inside(Y1).
-rook([X, Y], [X1, Y1], 0).
+rook([X, Y], [X1, Y1], 0).*/
+
+rook(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
+    ((X1 #= X #/\ Y1 #\= Y) #\/ (Y1 #= Y #/\ X1 #\= X)) #<=> Attack.
+    %nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
 
 nothing_blocking_tower_x(Positions, X-Y, X1-Y1) :-
     Y #> Y1,    % torre à direita
@@ -226,49 +233,6 @@ check_no_piece([PX, PY|Positions], X, Y) :-
     (PX #\= X #\/ PY #\= Y),
     check_no_piece(Positions, X, Y).
 
-
-
-nothing_blocking_tower(GameBoard, X-Y, _-Y1) :-
-    Y #> Y1,
-    nothing_between_row_other(GameBoard, X, Y, Y1).
-nothing_blocking_tower(GameBoard, X-Y, _-Y1) :-
-    Y1 #> Y,
-    nothing_between_row(GameBoard, X, Y, Y1).
-nothing_blocking_tower(GameBoard, X-Y, X1-_) :-
-    X #> X1,
-    nothing_between_column_other(GameBoard, Y, X, X1).
-nothing_blocking_tower(GameBoard, X-Y, X1-_) :-
-    X1 #> X,
-    nothing_between_column(GameBoard, Y, X, X1).
-
-nothing_between_row(_, _, Y, Y).
-nothing_between_row(GameBoard, X, Y, Y1) :-
-    get_value(X, Y, GameBoard, Value),
-    var(Value),
-    NewY is Y + 1,
-    nothing_between_row(GameBoard, X, NewY, Y1).
-
-nothing_between_row_other(_, _, Y, Y).
-nothing_between_row_other(GameBoard, X, Y, Y1) :-
-    get_value(X, Y, GameBoard, Value),
-    var(Value),
-    NewY is Y - 1,
-    nothing_between_row_other(GameBoard, X, NewY, Y1).
-
-nothing_between_column(_, _, X, X).
-nothing_between_column(GameBoard, Y, X1, X) :-
-    get_value(X1, Y, GameBoard, Value),
-    var(Value),
-    NewX1 is X1 + 1,
-    nothing_between_column(GameBoard, Y, NewX1, X).
-
-nothing_between_column_other(_, _, X, X).
-nothing_between_column_other(GameBoard, Y, X, X1) :-
-    get_value(X, Y, GameBoard, Value),
-    var(Value),
-    NewX is X - 1,
-    nothing_between_column_other(GameBoard, Y, NewX, X1).
-
 /**************************************/
 constrain([]).
 constrain([H | RCols]) :-
@@ -286,7 +250,7 @@ noattack(X, Y, K) :-
     X + K #\= Y,
     X - K #\= Y.
 
-diagonal(X-Y, X1-Y1, K) :-
+/*diagonal(X-Y, X1-Y1, K) :-
     X #= X1 - K,
     Y #= Y1 - K.
 diagonal(X-Y, X1-Y1, K) :-
@@ -297,17 +261,36 @@ diagonal(X-Y, X1-Y1, K) :-
     Y #= Y1 - K.
 diagonal(X-Y, X1-Y1, K) :-
     X #= X1 - K,
-    Y #= Y1 + K.
+    Y #= Y1 + K.*/
 
-bishop(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    %domain([X1, Y1], 1, 8),
-    K in 1..8,
-    diagonal(X-Y, X1-Y1, K),
-    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions),
-    inside(X1),
-    inside(Y1).
+diagonal(X-Y, X1-Y1, K) :-
+    ((X #= X1 - K) #/\ (Y #= Y1 - K)) #\/ ((X #= X1 + K) #/\ (Y #= Y1 + K)) #\/ ((X #= X1 + K) #/\ (Y #= Y1 - K)) #\/ ((X #= X1 - K) #/\ (Y #= Y1 + K)).
 
-bishop(GameBoard, [X, Y], [X1, Y1], Positions, 0).
+test_shit(List) :-
+    List = [X, Y],
+    domain(List, 1, 8),
+    rook(_, [X, Y], [2, 2], _, 1),
+    labeling([], List).
+
+bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
+    (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
+    /*(
+    (((X1 #= X - 1) #/\ (Y1 #= Y - 1)) #\/ ((X1 #= X + 1) #/\ (Y1 #= Y + 1)) #\/ ((X1 #= X + 1) #/\ (Y1 #= Y - 1)) #\/ ((X1 #= X - 1) #/\ (Y1 #= Y + 1)))
+    #\/
+    (((X1 #= X - 2) #/\ (Y1 #= Y - 2)) #\/ ((X1 #= X + 2) #/\ (Y1 #= Y + 2)) #\/ ((X1 #= X + 2) #/\ (Y1 #= Y - 2)) #\/ ((X1 #= X - 2) #/\ (Y1 #= Y + 2)))
+    #\/
+    (((X1 #= X - 3) #/\ (Y1 #= Y - 3)) #\/ ((X1 #= X + 3) #/\ (Y1 #= Y + 3)) #\/ ((X1 #= X + 3) #/\ (Y1 #= Y - 3)) #\/ ((X1 #= X - 3) #/\ (Y1 #= Y + 3)))
+    #\/
+    (((X1 #= X - 4) #/\ (Y1 #= Y - 4)) #\/ ((X1 #= X + 4) #/\ (Y1 #= Y + 4)) #\/ ((X1 #= X + 4) #/\ (Y1 #= Y - 4)) #\/ ((X1 #= X - 4) #/\ (Y1 #= Y + 4)))
+    #\/
+    (((X1 #= X - 5) #/\ (Y1 #= Y - 5)) #\/ ((X1 #= X + 5) #/\ (Y1 #= Y + 5)) #\/ ((X1 #= X + 5) #/\ (Y1 #= Y - 5)) #\/ ((X1 #= X - 5) #/\ (Y1 #= Y + 5)))
+    #\/
+    (((X1 #= X - 6) #/\ (Y1 #= Y - 6)) #\/ ((X1 #= X + 6) #/\ (Y1 #= Y + 6)) #\/ ((X1 #= X + 6) #/\ (Y1 #= Y - 6)) #\/ ((X1 #= X - 6) #/\ (Y1 #= Y + 6)))
+    #\/
+    (((X1 #= X - 7) #/\ (Y1 #= Y - 7)) #\/ ((X1 #= X + 7) #/\ (Y1 #= Y + 7)) #\/ ((X1 #= X + 7) #/\ (Y1 #= Y - 7)) #\/ ((X1 #= X - 7) #/\ (Y1 #= Y + 7)))
+    #\/
+    (((X1 #= X - 8) #/\ (Y1 #= Y - 8)) #\/ ((X1 #= X + 8) #/\ (Y1 #= Y + 8)) #\/ ((X1 #= X + 8) #/\ (Y1 #= Y - 8)) #\/ ((X1 #= X - 8) #/\ (Y1 #= Y + 8)))
+    ) */
 
 nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions) :-
     X #> X1, Y #< Y1, % cima direita
@@ -394,41 +377,30 @@ nothing_between_diagonal_right_bottom(GameBoard, X-Y, X1-Y1) :-
 /**************************************/
 /* To Do */
 % queen([X, Y], [X1, Y1]).
-queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    X1 #= X,
-    %nothing_blocking_tower_x(Positions, X-Y, X1-Y1),
-    inside(X1),
-    inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    Y1 #= Y,
-    %nothing_blocking_tower_y(Positions, X-Y, X1-Y1),
-    inside(X1),
-    inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], Positions, 1) :-
-    K in 1..8,
-    diagonal(X-Y, X1-Y1, K),
-    %nothing_blocking_bishop(GameBoard, X-Y, X1-Y1, Positions),
-    inside(X1),
-    inside(Y1).
-queen(GameBoard, [X, Y], [X1, Y1], _, 0).
+queen(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
+    (((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #<=> Attack.
+
 
 /**************************************/
 king_attack(-1, 1).
-king_attack(0, 1).
-king_attack(1, 1).
-king_attack(1, 0).
 king_attack(-1, 0).
 king_attack(-1, -1).
-king_attack(0, -1).
+king_attack(1, 1).
+king_attack(1, 0).
 king_attack(1, -1).
+king_attack(0, -1).
+king_attack(0, 1).
 
-king([X, Y], [X1, Y1], 1) :-
+/*king([X, Y], [X1, Y1], 1) :-
     king_attack(Distx, Disty), 
     X1 #= X+Distx, 
     Y1 #= Y+Disty, 
     inside(X1), 
     inside(Y1).
-king([X, Y], [X1, Y1], 0).
+king([X, Y], [X1, Y1], 0).*/
+
+king([X, Y], [X1, Y1], Attack) :-
+    (X1 #= X - 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ (X1 #= X + 1 #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/ (X1 #= X #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y - 1))) #<=> Attack.
 
 /**************************************/
 
