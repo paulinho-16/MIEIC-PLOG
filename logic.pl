@@ -112,20 +112,18 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, RookX, RookY], Attack) :-
     ((X1 #= X) #/\ (Y1 #> Y) #/\ (PawnX #= X) #/\ (PawnY #> Y)  #/\ (Y1 #< PawnY)) #\/ 
     % Mesma Linha, para a _, em que o peão está do lado _ ou não está na linha
     ((X1 #= X) #/\ (Y1 #> Y) #/\ ((PawnY #< Y) #\/ (PawnX #\= X))) #\/
-    (Y1 #= Y)
     
+     % Baixo
+    % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ (PawnY #= Y) #/\ (PawnX #< X)  #/\ (X1 #> PawnX)) #\/ 
+    % Mesma Linha, para a _, sem nada
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ ((PawnX #> X) #\/ (PawnY #\= Y))) #\/
+
     % Cima
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    %((Y1 #= Y) #/\ (X1 #< X) #/\ (PawnY #= Y) #/\ (PawnX #< X)  #/\ (X1 #> PawnX)) #\/ 
+    ((Y1 #= Y) #/\ (X1 #> X) #/\ (PawnY #= Y) #/\ (PawnX #> X)  #/\ (X1 #< PawnX)) #\/ 
     % Mesma Linha, para a _, sem nada
-    %((Y1 #= Y) #/\ (X1 #< X) #/\ (PawnY #\= Y)) 
-    /*
-    % Baixo
-    % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    ((X1 #= X) #/\ (Y1 #< Y) #/\ (PawnX #= X) #/\ (PawnY #< Y)  #/\ (Y1 #> PawnY)) #\/ 
-    % Mesma Linha, para a _, sem nada
-    ((X1 #= X) #/\ (Y1 #< Y) #/\ (PawnX #\= X))
-    */
+    ((Y1 #= Y) #/\ (X1 #> X) #/\ ((PawnX #< X) #\/ (PawnY #\= Y)))
     ) #<=> Attack.
 
 bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
