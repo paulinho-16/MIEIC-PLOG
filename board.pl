@@ -1,3 +1,15 @@
+predicate(1, problemOne, 'Problem 1').
+predicate(2, problemTwo, 'Problem 2').
+predicate(3, problemThree, 'Problem 3').
+predicate(4, problemFour, 'Problem 4').
+predicate(5, problemFive, 'Problem 5').
+predicate(6, problemSix, 'Problem 6').
+predicate(7, problemSeven, 'Problem 7').
+predicate(8, problemEight, 'Problem 8').
+predicate(9, problemNine, 'Problem 9').
+predicate(10, problemTen, 'Problem 10').
+predicate(11, problemEleven, 'Problem 11').
+
 testing([
     [empty,          0,          0, empty, empty,          0, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty,          0],

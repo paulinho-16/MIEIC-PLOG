@@ -4,16 +4,30 @@
 :- consult('board.pl').
 :- consult('logic.pl').
 :- consult('display.pl').
+:- consult('menus.pl').
 
 testar(Positions) :-
     %problemOne(GameBoard),
     %problemPawn(GameBoard),
-    testing(GameBoard),
 
-    display_board(GameBoard),
+    display_menu,
+
+    input(N, 0, 11, 'Problem to solve? ', problems),
+    N \= exit,
+
+    predicate(N, PredicateName, Problem),
+    
+    Predicate =.. [PredicateName, GameBoard],
+
+    Predicate,
+
+    %testing(GameBoard),
+
+    nl, nl, write('\t\t'), write(Problem),
+    nl, nl, display_board(GameBoard),
 
     getCellsNumber(GameBoard, 1-1, Cells), !,
-    write('Cells: '), write(Cells), nl,
+    nl, write('Cells: '), write(Cells), nl,
 
     %Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
     Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
@@ -53,7 +67,9 @@ testar(Positions) :-
     get_value(BishopX, BishopY, GameBoard, empty),
     get_value(QueenX, QueenY, GameBoard, empty),
 
-    show_results(Positions, 1).
+    nl, show_results(Positions, 1), nl.
+
+% testar(_) :- write('Exiting...'), nl.   -> Descomentar futuramente
 
 not_present(_, []).
 not_present(PX-PY, [X, Y|Positions]) :-
