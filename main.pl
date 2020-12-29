@@ -9,7 +9,7 @@ testar(Positions) :-
     %Pieces = [Pawn],
     %problemOne(GameBoard),
     %problemPawn(GameBoard),
-    testPawn(GameBoard),
+    problemFour(GameBoard),
 
     display_board(GameBoard),
     %cell_attacks(GameBoard, 1-3, TimesAtacked),
@@ -19,8 +19,9 @@ testar(Positions) :-
     write('Cells: '), write(Cells), nl,
 
     %Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
-    Positions = [PawnX, PawnY, KnightX, KnightY, RookX, RookY],
+    Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
     domain(Positions, 1, 8),
+
     /*
     (PawnX #\= 2) #/\
     (KnightX #\= 2)  #/\
@@ -35,6 +36,7 @@ testar(Positions) :-
     (RookX #\= 7)  #/\
     (BishopX #\= 7) #/\
     (QueenX #\= 7), 
+*/
 
     (((PawnX #\= KnightX) #\/ (PawnY #\= KnightY)) #/\
     ((PawnX #\= KingX) #\/ (PawnY #\= KingY)) #/\
@@ -55,8 +57,8 @@ testar(Positions) :-
     ((RookX #\= QueenX) #\/ (RookY #\= QueenY)) #/\
 
     ((QueenX #\= BishopX) #\/ (QueenY #\= BishopY))),
-    % not_overlapping(Positions),
-*/
+    %not_overlapping(Positions),
+
     %attack_all_with_number(GameBoard, Cells, Positions),       % [1-1, 1-3]cell_attacks(GameBoard, Row-Column-Number)
     
      

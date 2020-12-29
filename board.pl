@@ -65,6 +65,17 @@ problemSixWithoutBishopQueen([
     [empty, empty, empty, empty, empty,     1, empty, empty]
     ]).
 
+problemFour([
+    [empty,          0,          0, empty, empty,          0, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty,          0],
+    [empty, empty, empty, empty, empty, empty, empty,          0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [         0, empty, empty, empty, empty,          4, empty,          0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty,          0],
+    [empty, empty,          0, empty, empty,          0,          0,          1]
+]).
+
 problemSixWithoutQueen([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [    1, empty,     1, empty,     1, empty,     1,     1],
@@ -137,6 +148,8 @@ testPawn([
     [1, empty, empty, empty, empty, empty, 1, empty]
 ]).
 */
+
+
 testPawn([
     [empty, empty, empty, empty, empty, empty, empty, 1],
     [empty, empty, empty, empty, empty, empty, empty, 1],
