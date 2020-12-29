@@ -1,71 +1,4 @@
-problemOne([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     4, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty,     4, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     4, empty, empty, empty, empty, empty]
-]).
-
-
-problemTwo([
-    [   0, empty, empty, empty, empty, empty, empty,    0],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1,     1,     1,     1, empty, empty],
-    [empty, empty,     1,     1,     1,     1, empty, empty],
-    [empty, empty,     1,     1,     1,     1, empty, empty],
-    [empty, empty,     1,     1,     1,     1, empty, empty],
-    [   0, empty, empty, empty, empty, empty, empty, empty],
-    [   0, empty, empty, empty, empty, empty,     0, empty]
-]).
-
-problemSix([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1,     1,     1,     1,     1,     1,     1,     1],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [   1,      1,      1,     2,     2,     1,    1,     2],
-    [empty, empty, empty, empty, empty,     2,     1, empty]
-    ]).
-
-onlyRook([
-    [empty, empty, empty, empty,     1, 0, empty, empty],
-    [empty, empty, empty, empty,     empty, empty, empty, 0],
-    [0, empty, empty, empty,     1, empty, empty, 0],
-    [ 1, empty,     1,     1, empty,     1,     empty,    1],
-    [empty, empty, empty, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty,     1, 1, empty, empty],
-    [empty, empty, empty, empty,     empty, empty, empty, empty],
-    [empty, empty, empty, empty,     0, empty, empty, empty]
-    ]).
-
-onlyKing([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, 1, 1, 1, empty, empty],
-    [empty, empty, empty, 1, empty, 1, empty, empty],
-    [empty, empty, empty, 1, 1, 1, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty]
-    ]).
-
-problemSixWithoutBishopQueen([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty, empty, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    0, empty, empty, empty,     0, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1,     1,     2,     1, empty, empty],
-    [empty, empty, empty, empty, empty,     1, empty, empty]
-    ]).
-
-problemFour([
+testing([
     [empty,          0,          0, empty, empty,          0, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty,          0],
     [empty, empty, empty, empty, empty, empty, empty,          0],
@@ -76,18 +9,117 @@ problemFour([
     [empty, empty,          0, empty, empty,          0,          0,          1]
 ]).
 
-problemSixWithoutQueen([
+problemOne([
+    [empty,     1, empty,     6, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty,     1, empty,     1, empty,     1,     1],
+    [empty, empty, empty, empty,     2, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty,     0, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty]
+]).
+
+problemTwo([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     4, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty,     4, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [0    , empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     4, empty, empty, empty, empty, empty]
+]).
+
+problemThree([
+    [     1,     0, empty, empty, empty,     0, empty,    1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty,     0,     0, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty,     0,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty,     0, empty, empty],
+    [empty, empty, empty, empty, empty,     0, empty,     1]
+]).
+
+problemFour([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     3, empty, empty, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty,     5, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty,     3, empty, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty]
+    ]).
+
+problemFive([
+    [empty,     0,     0, empty, empty,     0, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty, empty,     4, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty,     0],
+    [empty, empty,     0, empty, empty,     0,     0,     0]
+    ]).
+
+problemSix([
+    [    0, empty, empty, empty, empty, empty, empty,     0],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [empty, empty,     1,     1,     1,     1, empty, empty],
+    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [    0, empty, empty, empty, empty, empty,     0, empty]
+    ]).
+
+problemSeven([
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1,     1,     1,     1,     1,     1,     1,     1],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty,     1,     1,     1,     2,     1, empty,     2],
+    [    1,     1,     1,     2,     2,     1,     1,     2],
     [empty, empty, empty, empty, empty,     2,     1, empty]
     ]).
 
+problemEight([
+    [    0, empty, empty, empty, empty, empty, empty, empty],
+    [    0,     0, empty, empty, empty, empty, empty, empty],
+    [empty,     0,     0, empty, empty, empty, empty, empty],
+    [empty, empty,     0,     0, empty, empty, empty, empty],
+    [empty, empty, empty,     0,     0, empty, empty, empty],
+    [empty, empty, empty, empty,     0,     0, empty, empty],
+    [empty, empty,     2, empty, empty,     0,     0, empty],
+    [empty, empty, empty, empty, empty, empty,     0,     0]
+    ]).
+
+problemNine([
+    [empty, empty,     0,     0, empty, empty, empty, empty],
+    [empty, empty,     1, empty,     1, empty, empty, empty],
+    [empty, empty,     2, empty,     2, empty, empty, empty],
+    [empty, empty,     3, empty,     3, empty, empty, empty],
+    [empty, empty,     4, empty,     4, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty,     0, empty]
+    ]).
+
 problemTen([
+    [    0,     0,     0,     0,     0,     0,     0,     0],
+    [    1,     1,     1,     1,     1,     1,     1,     1],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty,     2, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty,     3, empty, empty, empty]
+    ]).
+
+problemEleven([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     2, empty, empty, empty,     3, empty],
     [empty, empty, empty,     2, empty, empty, empty, empty],
@@ -98,6 +130,7 @@ problemTen([
     [empty, empty,     1, empty, empty, empty, empty, empty]
     ]).
 
+/* Exemplo Geração dos Boards:
 problemOne(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
@@ -110,95 +143,9 @@ put_number(GameBoard, Row, Column, Elem) :-
     nth1(Row, GameBoard, BoardRow),
     nth1(Column, BoardRow, Position),
     Position #= Elem.
-
-/*
-testPawn([
-    [    0, empty,     3, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     0, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    0, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty]
-]).
 */
 
-/* ZERO TESTING - rook
-testPawn([
-    [   1, 1, empty, empty, empty, empty, 1,    1],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1,     1,    1, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty,   0, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty]
-]).
-*/
-/*
-testPawn([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [1, empty, 1, empty,    empty, empty, 1, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1, empty,     1, empty, empty, empty],
-    [empty, 1, empty, empty, empty, 1, empty, empty],
-    [1, empty, empty, empty, empty, empty, 1, empty]
-]).
-*/
-
-
-testPawn([
-    [empty, empty, empty, empty, empty, empty, empty, 1],
-    [empty, empty, empty, empty, empty, empty, empty, 1],
-    [1, empty, 1, empty, empty, empty, empty, 1],
-    [empty, empty, empty, 2, empty, 1, empty, 1],
-    [0, empty, empty, 0, empty, 1, 1, empty],
-    [empty, empty, empty, empty, empty, empty, empty, 1],
-    [1, empty, 1, empty, empty, empty, empty, 1],
-    [empty, empty, empty, empty, empty, empty, empty, 1]
-]).
-
-
-/*
-testPawn([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty]
-]).
-*/
-/*
-testPawn([
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty,  empty,empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty,     1, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [   1, empty,      2, empty,     1, empty, empty, empty],
-    [empty,empty, empty, empty, empty,     1, empty, empty],
-    [    1, empty, empty, empty, empty, empty, empty, empty]
-]).
-*/
-
-testAll([
-    [ empty, empty,     2, empty,     2, empty, empty, empty],
-    [empty,     1,     1,     1,     1, empty, empty, empty],
-    [empty, empty,     0, empty, empty, empty, empty, empty],
-    [    1,     1,     1, empty, empty, empty, empty, empty],
-    [    0, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty,    1, 1,  1, empty, 1, 1]
-]).
-
-problemPawn(GameBoard) :-
+/*problemPawn(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
     put_number(GameBoard, 1, 2, 1),
@@ -207,7 +154,7 @@ problemPawn(GameBoard) :-
 build_board([]).
 build_board([Row|GameBoard]) :-
     length(Row, 8),
-    build_board(GameBoard).
+    build_board(GameBoard).*/
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                        Get Cell Value                                                     %

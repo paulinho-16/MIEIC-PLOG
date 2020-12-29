@@ -18,47 +18,15 @@ getCellsNumber(GameBoard, Row-Column, [Value-Row-Column|Cells]) :-
 getCellsNumber(GameBoard, Row-Column, Cells) :-
     get_next_cell(Row-Column, NextRow-NextColumn),
     getCellsNumber(GameBoard, NextRow-NextColumn, Cells).
- 
-/*attack_all_with_number(_, [], _).
-attack_all_with_number(GameBoard, [Cell | Cells], Positions) :-
-    write(Cell), nl,
-    cell_attacks(GameBoard, Cell, Positions),
-    attack_all_with_number(GameBoard, Cells, Positions).*/
-
-percorrer_lista(_, [], ListRestrict, ListRestrict).
-percorrer_lista(KingX-KingY, [[X,Y] | CellsAttackedKing], Acc, ListRestrict) :-
-    append([(KingX #\= X #\/ KingY #\= Y)], Acc, NewAcc),
-    %(KingX #\= X #\/ KingY #\= Y),
-    percorrer_lista(KingX-KingY, CellsAttackedKing, NewAcc, ListRestrict).
-/*
-% [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY], 0-Row-Column) :-
-    %write('Para a cell ['), write(Row), write(', '), write(Column), write(']'), nl,
-    pawn([Xa, Ya], [Row, Column]),
-    findall(Teste, knight(Teste, [Row, Column], 1), CellsAttackedKnight),
-    %write(CellsAttackedKnight), nl,
-    percorrer_lista(KnightX-KnightY, CellsAttackedKnight, [], Restrictions1),
-    findall(ABC, king(ABC, [Row, Column], 1), CellsAttackedKing), 
-    %write(CellsAttackedKing), nl,
-    percorrer_lista(KingX-KingY, CellsAttackedKing, [], Restrictions2),
-    %findall(BCD, rook(GameBoard, BCD, [Row, Column], [PawnX, PawnY, RookX, RookY], 1), CellsAttackedRook), 
-    % write(CellsAttackedRook), nl,
-    %percorrer_lista(RookX-RookY, CellsAttackedRook, [], Restrictions),
-    append(Restrictions1, Restrictions2, Restrictions3),
-    append(Restrictions3, [PawnX #\= Xa #\/ PawnY #\= Ya], Restrictions),
-    fd_batch(Restrictions), !.
-*/
 
 % [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]
 cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :- 
-    
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
-    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack), % , QueenX, QueenY
-    bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack), % , QueenX, QueenY
+    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack),
+    bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack),
     queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
-    %KnightAttack + PawnAttack + RookAttack #= Number.
     PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 pawn([X, Y], [X1, Y1], Attack) :-
@@ -77,10 +45,6 @@ knight_attack(-1,-2).
 */
 
 knight([X, Y], [X1, Y1], Attack) :-
-    /*
-    (((X1 #= X + 2 #\/ X1 #= X - 2) #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #\/ 
-    ((X1 #= X + 1 #\/ X1 #= X - 1) #/\ (Y1 #= Y + 2 #\/ Y1 #= Y - 2))) #<=> Attack.
-    */
     ((X1 #= X + 2 #/\ Y1 #= Y + 1) #\/ 
     (X1 #= X + 2 #/\ Y1 #= Y - 1) #\/ 
     (X1 #= X - 2 #/\ Y1 #= Y + 1) #\/ 
@@ -89,6 +53,7 @@ knight([X, Y], [X1, Y1], Attack) :-
     (X1 #= X + 1 #/\ Y1 #= Y - 2) #\/ 
     (X1 #= X - 1 #/\ Y1 #= Y + 2) #\/ 
     (X1 #= X - 1 #/\ Y1 #= Y - 2)) #<=> Attack.
+
 /*
 nothing_between([X, Y], [X1, Y1], []).
 nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
@@ -99,8 +64,25 @@ nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
     nothing_between([X, Y], [X1, Y1], Positions).
 */
 
+% not working yet :c
+nothing_between([X, Y], [X1, Y1], []).
+nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
+    (
+    ((X #= X1) #/\ (PX #\= X1)) #\/
+    ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #> Y) #/\ ((PY #< Y) #\/ (PY #> Y1))) #\/
+    ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #< Y) #/\ ((PY #< Y1) #\/ (PY #> Y))) #\/
+    ((Y #= Y1) #/\ (PY #\= Y1)) #\/
+    ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #> X) #/\ ((PX #< X) #\/ (PX #> X1))) #\/
+    ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #< X) #/\ ((PX #< X1) #\/ (PX #> X)))
+    ),
+    nothing_between([X, Y], [X1, Y1], Positions).
+
 rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
-    % nothing_between([X, Y], [X1, Y1], Positions),
+
+    %nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, BishopX, BishopY, QueenX, QueenY]),
+
+    %((X1 #= X) #\/ (Y1 #= Y)) #<=> Attack.
+
     (
     % Esquerda
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
@@ -325,6 +307,9 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY,
         ((QueenX #< X) #\/ (QueenY #\= Y)))
     ) #<=> Attack.
 
+% certo ^^^^^^^^^^
+
+
 bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
     (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
 
@@ -334,6 +319,8 @@ queen(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
 king([X, Y], [X1, Y1], Attack) :-
     ((X1 #= X - 1 #\/ X1 #= X + 1) #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/
     ((X1 #= X) #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y - 1))) #<=> Attack.
+
+
 
 /*
 getDiagonalValue_BOTTOM_right(X-Y, [[X1, Y1] | R]) :-
