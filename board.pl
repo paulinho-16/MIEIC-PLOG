@@ -138,14 +138,14 @@ testPawn([
 ]).
 */
 testPawn([
-    [empty, empty,     1,     0,     1, empty, empty, empty],
+    [1, empty, empty, empty, empty, empty, empty, 1],
+    [empty, empty, empty, 1, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty,     1, empty, empty, empty, empty],
-    [empty, empty, empty,     1, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, 1, empty, empty, empty, 1, empty, empty],
-    [empty, empty, 1,   empty, 1, empty, empty, empty]
+    [empty,     1,  empty, 0, empty, 1, empty, empty],
+    [    0, empty, empty, 0, empty, empty, empty, 0],
+    [empty, empty,  1, empty,   1, empty, empty, empty],
+    [empty, 0, empty, empty, empty, 0, empty, empty],
+    [empty, empty, 0,   0, 0, empty, empty, empty]
 ]).
 
 /*
