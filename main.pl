@@ -9,7 +9,7 @@ testar(Positions) :-
     %Pieces = [Pawn],
     %problemOne(GameBoard),
     %problemPawn(GameBoard),
-    testPawn(GameBoard),
+    onlyRook(GameBoard),
 
     display_board(GameBoard),
     %cell_attacks(GameBoard, 1-3, TimesAtacked),
@@ -19,7 +19,7 @@ testar(Positions) :-
     write('Cells: '), write(Cells), nl,
 
     %Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
-    Positions = [PawnX, PawnY, KnightX, KnightY, RookX, RookY],
+    Positions = [PawnX, PawnY, RookX, RookY],
     domain(Positions, 1, 8),
     /*
     (PawnX #\= 2) #/\
@@ -65,7 +65,7 @@ testar(Positions) :-
     labeling([], Positions),
 
     get_value(PawnX, PawnY, GameBoard, empty),
-    get_value(KnightX, KnightY, GameBoard, empty),
+    %get_value(KnightX, KnightY, GameBoard, empty),
     %get_value(KingX, KingY, GameBoard, empty),
     get_value(RookX, RookY, GameBoard, empty),
     %get_value(BishopX, BishopY, GameBoard, empty),

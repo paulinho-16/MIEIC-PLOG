@@ -34,9 +34,9 @@ problemSix([
 
 onlyRook([
     [empty, empty, empty, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty,     1, empty, empty, empty],
-    [empty, empty, empty, empty,     1, empty, empty, empty],
-    [    1,     1,     1,     1, empty,     1,     1,     1],
+    [empty, empty, empty, empty,     1, empty, empty, 1],
+    [0, empty, empty, empty,     1, empty, empty, 0],
+    [ 1, empty,     1,     1, empty,     1,     empty,    1],
     [empty, empty, empty, empty,     1, empty, empty, empty],
     [empty, empty, empty, empty,     1, empty, empty, empty],
     [empty, empty, empty, empty,     1, empty, empty, empty],
