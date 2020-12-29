@@ -104,33 +104,40 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, RookX, RookY]
     (
     % Esquerda
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    ((X1 #= X) #/\ (Y1 #< Y) #/\ (PawnX #= X) #/\ (PawnY #< Y)  #/\ (Y1 #> PawnY)) #\/ 
-    ((X1 #= X) #/\ (Y1 #< Y) #/\ (KnightX #= X) #/\ (KnightY #< Y)  #/\ (Y1 #> KnightY)) #\/ 
+    ((X1 #= X) #/\ (Y1 #< Y) #/\ ((KnightY #> Y) #\/ (KnightX #\= X)) #/\ (PawnX #= X) #/\ (PawnY #< Y)  #/\ (Y1 #> PawnY)) #\/ 
+    ((X1 #= X) #/\ (Y1 #< Y) #/\ ((PawnY #> Y) #\/ (PawnX #\= X)) #/\ (KnightX #= X) #/\ (KnightY #< Y)  #/\ (Y1 #> KnightY)) #\/ 
     % Mesma Linha, para a _, em que o peão está do lado _ ou não está na linha
     ((X1 #= X) #/\ (Y1 #< Y) #/\ (((PawnY #> Y) #\/ (PawnX #\= X)) #/\ ((KnightY #> Y) #\/ (KnightX #\= X)))) #\/
     % Vários na mesma linha
+    ((X1 #= X) #/\ (Y1 #< Y) #/\ (KnightX #= X) #/\ (PawnX #= X) #/\ (PawnY #< KnightY) #/\ (KnightY #< Y) #/\ (Y1 #> KnightY)) #\/
+    ((X1 #= X) #/\ (Y1 #< Y) #/\ (KnightX #= X) #/\ (PawnX #= X) #/\ (PawnY #> KnightY) #/\ (PawnY #< Y) #/\ (Y1 #> PawnX)) #\/
 
     % Direita
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    ((X1 #= X) #/\ (Y1 #> Y) #/\ (PawnX #= X) #/\ (PawnY #> Y)  #/\ (Y1 #< PawnY)) #\/ 
-    ((X1 #= X) #/\ (Y1 #> Y) #/\ (KnightX #= X) #/\ (KnightY #> Y)  #/\ (Y1 #< KnightY)) #\/ 
+    ((X1 #= X) #/\ (Y1 #> Y) #/\ ((KnightY #< Y) #\/ (KnightX #\= X)) #/\ (PawnX #= X) #/\ (PawnY #> Y)  #/\ (Y1 #< PawnY)) #\/ 
+    ((X1 #= X) #/\ (Y1 #> Y) #/\ ((PawnY #< Y) #\/ (PawnX #\= X)) #/\ (KnightX #= X) #/\ (KnightY #> Y)  #/\ (Y1 #< KnightY)) #\/ 
+    % Vários na mesma linha
+    ((X1 #= X) #/\ (Y1 #> Y) #/\ (KnightX #= X) #/\ (PawnX #= X) #/\ (PawnY #< KnightY) #/\ (KnightY #> Y) #/\ (Y1 #< KnightY)) #\/
+    ((X1 #= X) #/\ (Y1 #> Y) #/\ (KnightX #= X) #/\ (PawnX #= X) #/\ (PawnY #> KnightY) #/\ (PawnY #> Y) #/\ (Y1 #< PawnX)) #\/
+
     % Mesma Linha, para a _, em que o peão está do lado _ ou não está na linha
     ((X1 #= X) #/\ (Y1 #> Y) #/\ (((PawnY #< Y) #\/ (PawnX #\= X)) #/\ ((KnightY #< Y) #\/ (KnightX #\= X)))) #\/
-    % Vários na mesma linha
-
-     % Cima
+    
+    % Cima
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    ((Y1 #= Y) #/\ (X1 #< X) #/\ (PawnY #= Y) #/\ (PawnX #< X)  #/\ (X1 #> PawnX)) #\/ 
-    ((Y1 #= Y) #/\ (X1 #< X) #/\ (KnightY #= Y) #/\ (KnightX #< X)  #/\ (X1 #> KnightX)) #\/ 
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ ((KnightX #> X) #\/ (KnightY #\= Y)) #/\ (PawnY #= Y)  #/\ (PawnX #< X)  #/\ (X1 #> PawnX)) #\/ 
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ ((PawnX #> X) #\/ (PawnY #\= Y)) #/\ (KnightY #= Y) #/\ (KnightX #< X)  #/\ (X1 #> KnightX)) #\/ 
+    % Vários na mesma linha
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ (KnightY #= Y) #/\ (PawnY #= Y) #/\ (PawnX #< KnightX) #/\ (KnightX #< X) #/\ (X1 #> KnightX)) #\/
+    ((Y1 #= Y) #/\ (X1 #< X) #/\ (KnightY #= Y) #/\ (PawnY #= Y) #/\ (PawnX #> KnightX) #/\ (PawnX #< X) #/\ (X1 #> PawnX)) #\/
     % Mesma Linha, para a _, sem nada
     ((Y1 #= Y) #/\ (X1 #< X) #/\ (((PawnX #> X) #\/ (PawnY #\= Y)) #/\ ((KnightX #> X) #\/ (KnightY #\= Y)))) #\/
     % Vários na mesma linha
-    %((Y1 #= Y) #/\ (X1 #< X) #/\ (KnightY #= Y) #/\ (PawnY #= Y) #/\ (PawnX #< KnightX) #/\ (KnightX #< X) #/\ (X1 #> PawnX)) #\/
 
     % Baixo
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
-    ((Y1 #= Y) #/\ (X1 #> X) #/\ (PawnY #= Y)  #/\ (KnightY #\= Y) #/\ (PawnX #> X)   #/\ (X1 #< PawnX)) #\/ 
-    ((Y1 #= Y) #/\ (X1 #> X) #/\ (PawnY #\= Y) #/\ (KnightY #= Y)  #/\ (KnightX #> X)  #/\ (X1 #< KnightX)) #\/ 
+    ((Y1 #= Y) #/\ (X1 #> X) #/\ ((KnightX #> X) #\/ (KnightY #\= Y)) #/\ (PawnY #= Y) #/\ (PawnX #> X)   #/\ (X1 #< PawnX)) #\/ 
+    ((Y1 #= Y) #/\ (X1 #> X) #/\ ((PawnX #< X) #\/ (PawnY #\= Y)) #/\ (KnightY #= Y)  #/\ (KnightX #> X)  #/\ (X1 #< KnightX)) #\/ 
 
     % Vários na mesma linha
     ((Y1 #= Y) #/\ (X1 #> X) #/\ (KnightY #= Y) #/\ (PawnY #= Y) #/\ (PawnX #< KnightX) #/\ (PawnX #> X) #/\ (X1 #< PawnX)) #\/
