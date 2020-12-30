@@ -17,11 +17,11 @@ testar(Positions) :-
 
     predicate(N, PredicateName, Problem),
     
-    Predicate =.. [PredicateName, GameBoard],
+    %Predicate =.. [PredicateName, GameBoard],
 
-    Predicate,
+    %Predicate,
 
-    %testing(GameBoard),
+    testing(GameBoard),
 
     nl, nl, write('\t\t'), write(Problem),
     nl, nl, display_board(GameBoard),

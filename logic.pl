@@ -54,19 +54,8 @@ knight([X, Y], [X1, Y1], Attack) :-
     (X1 #= X - 1 #/\ Y1 #= Y + 2) #\/ 
     (X1 #= X - 1 #/\ Y1 #= Y - 2)) #<=> Attack.
 
-/*
-nothing_between([X, Y], [X1, Y1], []).
-nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
-    ((((X1 #= X) #/\ (PX #= X) #/\ (PY #< Y)) #/\ (Y1 #> PY)) #\/ 
-    (((X1 #= X) #/\ (PX #= X) #/\ (PY #> Y)) #/\ (Y1 #< PY)) #\/
-    (((Y1 #= Y) #/\ (PY #= Y) #/\ (PX #< X)) #/\ (X1 #> PX)) #\/
-    (((Y1 #= Y) #/\ (PY #= Y) #/\ (PX #> X)) #/\ (X1 #< PX))),
-    nothing_between([X, Y], [X1, Y1], Positions).
-*/
-
-% not working yet :c
-nothing_between([X, Y], [X1, Y1], []).
-nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
+nothing_between([X, Y], [X1, Y1], [], []).
+nothing_between([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
     (
     ((X #= X1) #/\ (PX #\= X1)) #\/
     ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #> Y) #/\ ((PY #< Y) #\/ (PY #> Y1))) #\/
@@ -74,15 +63,17 @@ nothing_between([X, Y], [X1, Y1], [PX, PY|Positions]) :-
     ((Y #= Y1) #/\ (PY #\= Y1)) #\/
     ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #> X) #/\ ((PX #< X) #\/ (PX #> X1))) #\/
     ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #< X) #/\ ((PX #< X1) #\/ (PX #> X)))
-    ),
-    nothing_between([X, Y], [X1, Y1], Positions).
+    )
+    #<=> M,
+    nothing_between([X, Y], [X1, Y1], Positions, Ms).
 
 rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
 
-    %nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, BishopX, BishopY, QueenX, QueenY]),
+    nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, BishopX, BishopY, QueenX, QueenY], [M1, M2, M3, M4, M5]),
 
-    %((X1 #= X) #\/ (Y1 #= Y)) #<=> Attack.
+    (((X1 #= X) #\/ (Y1 #= Y)) #/\ M1 #/\ M2 #/\ M3 #/\ M4 #/\ M5) #<=> Attack.
 
+    /*
     (
     % Esquerda
     % Mesma Linha, para a _, com peão na linha, peão à _, tudo até à torre
@@ -306,14 +297,54 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY,
         ((KingX #< X) #\/ (KingY #\= Y)) #/\
         ((QueenX #< X) #\/ (QueenY #\= Y)))
     ) #<=> Attack.
+*/
 
 % certo ^^^^^^^^^^
 
+/*
+    (
+    ((X #= X1) #/\ (PX #\= X1)) #\/
+    ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #> Y) #/\ ((PY #< Y) #\/ (PY #> Y1))) #\/
+    ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #< Y) #/\ ((PY #< Y1) #\/ (PY #> Y))) #\/
+    ((Y #= Y1) #/\ (PY #\= Y1)) #\/
+    ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #> X) #/\ ((PX #< X) #\/ (PX #> X1))) #\/
+    ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #< X) #/\ ((PX #< X1) #\/ (PX #> X)))
+    )
+*/
 
-bishop(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
+nothing_between_diagonal([X, Y], [X1, Y1], [], []).
+nothing_between_diagonal([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
+    /*(
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ (abs(X1 - PX) #\= abs(Y1 - PY))) #\/ % Piece not in diagonal
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #> Y)) #/\ \+((X1 #< PX) #/\ (Y1 #> PY) #/\ (PX #< X) #/\ (PY #> Y))) #\/ % Check Diagonal Top Right
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #< Y)) #/\ \+((X1 #< PX) #/\ (Y1 #< PY) #/\ (PX #< X) #/\ (PY #< Y))) #\/ % Check Diagonal Top Left
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #> Y)) #/\ \+((X1 #> PX) #/\ (Y1 #> PY) #/\ (PX #> X) #/\ (PY #> Y))) #\/ % Check Diagonal Bottom Right
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #< Y)) #/\ \+((X1 #> PX) #/\ (Y1 #< PY) #/\ (PX #> X) #/\ (PY #< Y))) % Check Diagonal Bottom Left
+    )*/
+
+    (
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ (abs(X1 - PX) #\= abs(Y1 - PY))) #\/ % Piece not in diagonal
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #> Y)) #/\ ((X1 #> PX) #\/ (Y1 #< PY) #\/ (PX #> X) #\/ (PY #< Y))) #\/ % Check Diagonal Top Right
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #< Y)) #/\ ((X1 #> PX) #\/ (Y1 #> PY) #\/ (PX #> X) #\/ (PY #> Y))) #\/ % Check Diagonal Top Left
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #> Y)) #/\ ((X1 #< PX) #\/ (Y1 #< PY) #\/ (PX #< X) #\/ (PY #< Y))) #\/ % Check Diagonal Bottom Right
+        ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #< Y)) #/\ ((X1 #< PX) #\/ (Y1 #> PY) #\/ (PX #< X) #\/ (PY #> Y))) % Check Diagonal Bottom Left
+    )
+    #<=> M,
+    nothing_between_diagonal([X, Y], [X1, Y1], Positions, Ms).
+
+bishop(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
+    % Para bloquear diagonais, descomentar:
+    %nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, QueenX, QueenY], [B1, B2, B3, B4, B5]),
+    %((abs(X1 - X) #= abs(Y1 - Y)) #/\ B1 #/\ B2 #/\ B3 #/\ B4 #/\ B5) #<=> Attack.
+
     (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
 
-queen(GameBoard, [X, Y], [X1, Y1], Positions, Attack) :-
+queen(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
+    % APLICAR TB BETWEEN HORIZONTAL E VERTICAL (DA TORRE)
+    % Para bloquear diagonais, descomentar:
+    %nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [Q1, Q2, Q3, Q4, Q5]),
+    %((((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #/\ Q1 #/\ Q2 #/\ Q3 #/\ Q4 #/\ Q5) #<=> Attack.
+
     (((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #<=> Attack.
 
 king([X, Y], [X1, Y1], Attack) :-
