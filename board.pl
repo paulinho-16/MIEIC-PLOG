@@ -21,6 +21,17 @@ testing([
     [empty, empty,          0, empty, empty,          0,          0,          1]
 ]).
 
+testing2([
+    [    0, empty, empty,     1, empty, empty,     1, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [    1, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty,     2, empty,     1, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty, empty],
+    [empty, empty, empty, empty, empty, empty, empty,     0]
+]).
+
 problemOne([
     [empty,     1, empty,     6, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],

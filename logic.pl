@@ -334,18 +334,23 @@ nothing_between_diagonal([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
 
 bishop(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
     % Para bloquear diagonais, descomentar:
-    %nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, QueenX, QueenY], [B1, B2, B3, B4, B5]),
-    %((abs(X1 - X) #= abs(Y1 - Y)) #/\ B1 #/\ B2 #/\ B3 #/\ B4 #/\ B5) #<=> Attack.
+    nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, QueenX, QueenY], [B1, B2, B3, B4, B5]),
 
-    (abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
+    ((abs(X1 - X) #= abs(Y1 - Y)) #/\ B1 #/\ B2 #/\ B3 #/\ B4 #/\ B5) #<=> Attack.
+
+    %(abs(X1 - X) #= abs(Y1 - Y)) #<=> Attack.
 
 queen(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
-    % APLICAR TB BETWEEN HORIZONTAL E VERTICAL (DA TORRE)
     % Para bloquear diagonais, descomentar:
-    %nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [Q1, Q2, Q3, Q4, Q5]),
+    nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [Q1, Q2, Q3, Q4, Q5]),
+
+    nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [QD1, QD2, QD3, QD4, QD5]),    
+
     %((((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #/\ Q1 #/\ Q2 #/\ Q3 #/\ Q4 #/\ Q5) #<=> Attack.
 
-    (((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #<=> Attack.
+    ((((X1 #= X) #\/ (Y1 #= Y)) #/\ Q1 #/\ Q2 #/\ Q3 #/\ Q4 #/\ Q5) #\/ (((abs(X1 - X) #= abs(Y1 - Y)) #/\ QD1 #/\ QD2 #/\ QD3 #/\ QD4 #/\ QD5))) #<=> Attack.
+
+    %(((X1 #= X) #\/ (Y1 #= Y)) #\/ (abs(X1 - X) #= abs(Y1 - Y))) #<=> Attack.
 
 king([X, Y], [X1, Y1], Attack) :-
     ((X1 #= X - 1 #\/ X1 #= X + 1) #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/
