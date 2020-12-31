@@ -7,6 +7,15 @@
 :- consult('display.pl').
 :- consult('menus.pl').
 
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Solve Problem                                                                %
+%   Prototype:                                                                                                              %
+%       solve(-Positions)                                                                                                   %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Positions -> The positions of the chess pieces, after solving a Chess-Num problem, chosen by the user               %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 solve(Positions) :-
     display_menu,
 
@@ -42,12 +51,37 @@ solve(Positions) :-
     nl, show_results(Positions, 1), nl,
     display_solution(GameBoard, Positions).
 
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Piece                                                                        %
+%   Prototype:                                                                                                              %
+%       piece(+Number, -Name)                                                                                               %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Number -> The number of the chess piece                                                                             %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Name -> The name of the chess piece                                                                                 %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 piece(1, 'Pawn').
 piece(2, 'Knight').
 piece(3, 'King').
 piece(4, 'Rook').
 piece(5, 'Bishop').
 piece(6, 'Queen').
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Show Results                                                                 %
+%   Prototype:                                                                                                              %
+%       show_results(+Positions, +N)                                                                                        %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Positions -> The positions of the chess pieces, in the format [Row, Column]                                         %
+%       N -> The number of the next chess piece to print on the screen                                                      %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Prints the chess pieces' positions to the screen, showing the solution for the Chess-Num problem                    %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
 show_results([], _).
 show_results([X, Y|Positions], N) :-
