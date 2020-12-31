@@ -37,7 +37,7 @@ solve(Positions) :-
 
     not_overlapping(Positions),
          
-    maplist(cell_attacks(GameBoard, Positions), Cells),
+    maplist(cell_attacks(Positions), Cells),
 
     labeling([], Positions),
 

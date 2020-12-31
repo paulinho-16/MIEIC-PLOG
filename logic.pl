@@ -46,7 +46,7 @@ get_next_cell(Row-Column, NextRow-NextColumn) :-
 %       Cells -> The numbered cells, in the format [Row, Column]                                                            %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-getCellsNumber(GameBoard, 9-1, []).
+getCellsNumber(_, 9-1, []).
 getCellsNumber(GameBoard, Row-Column, [Value-Row-Column|Cells]) :-
     get_value(Row, Column, GameBoard, Value),
     number(Value), !,                       
@@ -94,23 +94,22 @@ not_overlapping([PX, PY|Positions]) :-
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Cell Attacks                                                        %
 %   Prototype:                                                                                                              %
-%       cell_attacks(+Board, -Positions, +Number-Row-Column)                                                                %
+%       cell_attacks(-Positions, +Number-Row-Column)                                                                        %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
-%       Board -> The board with the numbered cells                                                                          %
 %       Number-Row-Column -> The number, row and column of the numbered cell we're analysing                                %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Positions -> The positions of the chess pieces, so that all numbered cells are respected                            %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :- 
+cell_attacks([PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :-
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
     king([KingX, KingY], [Row, Column], KingAttack),
-    rook(GameBoard, [RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack),
-    bishop(GameBoard, [BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack),
-    queen(GameBoard, [QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
+    rook([RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack),
+    bishop([BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack),
+    queen([QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
     PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 
 % ------------------------------------------------------------------------------------------------------------------------- %
@@ -172,10 +171,9 @@ king([X, Y], [X1, Y1], Attack) :-
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Rook Attack                                                         %
 %   Prototype:                                                                                                              %
-%       rook(+Board, +[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                             %
+%       rook(+[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                                     %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
-%       Board -> The board with the numbered cells                                                                          %
 %       [X, Y] -> The row and column of the Rook piece                                                                      %
 %       [X1, Y1] -> The row and column of the numbered cell we're analysing                                                 %
 %       OtherPieces -> The other chess pieces' coordinates                                                                  %
@@ -184,7 +182,7 @@ king([X, Y], [X1, Y1], Attack) :-
 %       Attack -> 1 if the restrictions for the Rook piece were not broken, 0 otherwise                                     %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
+rook([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, _, _, BishopX, BishopY, QueenX, QueenY], Attack) :-
 
     nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, BishopX, BishopY, QueenX, QueenY], [M1, M2, M3, M4, M5]),
 
@@ -193,10 +191,9 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY,
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Bishop Attack                                                       %
 %   Prototype:                                                                                                              %
-%       bishop(+Board, +[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                           %
+%       bishop(+[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                                   %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
-%       Board -> The board with the numbered cells                                                                          %
 %       [X, Y] -> The row and column of the Bishop piece                                                                    %
 %       [X1, Y1] -> The row and column of the numbered cell we're analysing                                                 %
 %       OtherPieces -> The other chess pieces' coordinates                                                                  %
@@ -205,7 +202,7 @@ rook(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY,
 %       Attack -> 1 if the restrictions for the Bishop piece were not broken, 0 otherwise                                   %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-bishop(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
+bishop([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, _, _, QueenX, QueenY], Attack) :-
     nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, QueenX, QueenY], [B1, B2, B3, B4, B5]),
 
     ((abs(X1 - X) #= abs(Y1 - Y)) #/\ B1 #/\ B2 #/\ B3 #/\ B4 #/\ B5) #<=> Attack.
@@ -213,10 +210,9 @@ bishop(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, King
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Queen Attack                                                        %
 %   Prototype:                                                                                                              %
-%       queen(+Board, +[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                            %
+%       queen(+[X, Y], +[X1, Y1], +OtherPieces, -Attack)                                                                    %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
-%       Board -> The board with the numbered cells                                                                          %
 %       [X, Y] -> The row and column of the Queen piece                                                                     %
 %       [X1, Y1] -> The row and column of the numbered cell we're analysing                                                 %
 %       OtherPieces -> The other chess pieces' coordinates                                                                  %
@@ -225,7 +221,7 @@ bishop(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, King
 %       Attack -> 1 if the restrictions for the Queen piece were not broken, 0 otherwise                                    %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-queen(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Attack) :-
+queen([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, _, _], Attack) :-
     nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [Q1, Q2, Q3, Q4, Q5]),
 
     nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [QD1, QD2, QD3, QD4, QD5]),    
@@ -247,7 +243,7 @@ queen(GameBoard, [X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY
 %             and the numbered cell ([X1, Y1]), in an horizontal or vertical direction                                      %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-nothing_between([X, Y], [X1, Y1], [], []).
+nothing_between(_, _, [], []).
 nothing_between([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
     (
     ((X #= X1) #/\ (PX #\= X1)) #\/ % Piece not in horizontal
@@ -275,7 +271,7 @@ nothing_between([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
 %             and the numbered cell ([X1, Y1]), in a diagonal direction                                                     %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-nothing_between_diagonal([X, Y], [X1, Y1], [], []).
+nothing_between_diagonal(_, _, [], []).
 nothing_between_diagonal([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
     (
         ((abs(X1 - X) #= abs(Y1 - Y)) #/\ (abs(X1 - PX) #\= abs(Y1 - PY))) #\/ % Piece not in diagonal
