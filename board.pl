@@ -10,28 +10,6 @@ predicate(9, problemNine, 'Problem 9').
 predicate(10, problemTen, 'Problem 10').
 predicate(11, problemEleven, 'Problem 11').
 
-testing([
-    [empty,          0,          0, empty, empty,          0, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty,          0],
-    [empty, empty, empty, empty, empty, empty, empty,          0],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [         0, empty, empty, empty, empty,          4, empty,          0],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty,          0],
-    [empty, empty,          0, empty, empty,          0,          0,          1]
-]).
-
-testing2([
-    [    0, empty, empty,     1, empty, empty,     1, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [    1, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty,     2, empty,     1, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty, empty],
-    [empty, empty, empty, empty, empty, empty, empty,     0]
-]).
-
 problemOne([
     [empty,     1, empty,     6, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -152,6 +130,99 @@ problemEleven([
     [empty, empty, empty, empty,     3, empty, empty, empty],
     [empty, empty,     1, empty, empty, empty, empty, empty]
     ]).
+
+% -------------------------------------------------------------------- Problems Solutions --------------------------------------------------------------------
+
+    % ProblemOne Solution: (Time Taken: 0 sec)
+    /*PawnX #= 2, PawnY #= 5,
+    KnightX #= 2, KnightY #= 2,
+    KingX #= 2, KingY #= 4,
+    RookX #= 1, RookY #= 3,
+    BishopX #= 4, BishopY #= 1,
+    QueenX #= 1, QueenY #= 7,*/
+
+    % ProblemTwo Solution: (Time Taken: 0 sec)
+    /*PawnX #= 3, PawnY #= 2,
+    KnightX #= 3, KnightY #= 5,
+    KingX #= 8, KingY #= 2,
+    RookX #= 4, RookY #= 3,
+    BishopX #= 5, BishopY #= 6,
+    QueenX #= 8, QueenY #= 7,*/
+
+    % ProblemThree Solution: Works, but takes a lot of time...
+    /*PawnX #= 2, PawnY #= 2,
+    KnightX #= 4, KnightY #= 7,
+    KingX #= 7, KingY #= 8,
+    RookX #= 2, RookY #= 7,
+    BishopX #= 3, BishopY #= 8,
+    QueenX #= 2, QueenY #= 8,*/
+
+    % ProblemFour Solution: (Time Taken: 2 sec)
+    /*PawnX #= 2, PawnY #= 2,
+    KnightX #= 4, KnightY #= 7,
+    KingX #= 7, KingY #= 8,
+    RookX #= 2, RookY #= 7,
+    BishopX #= 3, BishopY #= 8,
+    QueenX #= 2, QueenY #= 8,*/
+
+    % ProblemFive Solution: Works, but takes a lot of time...
+    /*PawnX #= 6, PawnY #= 5,
+    KnightX #= 4, KnightY #= 8,
+    KingX #= 6, KingY #= 6,
+    RookX #= 4, RookY #= 6,
+    BishopX #= 2, BishopY #= 6,
+    QueenX #= 4, QueenY #= 4,*/
+
+    % ProblemSix Solution: Works, but takes a lot of time...
+    /*PawnX #= 7, PawnY #= 3,
+    KnightX #= 8, KnightY #= 4,
+    KingX #= 2, KingY #= 4,
+    RookX #= 4, RookY #= 2,
+    BishopX #= 4, BishopY #= 8,
+    QueenX #= 5, QueenY #= 8,*/
+
+    % ProblemSeven Solution: Works, but takes a lot of time...
+    /*PawnX #= 8, PawnY #= 4,
+    KnightX #= 1, KnightY #= 3,
+    KingX #= 8, KingY #= 5,
+    RookX #= 8, RookY #= 8,
+    BishopX #= 4, BishopY #= 5,
+    QueenX #= 4, QueenY #= 4,*/
+
+    % ProblemEight Solution: Works, but takes a lot of time...
+    /*PawnX #= 8, PawnY #= 4,
+    KnightX #= 7, KnightY #= 2,
+    KingX #= 6, KingY #= 2,
+    RookX #= 8, RookY #= 2,
+    BishopX #= 7, BishopY #= 1,
+    QueenX #= 8, QueenY #= 1,*/
+
+    % ProblemNine Solution: Works, but takes a lot of time...
+    /*PawnX #= 6, PawnY #= 4,
+    KnightX #= 3, KnightY #= 1,
+    KingX #= 4, KingY #= 4,
+    RookX #= 6, RookY #= 5,
+    BishopX #= 4, BishopY #= 2,
+    QueenX #= 5, QueenY #= 4,*/
+
+    % ProblemTen Solution: Works, but takes a lot of time...
+    /*PawnX #= 3, PawnY #= 6,
+    KnightX #= 4, KnightY #= 7,
+    KingX #= 3, KingY #= 3,
+    RookX #= 8, RookY #= 3,
+    BishopX #= 7, BishopY #= 6,
+    QueenX #= 6, QueenY #= 3,*/
+
+    % ProblemEleven Solution: Works, but takes a lot of time...
+    /*PawnX #= 6, PawnY #= 1,
+    KnightX #= 1, KnightY #= 5,
+    KingX #= 6, KingY #= 6,
+    RookX #= 7, RookY #= 7,
+    BishopX #= 1, BishopY #= 6,
+    QueenX #= 5, QueenY #= 3,*/
+
+% ------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 /* Exemplo Geração dos Boards:
 problemOne(GameBoard) :-

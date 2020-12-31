@@ -30,8 +30,7 @@ display_board(Gamestate) :-
 %       Symbol -> Symbol of the cell, to be presented on the screen                                                         %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-character(Var, ' ') :- var(Var).
-character(empty, 'E').
+character(empty, ' ').
 character(pawn, 'P').
 character(N, N).    
 
