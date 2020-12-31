@@ -1,3 +1,16 @@
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                          Predicate Prototype and Name                                                     %
+%   Prototype:                                                                                                              %
+%       predicate(+Problem, -Prototype, -Name)                                                                              %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Problem -> The number of the problem that we want the prototype and name                                            %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Prototype -> The prototype of the predicate that returns the board of the problem with number Problem               %
+%       Name -> The name of the problem with number Problem                                                                 %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 predicate(1, problemOne, 'Problem 1').
 predicate(2, problemTwo, 'Problem 2').
 predicate(3, problemThree, 'Problem 3').
@@ -10,6 +23,15 @@ predicate(9, problemNine, 'Problem 9').
 predicate(10, problemTen, 'Problem 10').
 predicate(11, problemEleven, 'Problem 11').
 predicate(12, randomProblem, 'Random Problem').
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                   Problem Board                                                           %
+%   Prototype:                                                                                                              %
+%       problem(-Board)                                                                                                     %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Board -> The board of the problem requested (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)                                     %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
 problemOne([
     [empty,     1, empty,     6, empty, empty, empty, empty],
@@ -224,21 +246,70 @@ problemEleven([
 
 % ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                   Random Problem Board                                                    %
+%   Prototype:                                                                                                              %
+%       randomProblem(-Board)                                                                                               %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Board -> A random board, with numbered cells generated randomly                                                     %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 randomProblem(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
     random(3, 8, NumberedCells), !,
     fill_board(GameBoard, NumberedCells, []).
 
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                          Build Board                                                                      %
+%   Prototype:                                                                                                              %
+%       build_board(+Board)                                                                                                 %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board before defining the size of its sublists                                                         %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Defines the length of the sublists containing the board Board                                                       %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 build_board([]).
 build_board([Row|GameBoard]) :-
     length(Row, 8),
     build_board(GameBoard).
 
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                          Put Number                                                                       %
+%   Prototype:                                                                                                              %
+%       put_number(+Board, +Row, +Column, +Number)                                                                          %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board of the game                                                                                      %
+%       Row -> The row of the cell we want to fill with a number                                                            %
+%       Column -> The column of the cell we want to fill with a number                                                      %
+%       Number -> The number that we want to put on the cell with row Row and column Column on the board Board              %
+%   Outputs:                                                                                                                %
+%       Fills the cell with row Row and column Column on the board Board, with the number Number                            %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
 put_number(GameBoard, Row, Column, Elem) :-
     nth1(Row, GameBoard, BoardRow),
     nth1(Column, BoardRow, Position),
     Position #= Elem.
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                        Fill Board                                                         %
+%   Prototype:                                                                                                              %
+%       fill_board(+Board, +NumberedCells, +Cells)                                                                          %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board to fill with numbered cells                                                                      %
+%       NumberedCells -> The number of numbered cells we want the board Board to have                                       %
+%       Cells -> The numbered cells of the board in the format [Row, Column]. Starts empty ([])                             %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Value -> The value of the Cell with row Row and column Column in the CurrentBoard. If the cell is not valid,        %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
 fill_board(_, 0, _).
 fill_board(GameBoard, NumberedCells, Cells) :-
@@ -270,3 +341,79 @@ get_value(Row, Column, CurrentBoard, Value) :-
     nth1(Column, RowList, Value), !.
 
 get_value(_, _, _, off_limits).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                     Replace Cell Value                                                    %
+%   Prototype:                                                                                                              %
+%       replace(+OriginalList, +Index, +Element, -NewList)                                                                  %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       OriginalList -> The List to have one of its values replaced                                                         %
+%       Index -> The index of the element to be replaced in the OriginalList                                                %
+%       Element -> The new value to replace the element at the index Index of the OriginalList                              %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       NewList -> The resulting list, after replacing the element at the index Index for the value Element                 %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+replace([_|T], 1, X, [X|T]):- !.
+replace([H|T], I, X, [H|R]):- I > -1, NI is I-1, replace(T, NI, X, R), !.
+replace(L, _, _, L).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                        Display Solution                                                   %
+%   Prototype:                                                                                                              %
+%       display_solution(+Board, +Positions)                                                                                %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board with the numbered cells                                                                          %
+%       Positions -> The positions of the chess pieces                                                                      %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Displays the board with the numbered cells and the pieces placed on it, presenting the solution of the problem      %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+display_solution(GameBoard, Positions) :-
+    add_pieces(GameBoard, Positions, GameBoardPieces),
+    display_board(GameBoardPieces).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                     Add Pieces                                                            %
+%   Prototype:                                                                                                              %
+%       add_pieces(+Board, +Positions, -NewBoard)                                                                           %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board with the numbered cells, before placing the pieces                                               %
+%       Positions -> The positions of the chess pieces, in the solution of the problem                                      %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       NewBoard -> The resulting board, after placing the chess pieces of the solution of the problem                      %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+add_pieces(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], GameBoardPieces) :-
+    replace_value(GameBoard, PawnX, PawnY, pawn, PawnBoard),
+    replace_value(PawnBoard, KnightX, KnightY, knight, KnightBoard),
+    replace_value(KnightBoard, KingX, KingY, king, KingBoard),
+    replace_value(KingBoard, RookX, RookY, rook, RookBoard),
+    replace_value(RookBoard, BishopX, BishopY, bishop, BishopBoard),
+    replace_value(BishopBoard, QueenX, QueenY, queen, GameBoardPieces).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                                     Replace Value                                                         %
+%   Prototype:                                                                                                              %
+%       replace_value(+Board, +Row, +Column, +Value, -NewBoard)                                                             %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Board -> The board before replacing the value                                                                       %
+%       Row -> The row of the cell that we want to replace the value                                                        %
+%       Column -> The column of the cell that we want to replace the value                                                  %
+%       Value -> The new value of the cell with row Row and column Column                                                   %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       NewBoard -> The resulting board, after replacing the value of the cell with row Row and column Column               %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+replace_value(GameBoard, Row, Column, Value, NewGameBoard) :-
+    nth1(Row, GameBoard, RowBeforeReplace),
+    replace(RowBeforeReplace, Column, Value, RowAfterReplace),
+    replace(GameBoard, Row, RowAfterReplace, NewGameBoard).

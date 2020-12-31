@@ -32,7 +32,12 @@ display_board(Gamestate) :-
 
 character(empty, ' ').
 character(pawn, 'P').
-character(N, N).    
+character(knight, 'H').
+character(king, 'K').
+character(rook, 'R').
+character(bishop, 'B').
+character(queen, 'Q').
+character(N, N).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                   Prints a line of numbers, enumerating the columns                                       %

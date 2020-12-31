@@ -7,16 +7,14 @@
 :- consult('display.pl').
 :- consult('menus.pl').
 
-testar(Positions) :-
+solve(Positions) :-
     display_menu,
 
     input(N, 0, 12, 'Problem to solve? ', problems),
     N \= exit,
 
     predicate(N, PredicateName, Problem),
-    
     Predicate =.. [PredicateName, GameBoard],
-
     Predicate,
 
     nl, nl, write('\t\t'), write(Problem),
@@ -41,19 +39,8 @@ testar(Positions) :-
     get_value(BishopX, BishopY, GameBoard, empty),
     get_value(QueenX, QueenY, GameBoard, empty),
 
-    nl, show_results(Positions, 1), nl.
-
-% testar(_) :- write('Exiting...'), nl.   -> Descomentar futuramente
-
-not_present(_, []).
-not_present(PX-PY, [X, Y|Positions]) :-
-    ((PX #\= X) #\/ (PY #\= Y)),
-    not_present(PX-PY, Positions).
-
-not_overlapping([]).
-not_overlapping([PX, PY|Positions]) :-
-    not_present(PX-PY, Positions),
-    not_overlapping(Positions).
+    nl, show_results(Positions, 1), nl,
+    display_solution(GameBoard, Positions).
 
 piece(1, 'Pawn').
 piece(2, 'Knight').

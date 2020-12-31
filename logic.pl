@@ -19,6 +19,16 @@ getCellsNumber(GameBoard, Row-Column, Cells) :-
     get_next_cell(Row-Column, NextRow-NextColumn),
     getCellsNumber(GameBoard, NextRow-NextColumn, Cells).
 
+not_present(_, []).
+not_present(PX-PY, [X, Y|Positions]) :-
+    ((PX #\= X) #\/ (PY #\= Y)),
+    not_present(PX-PY, Positions).
+
+not_overlapping([]).
+not_overlapping([PX, PY|Positions]) :-
+    not_present(PX-PY, Positions),
+    not_overlapping(Positions).
+
 cell_attacks(GameBoard, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :- 
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
