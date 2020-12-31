@@ -1,5 +1,6 @@
 :- use_module(library(lists)).
 :- use_module(library(clpfd)).
+:- use_module(library(random)).
 
 :- consult('board.pl').
 :- consult('logic.pl').
@@ -9,7 +10,7 @@
 testar(Positions) :-
     display_menu,
 
-    input(N, 0, 11, 'Problem to solve? ', problems),
+    input(N, 0, 12, 'Problem to solve? ', problems),
     N \= exit,
 
     predicate(N, PredicateName, Problem),

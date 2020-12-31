@@ -9,6 +9,7 @@ predicate(8, problemEight, 'Problem 8').
 predicate(9, problemNine, 'Problem 9').
 predicate(10, problemTen, 'Problem 10').
 predicate(11, problemEleven, 'Problem 11').
+predicate(12, randomProblem, 'Random Problem').
 
 problemOne([
     [empty,     1, empty,     6, empty, empty, empty, empty],
@@ -223,32 +224,31 @@ problemEleven([
 
 % ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-/* Exemplo Geração dos Boards:
-problemOne(GameBoard) :-
+randomProblem(GameBoard) :-
     length(GameBoard, 8),
     build_board(GameBoard),
-    put_number(GameBoard, 2, 3, 4),
-    put_number(GameBoard, 4, 7, 4),
-    put_number(GameBoard, 6, 1, 0),
-    put_number(GameBoard, 8, 3, 4).
+    random(3, 8, NumberedCells), !,
+    fill_board(GameBoard, NumberedCells, []).
+
+build_board([]).
+build_board([Row|GameBoard]) :-
+    length(Row, 8),
+    build_board(GameBoard).
 
 put_number(GameBoard, Row, Column, Elem) :-
     nth1(Row, GameBoard, BoardRow),
     nth1(Column, BoardRow, Position),
     Position #= Elem.
-*/
 
-/*problemPawn(GameBoard) :-
-    length(GameBoard, 8),
-    build_board(GameBoard),
-    put_number(GameBoard, 1, 2, 1),
-    put_number(GameBoard, 1, 4, 0).
-
-build_board([]).
-build_board([Row|GameBoard]) :-
-    length(Row, 8),
-    build_board(GameBoard).*/
+fill_board(_, 0, _).
+fill_board(GameBoard, NumberedCells, Cells) :-
+    repeat,
+        random(1, 9, Row), random(1, 9, Column),
+        NewNumberedCells is NumberedCells - 1,
+        \+ member([Row, Column], Cells),
+    random(1, 6, Value),
+    put_number(GameBoard, Row, Column, Value),
+    fill_board(GameBoard, NewNumberedCells, [[Row, Column]|Cells]).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                        Get Cell Value                                                     %
