@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1609600283 "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex" "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.pdf" "samplepaper" 1609600283
+["pdflatex"] 1609607671 "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex" "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.pdf" "samplepaper" 1609607672
   "C:/Users/diogo/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm0900.pk" 1609075775 10472 835018d5223ac3dcbfe9f45123c8df67 ""
   "C:/Users/diogo/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1602611170 10259086 3bc0d786e23405878807e12a8d87b104 ""
   "C:/Users/diogo/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1602671504 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
@@ -39,15 +39,15 @@
   "C:/Users/diogo/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1600952516 23704 02c466ff883953a445c97e55638005fc ""
   "C:/Users/diogo/AppData/Local/Programs/MiKTeX/tex/latex/oberdiek/aliascnt.sty" 1599150358 2652 813491e2bc95c1dafbb39cd7c54b380b ""
   "C:/Users/diogo/AppData/Local/Programs/MiKTeX/tex/latex/tools/multicol.sty" 1580644884 31532 04852e45d7c17cb384689d2f83b628d3 ""
-  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.aux" 1609600283 9 a94a2480d3289e625eea47cd1b285758 ""
-  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex" 1609600281 11636 512e5e210f55607c3bdc510dda82e025 ""
+  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.aux" 1609607672 2425 f98794fbe0f274af1048298ddcf36293 ""
+  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex" 1609607670 16333 8602a6482f235f7bd3cb14f2d35a2e67 ""
   "fig1.eps" 1608851402 357553 7e2b7e710693198613c8426973a2c3ce ""
   "llncs.cls" 1608851402 43467 b08ec23e994470d7d8fc268d245cf555 ""
-  "samplepaper.aux" 0 -1 0 "pdflatex"
-  "samplepaper.tex" 1609600281 11636 512e5e210f55607c3bdc510dda82e025 ""
+  "samplepaper.aux" 1609607672 2425 f98794fbe0f274af1048298ddcf36293 "pdflatex"
+  "samplepaper.tex" 1609607670 16333 8602a6482f235f7bd3cb14f2d35a2e67 ""
   (generated)
-  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.pdf"
-  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.log"
   "samplepaper.pdf"
+  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.pdf"
   "samplepaper.aux"
   "samplepaper.log"
+  "c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.log"

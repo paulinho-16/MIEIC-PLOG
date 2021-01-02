@@ -348,27 +348,6 @@ fill_board(GameBoard, NumberedCells, Cells, Size) :-
     fill_board(GameBoard, NewNumberedCells, [[Row, Column]|Cells], Size).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
-%                                                        Get Cell Value                                                     %
-%   Prototype:                                                                                                              %
-%       get_value(+Row, +Column, +CurrentBoard, -Value)                                                                     %
-%                                                                                                                           %
-%   Inputs:                                                                                                                 %
-%       Row -> The Row of the Cell which we want to know the value                                                          %
-%       Column -> The Column of the Cell which we want to know the value                                                    %
-%       CurrentBoard -> The state of the current board                                                                      %
-%                                                                                                                           %
-%   Outputs:                                                                                                                %
-%       Value -> The value of the Cell with row Row and column Column in the CurrentBoard. If the cell is not valid,        %
-%                return value off_limits                                                                                    %
-% ------------------------------------------------------------------------------------------------------------------------- %
-
-get_value(Row, Column, CurrentBoard, Value) :-
-    nth1(Row, CurrentBoard, RowList),
-    nth1(Column, RowList, Value), !.
-
-get_value(_, _, _, off_limits).
-
-% ------------------------------------------------------------------------------------------------------------------------- %
 %                                                     Replace Cell Value                                                    %
 %   Prototype:                                                                                                              %
 %       replace(+OriginalList, +Index, +Element, -NewList)                                                                  %

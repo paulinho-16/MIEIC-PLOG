@@ -32,7 +32,7 @@ display_board(Gamestate) :-
 
 character(empty, ' ').
 character(pawn, 'P').
-character(knight, 'H').
+character(knight, 'N').
 character(king, 'K').
 character(rook, 'R').
 character(bishop, 'B').
