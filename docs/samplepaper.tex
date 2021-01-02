@@ -14,53 +14,114 @@
 
 \begin{document}
 %
-\title{Contribution Title\thanks{Supported by organization x.}}
+\title{Chess-Num Puzzles Solver}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{First Author\inst{1}\orcidID{0000-1111-2222-3333} \and
-Second Author\inst{2,3}\orcidID{1111-2222-3333-4444} \and
-Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
+\author{Diogo Samuel Gonçalves Fernandes \and
+Paulo Jorge Salgado Marinho Ribeiro}
 %
-\authorrunning{F. Author et al.}
+%\authorrunning{F. Author et al.}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{Princeton University, Princeton NJ 08544, USA \and
-Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
-\email{lncs@springer.com}\\
-\url{http://www.springer.com/gp/computer-science/lncs} \and
-ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
-\email{\{abc,lncs\}@uni-heidelberg.de}}
+\institute{Faculdade de Engenharia da Universidade do Porto, Portugal, \\
+FEUP-PLOG, Turma 3MIEIC06, Grupo Chess-Num\textunderscore 2\\
+\email{\up201806250\@fe.up.pt}\\
+\email{\up201806505\@fe.up.pt}}
+%Grupo e turma
+%\url{$https://sigarra.up.pt/feup/pt/web_page.inicial$}
 %
-\maketitle              % typeset the header of the contribution
-%
+\maketitle
 \begin{abstract}
-The abstract should briefly summarize the contents of the paper in
-150--250 words.
+Este segundo projeto da unidade curricular Programação em Lógica (PLOG) consiste na resolução de problemas
+de otimização/decisão, recorrendo ao uso de restrições em Prolog. No caso do nosso grupo, o objetivo é resolver
+os puzzles do tipo "Chess-Num", no menor tempo possível, com recurso a restrições, através do uso da biblioteca clpfd do SICStus Prolog.
 
-\keywords{First keyword  \and Second keyword \and Another keyword.}
+\keywords{Programação em Lógica  \and Prolog \and Restrições \and clpfd \and SICStus \and Problemas de Otimização \and Problemas de Decisão.}
 \end{abstract}
-%
-%
-%
-\section{First Section}
-\subsection{A Subsection Sample}
-Please note that the first paragraph of a section or subsection is
-not indented. The first paragraph that follows a table, figure,
-equation etc. does not need an indent, either.
 
-Subsequent paragraphs, however, are indented.
+\section{Introdução}
+A Programação em Lógica com Restrições trata-se de uma classe de linguagens de programação, que combina a declaratividade característica da programação em lógica
+e a eficiência da resolução de restrições. As suas principais aplicações baseiam-se na resolução de problemas de pesquisa ou otimização combinatória, tal como problemas de escalonamento, geração de horários, alocação de recursos, gestão de produção, entre outros.
+Dada a sua distinção e eficiência, a Programação em Lógica com Restrições tem diversas aplicações industriais e comerciais na atualidade, destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis, e na Siemens, para verificação de circuitos.
+Neste trabalho, aplicaremos estas capacidades na resolução de puzzles Chess-Num, que consistem na colocação de uma peça de Xadrez de cada tipo (Peão, Torre, Bispo, Cavalo, Rainha, Rei) num tabuleiro com casas numeradas, de modo a que todas as casas numeradas sejam atacadas N vezes, sendo N o número apresentado nessas casas. 
+Alguns exemplos de puzzles deste tipo podem ser observados aqui: https://erich-friedman.github.io/puzzle/chessnum/
+Este relatório procura explicar a nossa abordagem do problema de forma aprofundada e organizada nos seguintes tópicos:
+
+ - Descrição do Problema, com explicação de todas as regras a cumprir
+ - Abordagem, onde explicaremos a nossa implementação do problema, com enumeração das variáveis de decisão e dos seus domínios
+ - Visualização da Solução, com exploração dos predicados que permitem a visualização do problema resolvido, e respetivas imagens exemplificativas
+ - Experiências e Resultados, onde faremos a análise dimensional do problema, para distintas quantidades de células numeradas, e  
+ - Conclusões e Trabalho Futuro, onde iremos debater as principais conclusões que retiramos deste projeto, com base nos resultados obtidos, e sugerir formas de melhorar o trabalho desenvolvido
+ - Referências, com enumeração das várias fontes bibliográficas que utilizamos para a procura de conhecimento
+ - Anexos, que contêm imagens explicativas de alguma secção do relatório, e imagens exemplificativas do programa em execução
+
+\section{Descrição do Problema}
+Um Puzzle envolvendo peças de xadrez. No tabuleiro vão existir casas numeradas. Cada uma destas casas vai ter de estar
+a ser atacada por cada uma das seis peças distintas existentes num tabuleiro de xadrez (Peão, Torre, Bispo, Cavalo, Rainha, Rei). As peças atacam como num jogo de xadrez normal.
+O peão ataca para cima e para o lado, o cavalo ataca em L, o bispo ataca todas as diagonais, a torre todas as verticais e horizontais. O rei ataca todas as casas à sua volta e a 
+rainha todas as diagonais, verticais e horizontais. É importante referir ainda que ao contrário do jogo de xadres é possível colocar os peões 
+na primeira e última linha. Não é possível colocar duas peças
+ no mesmo quadrado, nem num quadrado que tenha numeração.
+
+ 
+\section{Abordagem ao Problema}
+Descrever a modelação do problema como um PSR / Portugal
+
+\subsection{Variáveis de Decisão}
+    - PawnX
+    - PawnY
+    - KnightX
+    - KnightY
+    - KingX
+    - KingY
+    - RookX
+    - RookY
+    - BishopX
+    - BishopY
+    - QueenX
+    - QueenY
+
+    Estas variáveis de decisão são reunidas numa lista, Positions, que será depois utilizada ao efetuar o labeling.
+    Cada par destas variáveis corresponde à posição de uma dada peça no tabuleiro, sendo o primeiro elemento do par a linha onde a peça se encontra, e o segundo elemento a coluna.
+    Assim, as variáveis pertencem ao domínio [1, 8], que são os valores possíveis que a linha/coluna pode tomar num tabuleiro de Xadrez (8x8).
+    
+\subsection{Restrições}
+
+\section{Visualização da Solução}
+
+Para uma melhor compreensão das soluções encontradas, decidimos implementar duas formas de apresentação das soluções:
+ - Forma Escrita:
+    Apresenta-se no ecrã as posições de cada uma das seis peças, no formato [Linha, Coluna].
+    Isto é efetuado pelo predicado show\textunderscore results, que recebe a lista das posições das peças e o número da peça a que a próxima posição corresponde. Trata-se de um ciclo simples, e recorre ao predicado piece, que recebe o número da peça e retorna o respetivo nome.
+    Tanto a implementacão deste predicado como o seu funcionamento com o programa em execução podem ser visualizados nos anexos. (LINK IMAGENS)
+ - Tabuleiro:
+    É apresentado um tabuleiro com as células numeradas e com as seis peças já colocadas conforme a solução encontrada.
+    Isto é efetuado pelo predicado display\textunderscore solution, que chama o predicado add\textunderscore pieces, responsável por substituir os valores das células dos tabuleiros contidos em Positions, pela peça de Xadrez correspondente. De seguida, é chamado o predicado display\textunderscore board, que representa visualmente o tabuleiro já preenchido.
+    Da mesma forma, é apresentado o tabuleiro do problema (apenas com as células numeradas) antes de se iniciar a procura da solução.
+
+\section{Experiências e Resultados}
+\subsection{Análise Dimensional}
+Quantas mais casas numeradas existirem, mais lento é o programa
+\subsection{Estratégias de Pesquisa}
+
+\section{Conclusões e Trabalho Futuro}
+
+A realização deste trabalho permitiu a resolução de um problema através da utilização de restições lógicas na linguagem PROLOG, através da utilização do módulo CLPFD.
+Durante a realização do mesmo foram encontradas diversas dificuldades, nomeadamente na elaboração dos ataques para a torre a para o bispo, uma vez que se existir alguma peça no seu caminho esta só ataca até essa peça.
+
+O tempo aquando da execução num tabuleiro com um grande número de casas a ser atacadas (maior que dez) é bastante mais elevado do que a resolução de problemas numtabuleiro com 
+um menor número de casas a ser atacadas. Posteriormente poderemos aumentar a eficiência do programa neste caso, acrescentando novas restrições.
 
 \subsubsection{Sample Heading (Third Level)} Only two levels of
 headings should be numbered. Lower level headings remain unnumbered;
 they are formatted as run-in headings.
-
 \paragraph{Sample Heading (Fourth Level)}
 The contribution should contain no more than four levels of
-headings. Table~\ref{tab1} gives a summary of all heading levels.
+headings. Table \ref{tab1} gives a summary of all heading levels.
 
 \begin{table}
 \caption{Table captions should be placed above the

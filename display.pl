@@ -30,10 +30,14 @@ display_board(Gamestate) :-
 %       Symbol -> Symbol of the cell, to be presented on the screen                                                         %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-character(Var, ' ') :- var(Var).
-character(empty, 'E').
+character(empty, ' ').
 character(pawn, 'P').
-character(N, N).    
+character(knight, 'H').
+character(king, 'K').
+character(rook, 'R').
+character(bishop, 'B').
+character(queen, 'Q').
+character(N, N).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                   Prints a line of numbers, enumerating the columns                                       %

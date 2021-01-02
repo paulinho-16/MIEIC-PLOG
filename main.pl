@@ -1,89 +1,68 @@
 :- use_module(library(lists)).
 :- use_module(library(clpfd)).
+:- use_module(library(random)).
 
 :- consult('board.pl').
 :- consult('logic.pl').
 :- consult('display.pl').
+:- consult('menus.pl').
 
-testar(Positions) :-
-    %Pieces = [Pawn],
-    %problemOne(GameBoard),
-    %problemPawn(GameBoard),
-    problemFour(GameBoard),
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Solve Problem                                                                %
+%   Prototype:                                                                                                              %
+%       solve(-Positions)                                                                                                   %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Positions -> The positions of the chess pieces, after solving a Chess-Num problem, chosen by the user               %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
-    display_board(GameBoard),
-    %cell_attacks(GameBoard, 1-3, TimesAtacked),
+solve(Positions) :-
+    display_menu,
 
-    getCellsNumber(GameBoard, 1-1, NotSortedCells), !, 
-    sort(NotSortedCells, Cells),
-    write('Cells: '), write(Cells), nl,
+    input(N, 0, 12, 'Problem to solve? ', problems),
+    N \= exit,
 
-    %Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
+    predicate(N, PredicateName, Problem),
+    size_board(Problem, Size),
+    Predicate =.. [PredicateName, GameBoard, Size],
+    Predicate,
+
+    nl, nl, write('\t\t'), write(Problem),
+    nl, nl, display_board(GameBoard),
+
+    getCellsNumber(GameBoard, 1-1, Cells, Size), !,
+    nl, write('Cells: '), write(Cells), nl,
+
     Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
     domain(Positions, 1, 8),
 
-    /*
-    (PawnX #\= 2) #/\
-    (KnightX #\= 2)  #/\
-    (KingX #\= 2)  #/\
-    (RookX #\= 2)  #/\
-    (BishopX #\= 2)  #/\
-    (QueenX #\= 2)  #/\
+    not_overlapping(Positions),
+         
+    maplist(cell_attacks(Positions), Cells),
 
-    (PawnX #\= 7)  #/\
-    (KnightX #\= 7)  #/\
-    (KingX #\= 7)  #/\
-    (RookX #\= 7)  #/\
-    (BishopX #\= 7) #/\
-    (QueenX #\= 7), 
-*/
-
-    (((PawnX #\= KnightX) #\/ (PawnY #\= KnightY)) #/\
-    ((PawnX #\= KingX) #\/ (PawnY #\= KingY)) #/\
-    ((PawnX #\= RookX) #\/ (PawnY #\= RookY)) #/\
-    ((PawnX #\= QueenX) #\/ (PawnY #\= QueenY)) #/\
-    ((PawnX #\= BishopX) #\/ (PawnY #\= BishopY)) #/\
-
-    ((KingX #\= KnightX) #\/ (KingY #\= KnightY)) #/\
-    ((KingX #\= RookX) #\/ (KingY #\= RookY)) #/\
-    ((KingX #\= QueenX) #\/ (KingY #\= QueenY)) #/\
-    ((KingX #\= BishopX) #\/ (KingY #\= BishopY)) #/\
-
-    ((KnightX #\= RookX) #\/ (KnightY #\= RookY)) #/\
-    ((KnightX #\= BishopX) #\/ (KnightY #\= BishopY)) #/\
-    ((KnightX #\= QueenX) #\/ (KnightY #\= QueenY)) #/\
-
-    ((RookX #\= BishopX) #\/ (RookY #\= BishopY)) #/\
-    ((RookX #\= QueenX) #\/ (RookY #\= QueenY)) #/\
-
-    ((QueenX #\= BishopX) #\/ (QueenY #\= BishopY))),
-    %not_overlapping(Positions),
-
-    %attack_all_with_number(GameBoard, Cells, Positions),       % [1-1, 1-3]cell_attacks(GameBoard, Row-Column-Number)
-    
-     
-    maplist(cell_attacks(GameBoard, Positions), Cells),
-
-    labeling([], Positions),
+    labeling([anti_first_fail, bisect], Positions),
 
     get_value(PawnX, PawnY, GameBoard, empty),
-    %get_value(KnightX, KnightY, GameBoard, empty),
-    %get_value(KingX, KingY, GameBoard, empty),
+    get_value(KnightX, KnightY, GameBoard, empty),
+    get_value(KingX, KingY, GameBoard, empty),
     get_value(RookX, RookY, GameBoard, empty),
-    %get_value(BishopX, BishopY, GameBoard, empty),
-    %get_value(QueenX, QueenY, GameBoard, empty),
+    get_value(BishopX, BishopY, GameBoard, empty),
+    get_value(QueenX, QueenY, GameBoard, empty),
 
-    show_results(Positions, 1).     % Solução única, ou pode haver mais do que uma???
+    nl, show_results(Positions, 1), nl,
+    display_solution(GameBoard, Positions).
 
-not_present(_, []).
-not_present(PX-PY, [X, Y|Positions]) :-
-    ((PX #\= X) #\/ (PY #\= Y)),
-    not_present(PX-PY, Positions).
-
-not_overlapping([]).
-not_overlapping([PX, PY|Positions]) :-
-    not_present(PX-PY, Positions),
-    not_overlapping(Positions).
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Piece                                                                        %
+%   Prototype:                                                                                                              %
+%       piece(+Number, -Name)                                                                                               %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Number -> The number of the chess piece                                                                             %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Name -> The name of the chess piece                                                                                 %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
 piece(1, 'Pawn').
 piece(2, 'Knight').
@@ -91,6 +70,19 @@ piece(3, 'King').
 piece(4, 'Rook').
 piece(5, 'Bishop').
 piece(6, 'Queen').
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              Show Results                                                                 %
+%   Prototype:                                                                                                              %
+%       show_results(+Positions, +N)                                                                                        %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Positions -> The positions of the chess pieces, in the format [Row, Column]                                         %
+%       N -> The number of the next chess piece to print on the screen                                                      %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Prints the chess pieces' positions to the screen, showing the solution for the Chess-Num problem                    %
+% ------------------------------------------------------------------------------------------------------------------------- %
 
 show_results([], _).
 show_results([X, Y|Positions], N) :-
