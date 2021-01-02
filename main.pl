@@ -7,6 +7,14 @@
 :- consult('display.pl').
 :- consult('menus.pl').
 
+reset_timer:-
+    statistics(total_runtime, _).
+
+print_time(Msg):-
+    statistics(total_runtime,[_,T]),
+    TS is ((T//10)*10)/1000, 
+    nl, write(Msg), write(TS), write('s'), nl, nl.
+
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                              Solve Problem                                                                %
 %   Prototype:                                                                                                              %
@@ -34,13 +42,17 @@ solve(Positions) :-
     nl, write('Cells: '), write(Cells), nl,
 
     Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
+    reset_timer,
     domain(Positions, 1, 8),
-
+    
     not_overlapping(Positions),
          
     maplist(cell_attacks(Positions), Cells),
-
+    print_time('PostingConstraints: '),
     labeling([anti_first_fail, bisect], Positions),
+    print_time('Labeling Time: '),
+    fd_statistics,
+    statistics,
 
     get_value(PawnX, PawnY, GameBoard, empty),
     get_value(KnightX, KnightY, GameBoard, empty),
