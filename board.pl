@@ -27,7 +27,10 @@ predicate(12, randomProblem, 'Random Problem').
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                   Problem Board                                                           %
 %   Prototype:                                                                                                              %
-%       problem(-Board)                                                                                                     %
+%       problem(-Board, +Dimension)                                                                                         %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Dimension -> The dimension of the board                                                                             %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Board -> The board of the problem requested (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)                                     %
@@ -42,7 +45,7 @@ problemOne([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty]
-]).
+], 8).
 
 problemTwo([
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -53,7 +56,7 @@ problemTwo([
     [0    , empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     4, empty, empty, empty, empty, empty]
-]).
+], 8).
 
 problemThree([
     [     1,     0, empty, empty, empty,     0, empty,    1],
@@ -64,7 +67,7 @@ problemThree([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty,     0, empty, empty],
     [empty, empty, empty, empty, empty,     0, empty,     1]
-]).
+], 8).
 
 problemFour([
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -75,7 +78,7 @@ problemFour([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty,     3, empty, empty, empty,     0],
     [empty, empty, empty, empty, empty, empty, empty, empty]
-    ]).
+], 8).
 
 problemFive([
     [empty,     0,     0, empty, empty,     0, empty, empty],
@@ -86,7 +89,7 @@ problemFive([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty,     0],
     [empty, empty,     0, empty, empty,     0,     0,     0]
-    ]).
+], 8).
 
 problemSix([
     [    0, empty, empty, empty, empty, empty, empty,     0],
@@ -97,7 +100,7 @@ problemSix([
     [empty, empty,     1,     1,     1,     1, empty, empty],
     [    0, empty, empty, empty, empty, empty, empty, empty],
     [    0, empty, empty, empty, empty, empty,     0, empty]
-    ]).
+], 8).
 
 problemSeven([
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -108,7 +111,7 @@ problemSeven([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [    1,     1,     1,     2,     2,     1,     1,     2],
     [empty, empty, empty, empty, empty,     2,     1, empty]
-    ]).
+], 8).
 
 problemEight([
     [    0, empty, empty, empty, empty, empty, empty, empty],
@@ -119,7 +122,7 @@ problemEight([
     [empty, empty, empty, empty,     0,     0, empty, empty],
     [empty, empty,     2, empty, empty,     0,     0, empty],
     [empty, empty, empty, empty, empty, empty,     0,     0]
-    ]).
+], 8).
 
 problemNine([
     [empty, empty,     0,     0, empty, empty, empty, empty],
@@ -130,7 +133,7 @@ problemNine([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty, empty, empty,     0, empty]
-    ]).
+], 8).
 
 problemTen([
     [    0,     0,     0,     0,     0,     0,     0,     0],
@@ -141,7 +144,7 @@ problemTen([
     [    1, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty,     2, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty,     3, empty, empty, empty]
-    ]).
+], 8).
 
 problemEleven([
     [empty, empty, empty, empty, empty, empty, empty, empty],
@@ -152,7 +155,7 @@ problemEleven([
     [empty, empty, empty, empty, empty, empty, empty, empty],
     [empty, empty, empty, empty,     3, empty, empty, empty],
     [empty, empty,     1, empty, empty, empty, empty, empty]
-    ]).
+], 8).
 
 % -------------------------------------------------------------------- Problems Solutions --------------------------------------------------------------------
 
@@ -247,36 +250,57 @@ problemEleven([
 % ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 % ------------------------------------------------------------------------------------------------------------------------- %
+%                                                   Board Size                                                              %
+%   Prototype:                                                                                                              %
+%       size_board(+Problem, -Size)                                                                                         %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Problem -> The name of the problem chosen by the user                                                               %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Size -> The size of the board                                                                                       %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+size_board('Random Problem', Size) :-
+    nl, write('Dimension of board? '), nl, nl,
+    input(Size, 6, 12, 'Dimension of board? (between 6 and 12) ', dimensions).
+size_board(_, 8).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
 %                                                   Random Problem Board                                                    %
 %   Prototype:                                                                                                              %
-%       randomProblem(-Board)                                                                                               %
+%       randomProblem(-Board, +Size)                                                                                        %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Size -> The size of the board                                                                                       %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Board -> A random board, with numbered cells generated randomly                                                     %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-randomProblem(GameBoard) :-
-    length(GameBoard, 8),
-    build_board(GameBoard),
+randomProblem(GameBoard, Size) :-
+    length(GameBoard, Size),
+    build_board(GameBoard, Size),
     random(3, 8, NumberedCells), !,
-    fill_board(GameBoard, NumberedCells, []).
+    fill_board(GameBoard, NumberedCells, [], Size).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                          Build Board                                                                      %
 %   Prototype:                                                                                                              %
-%       build_board(+Board)                                                                                                 %
+%       build_board(+Board, +Size)                                                                                          %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
 %       Board -> The board before defining the size of its sublists                                                         %
+%       Size -> The size of the board                                                                                       %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Defines the length of the sublists containing the board Board                                                       %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-build_board([]).
-build_board([Row|GameBoard]) :-
-    length(Row, 8),
-    build_board(GameBoard).
+build_board([], _).
+build_board([Row|GameBoard], Size) :-
+    length(Row, Size),
+    build_board(GameBoard, Size).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                          Put Number                                                                       %
@@ -300,26 +324,28 @@ put_number(GameBoard, Row, Column, Elem) :-
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                        Fill Board                                                         %
 %   Prototype:                                                                                                              %
-%       fill_board(+Board, +NumberedCells, +Cells)                                                                          %
+%       fill_board(+Board, +NumberedCells, +Cells, +Size)                                                                   %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
 %       Board -> The board to fill with numbered cells                                                                      %
 %       NumberedCells -> The number of numbered cells we want the board Board to have                                       %
 %       Cells -> The numbered cells of the board in the format [Row, Column]. Starts empty ([])                             %
+%       Size -> The size of the board                                                                                       %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Value -> The value of the Cell with row Row and column Column in the CurrentBoard. If the cell is not valid,        %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-fill_board(_, 0, _).
-fill_board(GameBoard, NumberedCells, Cells) :-
+fill_board(_, 0, _, _).
+fill_board(GameBoard, NumberedCells, Cells, Size) :-
+    SizePlus is Size + 1,
     repeat,
-        random(1, 9, Row), random(1, 9, Column),
+        random(1, SizePlus, Row), random(1, SizePlus, Column),
         NewNumberedCells is NumberedCells - 1,
         \+ member([Row, Column], Cells),
     random(1, 6, Value),
     put_number(GameBoard, Row, Column, Value),
-    fill_board(GameBoard, NewNumberedCells, [[Row, Column]|Cells]).
+    fill_board(GameBoard, NewNumberedCells, [[Row, Column]|Cells], Size).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                        Get Cell Value                                                     %

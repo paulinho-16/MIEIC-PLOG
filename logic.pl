@@ -1,60 +1,46 @@
 % ------------------------------------------------------------------------------------------------------------------------- %
-%                                                       Inside                                                              %
-%   Prototype:                                                                                                              %
-%       inside(+X)                                                                                                          %
-%                                                                                                                           %
-%   Inputs:                                                                                                                 %
-%       X -> The number that we want to check if it's between the possible row/column values                                %
-%                                                                                                                           %
-%   Outputs:                                                                                                                %
-%       Checks if the number X is between the possible row/column values (min: 1, max: 8)                                   %
-% ------------------------------------------------------------------------------------------------------------------------- %
-
-inside(X) :- 
-    1 #=< X, 
-    X #=< 8.
-
-% ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Get next cell                                                       %
 %   Prototype:                                                                                                              %
-%       get_next_cell(+Row-Column, -NextRow-NextColumn)                                                                     %
+%       get_next_cell(+Row-Column, -NextRow-NextColumn, +Size)                                                              %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
 %       Row-Column -> The row and column of the current cell we're analysing                                                %
+%       Size -> The size of the board                                                                                       %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       NextRow-NextColumn -> The row and column of the next cell we'll analyse                                             %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-get_next_cell(Row-Column, NextRow-1) :-
-    Column mod 8 =:= 0, !,
-    NextRow is Row + Column // 8.
-get_next_cell(Row-Column, NextRow-NextColumn) :-
-    NextRow is Row + Column // 8,
+get_next_cell(Row-Column, NextRow-1, Size) :-
+    Column mod Size =:= 0, !,
+    NextRow is Row + Column // Size.
+get_next_cell(Row-Column, NextRow-NextColumn, Size) :-
+    NextRow is Row + Column // Size,
     NextColumn is Column + 1.
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Get Numbered Cells                                                  %
 %   Prototype:                                                                                                              %
-%       getCellsNumber(+Board, +Row-Column, -Cells)                                                                         %
+%       getCellsNumber(+Board, +Row-Column, -Cells, +Size)                                                                  %
 %                                                                                                                           %
 %   Inputs:                                                                                                                 %
 %       Board -> The board of a certain problem, with the numbered cells                                                    %
 %       Row-Column -> The row and column of the current cell we're analysing. Starts with values 1-1                        %
+%       Size -> The size of the board                                                                                       %
 %                                                                                                                           %
 %   Outputs:                                                                                                                %
 %       Cells -> The numbered cells, in the format [Row, Column]                                                            %
 % ------------------------------------------------------------------------------------------------------------------------- %
 
-getCellsNumber(_, 9-1, []).
-getCellsNumber(GameBoard, Row-Column, [Value-Row-Column|Cells]) :-
+getCellsNumber(_, PlusSize-1, [], Size) :- PlusSize =:= Size + 1.
+getCellsNumber(GameBoard, Row-Column, [Value-Row-Column|Cells], Size) :-
     get_value(Row, Column, GameBoard, Value),
     number(Value), !,                       
-    get_next_cell(Row-Column, NextRow-NextColumn),
-    getCellsNumber(GameBoard, NextRow-NextColumn, Cells).
-getCellsNumber(GameBoard, Row-Column, Cells) :-
-    get_next_cell(Row-Column, NextRow-NextColumn),
-    getCellsNumber(GameBoard, NextRow-NextColumn, Cells).
+    get_next_cell(Row-Column, NextRow-NextColumn, Size),
+    getCellsNumber(GameBoard, NextRow-NextColumn, Cells, Size).
+getCellsNumber(GameBoard, Row-Column, Cells, Size) :-
+    get_next_cell(Row-Column, NextRow-NextColumn, Size),
+    getCellsNumber(GameBoard, NextRow-NextColumn, Cells, Size).
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                       Not Present                                                         %
@@ -105,10 +91,15 @@ not_overlapping([PX, PY|Positions]) :-
 
 cell_attacks([PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], Number-Row-Column) :-
     pawn([PawnX, PawnY], [Row, Column], PawnAttack),
+    PawnAttack #=< Number,
     knight([KnightX, KnightY], [Row, Column], KnightAttack),
+    PawnAttack + KnightAttack #=< Number,
     king([KingX, KingY], [Row, Column], KingAttack),
+    PawnAttack + KnightAttack + KingAttack #=< Number,
     rook([RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack),
+    PawnAttack + KnightAttack + KingAttack + RookAttack #=< Number,
     bishop([BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack),
+    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack #=< Number,
     queen([QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
     PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
 

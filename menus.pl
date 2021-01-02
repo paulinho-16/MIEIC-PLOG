@@ -147,3 +147,4 @@ check_option(_, N, FirstOpt, LastOpt, String, Type) :-
 
 option(0, exit, problems).
 option(Problem, Problem, problems).
+option(Dimensions, Dimensions, dimensions).

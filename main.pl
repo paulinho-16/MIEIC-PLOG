@@ -23,13 +23,14 @@ solve(Positions) :-
     N \= exit,
 
     predicate(N, PredicateName, Problem),
-    Predicate =.. [PredicateName, GameBoard],
+    size_board(Problem, Size),
+    Predicate =.. [PredicateName, GameBoard, Size],
     Predicate,
 
     nl, nl, write('\t\t'), write(Problem),
     nl, nl, display_board(GameBoard),
 
-    getCellsNumber(GameBoard, 1-1, Cells), !,
+    getCellsNumber(GameBoard, 1-1, Cells, Size), !,
     nl, write('Cells: '), write(Cells), nl,
 
     Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
@@ -39,7 +40,7 @@ solve(Positions) :-
          
     maplist(cell_attacks(Positions), Cells),
 
-    labeling([], Positions),
+    labeling([anti_first_fail, bisect], Positions),
 
     get_value(PawnX, PawnY, GameBoard, empty),
     get_value(KnightX, KnightY, GameBoard, empty),
