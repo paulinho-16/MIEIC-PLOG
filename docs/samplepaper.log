@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.13)  3 JAN 2021 18:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.13)  3 JAN 2021 19:00
 entering extended mode
 **c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex
 (c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex
@@ -255,17 +255,12 @@ Overfull \hbox (0.2461pt too wide) in paragraph at lines 89--90
  []
 
 [2] [3]
-Overfull \hbox (5.0882pt too wide) in paragraph at lines 154--158
+Overfull \hbox (5.0882pt too wide) in paragraph at lines 149--153
 \OT1/cmr/m/n/10 pecas, no for-mato [Linha, Col-una]. Isto e efe-t-u-ado pelo pred-i-cado show[]results,
  []
 
-[4]
-Overfull \hbox (3.83202pt too wide) in paragraph at lines 173--176
-[]\OT1/cmr/m/n/10 FIGURA ANEXOS []E possvel ver-i-ficar os re-sul-ta-dos para os testes do primeiro
- []
-
-[5] [6]
-Underfull \hbox (badness 1062) in paragraph at lines 220--222
+[4] [5] [6]
+Underfull \hbox (badness 1062) in paragraph at lines 212--214
 []\OT1/cmr/m/n/9 Chess-Num Puz-zles, https://erich-friedman.github.io/puzzle/chessnum/. []Ultimo
  []
 
@@ -273,22 +268,22 @@ Underfull \hbox (badness 1062) in paragraph at lines 220--222
 <./images/tamanhotabuleiro.png, id=34, 481.8pt x 290.08376pt>
 File: ./images/tamanhotabuleiro.png Graphic file (type png)
 <use ./images/tamanhotabuleiro.png>
-Package pdftex.def Info: ./images/tamanhotabuleiro.png  used on input line 234.
+Package pdftex.def Info: ./images/tamanhotabuleiro.png  used on input line 226.
 (pdftex.def)             Requested size: 240.8994pt x 145.04152pt.
 <./images/casasnumeradas.png, id=36, 481.8pt x 290.08376pt>
 File: ./images/casasnumeradas.png Graphic file (type png)
 <use ./images/casasnumeradas.png>
-Package pdftex.def Info: ./images/casasnumeradas.png  used on input line 240.
+Package pdftex.def Info: ./images/casasnumeradas.png  used on input line 232.
 (pdftex.def)             Requested size: 240.8994pt x 145.04152pt.
 <./images/solution.png, id=37, 584.1825pt x 406.51875pt>
 File: ./images/solution.png Graphic file (type png)
 <use ./images/solution.png>
-Package pdftex.def Info: ./images/solution.png  used on input line 246.
+Package pdftex.def Info: ./images/solution.png  used on input line 238.
 (pdftex.def)             Requested size: 292.09053pt x 203.25887pt.
 <./images/text.png, id=38, 227.85126pt x 123.46124pt>
 File: ./images/text.png Graphic file (type png)
 <use ./images/text.png>
-Package pdftex.def Info: ./images/text.png  used on input line 252.
+Package pdftex.def Info: ./images/text.png  used on input line 244.
 (pdftex.def)             Requested size: 227.8507pt x 123.46092pt.
  [8 <./images/tamanhotabuleiro.png> <./images/casasnumeradas.png>] [9 <./images/solution.png> <./images/text.png>] [10] [11] [12] [13] (c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.aux)
 
@@ -302,9 +297,9 @@ Here is how much of TeX's memory you used:
  20032 multiletter control sequences out of 15000+200000
  538408 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,7n,66p,544b,1147s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,7n,66p,587b,1147s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\diogo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.pdf (13 pages, 185351 bytes).
+Output written on c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.pdf (13 pages, 186201 bytes).
 PDF statistics:
  95 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
