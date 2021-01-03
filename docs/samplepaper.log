@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.13)  2 JAN 2021 15:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.13)  3 JAN 2021 18:29
 entering extended mode
 **c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex
 (c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex
@@ -162,187 +162,151 @@ File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen161
 \Gin@req@width=\dimen162
+) (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count279
+\lst@gtempboxa=\box95
+\lst@token=\toks20
+\lst@length=\count280
+\lst@currlwidth=\dimen163
+\lst@column=\count281
+\lst@pos=\count282
+\lst@lostspace=\dimen164
+\lst@width=\dimen165
+\lst@newlines=\count283
+\lst@lineno=\count284
+\lst@maxwidth=\dimen166
+ (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count285
+\lst@skipnumbers=\count286
+\lst@framebox=\box96
+) (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
+Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
+ (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+) (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
-\l__kernel_color_stack_int=\count279
-\l__pdf_internal_box=\box95
-) (c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.aux)
+\l__kernel_color_stack_int=\count287
+\l__pdf_internal_box=\box97
+) (c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.aux
+
+LaTeX Warning: Label `fig2' multiply defined.
+
+
+LaTeX Warning: Label `fig2' multiply defined.
+
+)
 \openout1 = `samplepaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
  (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count280
-\scratchdimen=\dimen163
-\scratchbox=\box96
-\nofMPsegments=\count281
-\nofMParguments=\count282
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count283
-\MPscratchDim=\dimen164
-\MPnumerator=\count284
-\makeMPintoPDFobject=\count285
-\everyMPtoPDFconversion=\toks21
+\scratchcounter=\count288
+\scratchdimen=\dimen167
+\scratchbox=\box98
+\nofMPsegments=\count289
+\nofMParguments=\count290
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count291
+\MPscratchDim=\dimen168
+\MPnumerator=\count292
+\makeMPintoPDFobject=\count293
+\everyMPtoPDFconversion=\toks22
 ) (C:\Users\diogo\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 )
+\c@lstlisting=\count294
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 37.
+(Font)              <7> on input line 56.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 37.
+(Font)              <5> on input line 56.
 
-c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex:37: Undefined control sequence.
-<argument> \up 
-               201806250\@fe.up.pt
-l.37 \maketitle
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex:37: Undefined control sequence.
-<argument> \up 
-               201806505\@fe.up.pt
-l.37 \maketitle
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex:37: Undefined control sequence.
-<argument> \up 
-               201806250\@fe.up.pt
-l.37 \maketitle
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/samplepaper.tex:37: Undefined control sequence.
-<argument> \up 
-               201806505\@fe.up.pt
-l.37 \maketitle
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Names of authors too long for running head. Please supply
-a shorter form with \authorrunning prior to \maketitle
-
-Overfull \hbox (3.46223pt too wide) in paragraph at lines 39--42
-\OT1/cmr/m/n/9 Logica (PLOG) con-siste na res-oluc~ao de prob-le-mas de otimizac~ao/decis~ao,
+Overfull \hbox (4.40474pt too wide) in paragraph at lines 69--71
+[]\OT1/cmr/m/n/10 As suas prin-ci-pais aplicac~oes baseiam-se na res-oluc~ao de prob-le-mas de pesquisa
  []
 
 [1
 
-{C:/Users/diogo/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2]
+{C:/Users/diogo/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+Overfull \hbox (0.2461pt too wide) in paragraph at lines 89--90
+[]\OT1/cmr/bx/n/10 Refer^encias\OT1/cmr/m/n/10 : com enu-merac~ao das varias fontes bib-li-ograficas que uti-lizamos
+ []
 
-LaTeX Warning: Reference `tab1' on page 3 undefined on input line 124.
+[2] [3]
+Overfull \hbox (5.0882pt too wide) in paragraph at lines 154--158
+\OT1/cmr/m/n/10 pecas, no for-mato [Linha, Col-una]. Isto e efe-t-u-ado pelo pred-i-cado show[]results,
+ []
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 129.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 129.
+[4]
+Overfull \hbox (3.83202pt too wide) in paragraph at lines 173--176
+[]\OT1/cmr/m/n/10 FIGURA ANEXOS []E possvel ver-i-ficar os re-sul-ta-dos para os testes do primeiro
+ []
 
-LaTeX Warning: Reference `fig1' on page 3 undefined on input line 150.
+[5] [6]
+Underfull \hbox (badness 1062) in paragraph at lines 220--222
+[]\OT1/cmr/m/n/9 Chess-Num Puz-zles, https://erich-friedman.github.io/puzzle/chessnum/. []Ultimo
+ []
 
-Package epstopdf Info: Source file: <fig1.eps>
-(epstopdf)                    date: 2020-12-24 23:10:02
-(epstopdf)                    size: 357553 bytes
-(epstopdf)             Output file: <fig1-eps-converted-to.pdf>
-(epstopdf)                    date: 2021-01-01 18:42:52
-(epstopdf)                    size: 36490 bytes
-(epstopdf)             Command: <epstopdf --outfile=fig1-eps-converted-to.pdf fig1.eps>
-(epstopdf)             \includegraphics on input line 153.
-Package epstopdf Info: Output file is already uptodate.
+[7]
+<./images/tamanhotabuleiro.png, id=34, 481.8pt x 290.08376pt>
+File: ./images/tamanhotabuleiro.png Graphic file (type png)
+<use ./images/tamanhotabuleiro.png>
+Package pdftex.def Info: ./images/tamanhotabuleiro.png  used on input line 234.
+(pdftex.def)             Requested size: 240.8994pt x 145.04152pt.
+<./images/casasnumeradas.png, id=36, 481.8pt x 290.08376pt>
+File: ./images/casasnumeradas.png Graphic file (type png)
+<use ./images/casasnumeradas.png>
+Package pdftex.def Info: ./images/casasnumeradas.png  used on input line 240.
+(pdftex.def)             Requested size: 240.8994pt x 145.04152pt.
+<./images/solution.png, id=37, 584.1825pt x 406.51875pt>
+File: ./images/solution.png Graphic file (type png)
+<use ./images/solution.png>
+Package pdftex.def Info: ./images/solution.png  used on input line 246.
+(pdftex.def)             Requested size: 292.09053pt x 203.25887pt.
+<./images/text.png, id=38, 227.85126pt x 123.46124pt>
+File: ./images/text.png Graphic file (type png)
+<use ./images/text.png>
+Package pdftex.def Info: ./images/text.png  used on input line 252.
+(pdftex.def)             Requested size: 227.8507pt x 123.46092pt.
+ [8 <./images/tamanhotabuleiro.png> <./images/casasnumeradas.png>] [9 <./images/solution.png> <./images/text.png>] [10] [11] [12] [13] (c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.aux)
 
-
-pdfTeX warning: pdflatex (file c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/fig1-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<fig1-eps-converted-to.pdf, id=15, 345.29pt x 142.5325pt>
-File: fig1-eps-converted-to.pdf Graphic file (type pdf)
-<use fig1-eps-converted-to.pdf>
-Package pdftex.def Info: fig1-eps-converted-to.pdf  used on input line 153.
-(pdftex.def)             Requested size: 347.12354pt x 143.29115pt.
-[3]
-
-LaTeX Warning: Citation `ref_article1' on page 4 undefined on input line 176.
-
-
-LaTeX Warning: Citation `ref_lncs1' on page 4 undefined on input line 176.
-
-
-LaTeX Warning: Citation `ref_book1' on page 4 undefined on input line 177.
-
-
-LaTeX Warning: Citation `ref_proc1' on page 4 undefined on input line 177.
-
-
-LaTeX Warning: Citation `ref_url1' on page 4 undefined on input line 178.
-
-
-LaTeX Warning: Citation `ref_article1' on page 4 undefined on input line 179.
-
-
-LaTeX Warning: Citation `ref_lncs1' on page 4 undefined on input line 179.
-
-
-LaTeX Warning: Citation `ref_book1' on page 4 undefined on input line 179.
-
-
-LaTeX Warning: Citation `ref_article1' on page 4 undefined on input line 180.
-
-
-LaTeX Warning: Citation `ref_book1' on page 4 undefined on input line 180.
-
-
-LaTeX Warning: Citation `ref_proc1' on page 4 undefined on input line 180.
-
-
-LaTeX Warning: Citation `ref_url1' on page 4 undefined on input line 180.
-
-[4 <c:/Users/diogo/Documents/GitHub/plog-num-chess/docs/fig1-eps-converted-to.pdf>] [5] (c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 1651 strings out of 480236
- 24393 string characters out of 2880557
- 305836 words of memory out of 3000000
- 18229 multiletter control sequences out of 15000+200000
- 539932 words of font info for 45 fonts, out of 3000000 for 9000
+ 3471 strings out of 480236
+ 48641 string characters out of 2880557
+ 678118 words of memory out of 3000000
+ 20032 multiletter control sequences out of 15000+200000
+ 538408 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,8n,66p,453b,234s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,7n,66p,544b,1147s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\diogo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/diogo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.pdf (5 pages, 182499 bytes).
+Output written on c:/Users\diogo\Documents\GitHub\plog-num-chess\docs\samplepaper.pdf (13 pages, 185351 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
+ 95 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

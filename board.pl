@@ -1,4 +1,4 @@
-% ------------------------------------------------------------------------------------------------------------------------- %
+ ------------------------------------------------------------------------------------------------------------------------- %
 %                                          Predicate Prototype and Name                                                     %
 %   Prototype:                                                                                                              %
 %       predicate(+Problem, -Prototype, -Name)                                                                              %
@@ -183,7 +183,7 @@ problemEleven([
     BishopX #= 3, BishopY #= 8,
     QueenX #= 2, QueenY #= 8,*/
 
-    % ProblemFour Solution: (Time Taken: 2 sec)
+    % ProblemFour Solution: (Time Taken: 6 sec)
     /*PawnX #= 2, PawnY #= 2,
     KnightX #= 4, KnightY #= 7,
     KingX #= 7, KingY #= 8,
@@ -191,7 +191,7 @@ problemEleven([
     BishopX #= 3, BishopY #= 8,
     QueenX #= 2, QueenY #= 8,*/
 
-    % ProblemFive Solution: Works, but takes a lot of time...
+    % ProblemFive Solution: (Time Taken: 1 hour)
     /*PawnX #= 6, PawnY #= 5,
     KnightX #= 4, KnightY #= 8,
     KingX #= 6, KingY #= 6,
@@ -223,7 +223,7 @@ problemEleven([
     BishopX #= 7, BishopY #= 1,
     QueenX #= 8, QueenY #= 1,*/
 
-    % ProblemNine Solution: Works, but takes a lot of time...
+    % ProblemNine Solution: (Time Taken: 43 sec)
     /*PawnX #= 6, PawnY #= 4,
     KnightX #= 3, KnightY #= 1,
     KingX #= 4, KingY #= 4,
@@ -231,7 +231,7 @@ problemEleven([
     BishopX #= 4, BishopY #= 2,
     QueenX #= 5, QueenY #= 4,*/
 
-    % ProblemTen Solution: Works, but takes a lot of time...
+    % ProblemTen Solution: (Time Taken: 10 min)
     /*PawnX #= 3, PawnY #= 6,
     KnightX #= 4, KnightY #= 7,
     KingX #= 3, KingY #= 3,
@@ -239,7 +239,7 @@ problemEleven([
     BishopX #= 7, BishopY #= 6,
     QueenX #= 6, QueenY #= 3,*/
 
-    % ProblemEleven Solution: Works, but takes a lot of time...
+    % ProblemEleven Solution: (Time Taken: 6 sec)
     /*PawnX #= 6, PawnY #= 1,
     KnightX #= 1, KnightY #= 5,
     KingX #= 6, KingY #= 6,
@@ -401,7 +401,8 @@ replace(L, _, _, L).
 
 display_solution(GameBoard, Positions) :-
     add_pieces(GameBoard, Positions, GameBoardPieces),
-    display_board(GameBoardPieces).
+    display_board(GameBoardPieces), nl,
+    write('P - Pawn, N - Knight, K - King, R - Rook, B - Bishop, Q - Queen'), nl, nl.
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                                     Add Pieces                                                            %

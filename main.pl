@@ -7,6 +7,25 @@
 :- consult('display.pl').
 :- consult('menus.pl').
 
+/*reset_timer:-
+    statistics(total_runtime, _).
+
+print_time(Msg):-
+    statistics(total_runtime,[_,T]),
+    TS is ((T//10)*10)/1000, 
+    nl, write(Msg), write(TS), write('s'), nl, nl.*/
+
+only_empty([], _).
+only_empty([_-X-Y | Cells], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]) :-
+    (PawnX #\= X #\/ PawnY #\= Y) #/\
+    (KnightX #\= X #\/ KnightY #\= Y) #/\
+    (KingX #\= X #\/ KingY #\= Y) #/\
+    (RookX #\= X #\/ RookY #\= Y) #/\
+    (BishopX #\= X #\/ BishopY #\= Y) #/\
+    (QueenX #\= X #\/ QueenY #\= Y),
+    only_empty(Cells, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]).
+
+
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                              Solve Problem                                                                %
 %   Prototype:                                                                                                              %
@@ -33,24 +52,23 @@ solve(Positions) :-
     getCellsNumber(GameBoard, 1-1, Cells, Size), !,
     nl, write('Cells: '), write(Cells), nl,
 
-    Positions = [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],
-    domain(Positions, 1, 8),
-
+    Positions = [_PawnX, _PawnY, _KnightX, _KnightY, _KingX, _KingY, _RookX, _RookY, _BishopX, _BishopY, _QueenX, _QueenY],
+    %reset_timer,
+    domain(Positions, 1, Size),
+    
     not_overlapping(Positions),
-         
-    maplist(cell_attacks(Positions), Cells),
+    only_empty(Cells, Positions),
 
+    maplist(cell_attacks(Positions), Cells), 
+    %print_time('PostingConstraints: '), 
     labeling([anti_first_fail, bisect], Positions),
-
-    get_value(PawnX, PawnY, GameBoard, empty),
-    get_value(KnightX, KnightY, GameBoard, empty),
-    get_value(KingX, KingY, GameBoard, empty),
-    get_value(RookX, RookY, GameBoard, empty),
-    get_value(BishopX, BishopY, GameBoard, empty),
-    get_value(QueenX, QueenY, GameBoard, empty),
+    %print_time('Labeling Time: '),
+    %fd_statistics,
+    %statistics,
 
     nl, show_results(Positions, 1), nl,
     display_solution(GameBoard, Positions).
+
 
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                              Piece                                                                        %
