@@ -63,8 +63,8 @@ solve(Positions) :-
     print_time('PostingConstraints: '), 
     labeling([anti_first_fail, bisect], Positions),
     print_time('Labeling Time: '),
-    %fd_statistics,
-    %statistics,
+    fd_statistics,
+    statistics,
 
     nl, show_results(Positions, 1), nl,
     display_solution(GameBoard, Positions).
