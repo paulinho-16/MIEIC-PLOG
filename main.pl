@@ -53,18 +53,18 @@ solve(Positions) :-
     nl, write('Cells: '), write(Cells), nl,
 
     Positions = [_PawnX, _PawnY, _KnightX, _KnightY, _KingX, _KingY, _RookX, _RookY, _BishopX, _BishopY, _QueenX, _QueenY],
-    reset_timer,
+    %reset_timer,
     domain(Positions, 1, Size),
     
     not_overlapping(Positions),
     only_empty(Cells, Positions),
 
     maplist(cell_attacks(Positions), Cells), 
-    print_time('PostingConstraints: '), 
+    %print_time('PostingConstraints: '), 
     labeling([anti_first_fail, bisect], Positions),
-    print_time('Labeling Time: '),
-    fd_statistics,
-    statistics,
+    %print_time('Labeling Time: '),
+    %fd_statistics,
+    %statistics,
 
     nl, show_results(Positions, 1), nl,
     display_solution(GameBoard, Positions).
