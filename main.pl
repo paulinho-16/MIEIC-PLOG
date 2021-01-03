@@ -7,13 +7,13 @@
 :- consult('display.pl').
 :- consult('menus.pl').
 
-reset_timer:-
+/*reset_timer:-
     statistics(total_runtime, _).
 
 print_time(Msg):-
     statistics(total_runtime,[_,T]),
     TS is ((T//10)*10)/1000, 
-    nl, write(Msg), write(TS), write('s'), nl, nl.
+    nl, write(Msg), write(TS), write('s'), nl, nl.*/
 
 only_empty([], _).
 only_empty([_-X-Y | Cells], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]) :-

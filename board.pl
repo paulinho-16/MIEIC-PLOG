@@ -1,4 +1,4 @@
-% ------------------------------------------------------------------------------------------------------------------------- %
+ ------------------------------------------------------------------------------------------------------------------------- %
 %                                          Predicate Prototype and Name                                                     %
 %   Prototype:                                                                                                              %
 %       predicate(+Problem, -Prototype, -Name)                                                                              %
@@ -183,7 +183,7 @@ problemEleven([
     BishopX #= 3, BishopY #= 8,
     QueenX #= 2, QueenY #= 8,*/
 
-    % ProblemFour Solution: (Time Taken: 2 sec)
+    % ProblemFour Solution: (Time Taken: 6 sec)
     /*PawnX #= 2, PawnY #= 2,
     KnightX #= 4, KnightY #= 7,
     KingX #= 7, KingY #= 8,

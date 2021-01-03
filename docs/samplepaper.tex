@@ -11,23 +11,17 @@
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
 % \renewcommand\UrlFont{\color{blue}\rmfamily}
-
+\renewcommand\refname{Bibliografia}
 \begin{document}
 %
 \title{Chess-Num Puzzles Solver}
-%
-%\titlerunning{Abbreviated paper title}
-% If the paper title is too long for the running head, you can set
-% an abbreviated paper title here
-%
 \author{Diogo Samuel Gonçalves Fernandes \and
 Paulo Jorge Salgado Marinho Ribeiro}
-%
-%\authorrunning{F. Author et al.}
-% First names are abbreviated in the running head.
-% If there are more than two authors, 'et al.' is used.
-%
-\institute{Faculdade de Engenharia da Universidade do Porto, Portugal, \\
+\authorrunning{Diogo Fernandes \and
+Paulo Ribeiro}
+
+\institute{Faculdade de Engenharia da Universidade do Porto, \\
+Rua Dr. Roberto Frias, 4200-465, Porto, Portugal, \\
 FEUP-PLOG, Turma 3MIEIC06, Grupo Chess-Num\textunderscore 2\\
 \email{up201806250@fe.up.pt}\\
 \email{up201806505@fe.up.pt}}
@@ -36,45 +30,63 @@ FEUP-PLOG, Turma 3MIEIC06, Grupo Chess-Num\textunderscore 2\\
 %
 \maketitle
 \begin{abstract}
-Este segundo projeto da unidade curricular Programação em Lógica (PLOG) consiste na resolução de problemas
-de otimização/decisão, recorrendo ao uso de restrições em Prolog. No caso do nosso grupo, o objetivo é resolver
-os puzzles do tipo "Chess-Num", no menor tempo possível, com recurso a restrições, através do uso da biblioteca clpfd do SICStus Prolog.
+Estre projeto foi desenvolvido no âmbito da unidade curricular \emph{Programação em Lógica} e consiste na resolução de um problema
+de decisão, recorrendo ao uso de restrições em PROLOG através do uso da biblioteca CLPFD. O objetivo do nosso trabalho é resolver
+os puzzle de Xadrez de forma a que todas as casas numeradas do tabuleiro estarem a ser atacadas esse número de vezes.
 
 \keywords{Programação em Lógica  \and Prolog \and Restrições \and clpfd \and SICStus \and Problemas de Otimização \and Problemas de Decisão.}
 \end{abstract}
 
 \section{Introdução}
 A Programação em Lógica com Restrições trata-se de uma classe de linguagens de programação, que combina a declaratividade característica da programação em lógica
-e a eficiência da resolução de restrições. As suas principais aplicações baseiam-se na resolução de problemas de pesquisa ou otimização combinatória, tal como problemas de escalonamento, geração de horários, alocação de recursos, gestão de produção, entre outros.
-Dada a sua distinção e eficiência, a Programação em Lógica com Restrições tem diversas aplicações industriais e comerciais na atualidade, destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis, e na Siemens, para verificação de circuitos.
-Neste trabalho, aplicaremos estas capacidades na resolução de puzzles Chess-Num, que consistem na colocação de uma peça de Xadrez de cada tipo (Peão, Torre, Bispo, Cavalo, Rainha, Rei) num tabuleiro com casas numeradas, de modo a que todas as casas numeradas sejam atacadas N vezes, sendo N o número apresentado nessas casas. 
-Alguns exemplos de puzzles deste tipo podem ser observados aqui: https://erich-friedman.github.io/puzzle/chessnum/
+e a eficiência da resolução de restrições. 
+
+As suas principais aplicações baseiam-se na resolução de problemas de pesquisa ou otimização combinatória, 
+tal como problemas de escalonamento, geração de horários, alocação de recursos, gestão de produção, entre outros.
+
+Dada a sua distinção e eficiência, a Programação em Lógica com Restrições tem diversas aplicações industriais e comerciais na atualidade, 
+destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis, 
+e na Siemens, para verificação de circuitos. // Citar isto?
+
+Neste trabalho, aplicaremos estas capacidades na resolução de puzzles Chess-Num, que consistem na colocação de uma peça de Xadrez de cada tipo [Peão, Torre, Bispo, Cavalo, Rainha, Rei] 
+num tabuleiro com casas numeradas, de modo a que todas as casas numeradas sejam atacadas N vezes, sendo N o número apresentado em cada uma dessas casas. 
+Alguns exemplos de puzzles deste tipo podem ser observados no site que contém as regras deste puzzle \cite{chessnum}.
+
+\newpage
 Este relatório procura explicar a nossa abordagem do problema de forma aprofundada e organizada nos seguintes tópicos:
 
- - Descrição do Problema, com explicação de todas as regras a cumprir
- - Abordagem, onde explicaremos a nossa implementação do problema, com enumeração das variáveis de decisão e dos seus domínios
- - Visualização da Solução, com exploração dos predicados que permitem a visualização do problema resolvido, e respetivas imagens exemplificativas
- - Experiências e Resultados, onde faremos a análise dimensional do problema, para distintas quantidades de células numeradas, e  
- - Conclusões e Trabalho Futuro, onde iremos debater as principais conclusões que retiramos deste projeto, com base nos resultados obtidos, e sugerir formas de melhorar o trabalho desenvolvido
- - Referências, com enumeração das várias fontes bibliográficas que utilizamos para a procura de conhecimento
- - Anexos, que contêm imagens explicativas de alguma secção do relatório, e imagens exemplificativas do programa em execução
+\begin{itemize}
+    \item \textbf{Descrição do Problema}: Descrição do problema detalhadamente e restrições envolvidas.
+    \item \textbf{Abordagem}: Implementação do problema, com enumeração das variáveis de decisão e dos seus domínios.
+    \item \textbf{Visualização da Solução}: Exploração dos predicados que permitem a visualização do problema resolvido e respetivas imagens exemplificativas.
+    \item \textbf{Experiências e Resultados}: Análise dimensional do problema, para distintas quantidades de células numeradas e diferentes tamanhos do tabuleiro. 
+    \item \textbf{Conclusões e Trabalho Futuro}: Conclusões que retiramos deste projeto, com base nos resultados obtidos, e sugerir formas de melhorar o trabalho desenvolvido
+    \item \textbf{Referências}: com enumeração das várias fontes bibliográficas que utilizamos para a procura de conhecimento
+    \item \textbf{Anexos}: que contêm imagens explicativas de alguma secção do relatório, e imagens exemplificativas do programa em execução
+\end{itemize}
 
 \section{Descrição do Problema}
-O nosso tema aborda um problema de otimização, que consiste na resolução de um tipo de puzzle envolvendo peças de xadrez. No tabuleiro vão existir casas numeradas, de 1 a 6. A solução consiste em colocar uma peça de cada tipo (Peão, Cavalo, Rei, Torre, Bispo, Rainha) no tabuleiro, de modo a que cada uma destas casas seja
-atacada N vezes, sendo N o número presente na casa. As peças atacam como num jogo de xadrez normal:
- - O peão ataca na diagonal, para cima. Ou seja, ataca 2 casas distintas.
- - O cavalo ataca em L, pelo que ataca 8 casas 
- - O bispo ataca todas as diagonais
- - A torre ataca todas as verticais e horizontais
- - O rei ataca todas as casas à sua volta, num alcance de uma casa (ataca 8 casas)
- - A rainha todas as diagonais, verticais e horizontais.
+O nosso tema aborda um problema de decisão, que consiste na resolução de um tipo de puzzle envolvendo peças de xadrez. 
+No tabuleiro vão existir casas numeradas, de 1 a 6.
+ A solução consiste em colocar uma peça de cada tipo [Peão, Cavalo, Rei, Torre, Bispo, Rainha] no tabuleiro, de modo a que cada uma destas casas seja
+atacada N vezes, sendo N o número presente na casa. O ataque das peças é identico ao do jogo Xadrez \cite{chessmove}:
+\begin{itemize}
+    \item  O peão ataca na diagonal, para cima atacando duas casas distintas.
+    \item  O cavalo ataca em L, pelo que ataca oito casas distintas. 
+    \item  O bispo ataca todas as diagonais.
+    \item  A torre ataca todas as verticais e horizontais.
+    \item  O rei ataca todas as casas à sua volta, num alcance de uma casa atacando oito casas distintas.
+    \item  A rainha todas as diagonais, verticais e horizontais.
+\end{itemize}
+
 É importante referir ainda que ao contrário do jogo de xadrez, é possível colocar os peões 
-na primeira e última linha e não é possível colocar duas peças na mesma casa, nem numa casa que tenha numeração.
+na primeira e última linha. Não é possível colocar duas peças na mesma casa, nem numa casa que tenha numeração.
 Deve-se ter também em conta que tanto a torre como o bispo e a rainha não atacam uma dada casa se existir alguma peça entre eles, bloqueando o caminho.
 
 \newpage
 \section{Abordagem ao Problema}
-Descrever a modelação do problema como um PSR / Portugal
+O nosso problema trata-se de um problema de satisfação de restrições (PSR), e pode ser modelizado por um conjunto de variáveis que representam diferentes aspetos do problema, os seus respetivos domínios, e restrições que limitam os valores que estas podem tomar dentro dos seus domínios.
+A solução consiste na atribuição de valores às variáveis de modo a que todas as restrições sejam satisfeitas. No nosso caso, a solução consiste em encontrar uma disposição de peças de tal forma a que cada casa numerada seja atacada um número de vezes igual àquele que contém.
 
 Para a resolução deste problema utilizando a \emph{CLPFD} em \emph{PROLOG} foi utilizada uma lista de listas para representar a
 o tabuleiro de xadrez.
@@ -113,19 +125,27 @@ as restrições impostas pelo programa sejam satisfeitas.
 \section{Visualização da Solução}
 
 Para uma melhor compreensão das soluções encontradas, decidimos implementar duas formas de apresentação das soluções:
- - Forma Escrita:
+\begin{itemize}
+    \item \textbf{Forma Escrita}:
     Apresenta-se no ecrã as posições de cada uma das seis peças, no formato [Linha, Coluna].
     Isto é efetuado pelo predicado show\textunderscore results, que recebe a lista das posições das peças e o número da peça a que a próxima posição corresponde. Trata-se de um ciclo simples, e recorre ao predicado piece, que recebe o número da peça e retorna o respetivo nome.
     Tanto a implementacão deste predicado como o seu funcionamento com o programa em execução podem ser visualizados nos anexos. (LINK IMAGENS)
- - Tabuleiro:
+    \item \textbf{Tabuleiro}:
     É apresentado um tabuleiro com as células numeradas e com as seis peças já colocadas conforme a solução encontrada, com uma respetiva legenda.
     Isto é efetuado pelo predicado display\textunderscore solution, que chama o predicado add\textunderscore pieces, responsável por substituir os valores das células dos tabuleiros contidos em Positions, pela peça de Xadrez correspondente. De seguida, é chamado o predicado display\textunderscore board, que representa visualmente o tabuleiro já preenchido.
     Da mesma forma, é apresentado o tabuleiro do problema (apenas com as células numeradas) antes de se iniciar a procura da solução.
+\end{itemize}
 
 \section{Experiências e Resultados}
 \subsection{Análise Dimensional}
-Para o estudo do comportamento do programa face à dimensão do problema, consideramos dois tipos de testes: variação da dimensão do tabuleiro, e variação do número de células numeradas.
-Nos anexos, (METER FIGURA), é possível verificar os resultados para os testes do primeiro tipo, sendo que testamos, para um mesmo número de casas numeradas, distintos tamanhos para os tabuleiros.
+Para o estudo do comportamento do programa face à dimensão do problema, consideramos dois tipos de testes: 
+\begin{itemize}
+    \item Variação da dimensão do tabuleiro
+    \item Variação do número de células numeradas.
+\end{itemize}
+
+(METER FIGURA)
+É possível verificar os resultados para os testes do primeiro tipo, sendo que testamos, para um mesmo número de casas numeradas, distintos tamanhos para os tabuleiros.
 É possível verificar que o tempo de execução aumenta com a dimensão do tabuleiro, o que seria de esperar, uma vez que aumenta também o domínio das variáveis de decisão (é de 1 a N, sendo N o tamanho do tabuleiro, que é o valor mínimo e máximo que a Linha/Coluna da peça pode tomar, respetivamente), e portanto aumenta o número de testes efetuados pelas restrições.
 
 Quando à variação do número de células numeradas, testamos para um mesmo tabuleiro (8x8), diferentes valores, o que pode ser verificado nos anexos (METER FIGURA).
@@ -134,9 +154,13 @@ Como seria também de esperar, o tempo de execução aumenta com o número de ca
 \subsection{Estratégias de Pesquisa}
 
 De modo a detetar possíveis melhorias no tempo de resolução dos problemas, foram testadas diversas combinações para as opções de pesquisa do labeling. 
-Nos anexos, (METER FIGURA), pode-se verificar os tempos de execução do programa para um mesmo problema (Problema 11), para diferentes combinações de opções de pesquisa.
-Após realizar estes testes, chegamos à conclusão que no nosso caso a melhor combinação de opções do labeling seriam a anti\textunderscore first\textunderscore fail e a bisect.
-A opção escolhida para a ordenação de variáveis (anti\textunderscore first\textunderscore fail) define que a próxima variável a ser escolhida na colocação das restrições é a variável mais à esquerda das que têm o maior domínio.
+
+Na (METER FIGURA) pode-se verificar os tempos de execução do programa para um mesmo problema (Problema 11), para diferentes combinações de opções de pesquisa.
+
+Após realizar estes testes, chegamos à conclusão que no nosso caso a melhor combinação de opções do labeling seriam a anti\textunderscore first\textunderscore fail e
+ a bisect.
+A opção escolhida para a ordenação de variáveis (anti\textunderscore first\textunderscore fail) define que a próxima variável a ser escolhida na colocação 
+das restrições é a variável mais à esquerda das que têm o maior domínio.
 A complementá-la, a opção escolhida para a seleção de valores define que os valores de uma 
 variável são decididos através de uma escolha binária entre X  \#$=<$ M e X  \#$>$ M, onde M 
 é o ponto médio do domínio de X (média entre valores mínimo e máximo do domínio de X, 
@@ -144,7 +168,8 @@ com arredondamento para baixo).
 
 \section{Conclusões e Trabalho Futuro}
 
-A realização deste trabalho permitiu a resolução de um problema através da utilização de restrições lógicas na linguagem PROLOG, através da utilização do módulo CLPFD.
+A realização deste trabalho permitiu a resolução de um problema através da utilização de restrições lógicas na linguagem PROLOG,
+através da utilização do módulo CLPFD.
 Durante a realização do mesmo foram encontradas diversas dificuldades, nomeadamente na elaboração dos ataques para a torre e para o bispo e rainha, devido aos possíveis bloqueios de peças que se encontrem entre estas peças e as casas numeradas.
 Com o tempo, descobrimos solução para esta dificuldade, recorrendo a restrições materializadas (reified).
 
@@ -155,98 +180,23 @@ Em suma, o projeto foi concluído com sucesso, tendo em conta que implementamos 
 Implementamos também certas funcionalidades extra e interessantes, como a geração aleatória de tabuleiros, de diferentes dimensões, e com números distintos de casas numeradas. Para além disto, tornamos a interface de interação com o utilizador bastante simples e fácil de compreender,
 com representação gráfica dos tabuleiros antes e após as soluções. Este projeto permitiu-nos aplicar o conhecimento obtido nas aulas teóricas e práticas da unidade curricular, e consolidá-lo para que possamos aplicá-lo em situações futuras.
 
-\subsubsection{Sample Heading (Third Level)} Only two levels of
-headings should be numbered. Lower level headings remain unnumbered;
-they are formatted as run-in headings.
-\paragraph{Sample Heading (Fourth Level)}
-The contribution should contain no more than four levels of
-headings. Table \ref{tab1} gives a summary of all heading levels.
-
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\noindent Displayed equations are centered and set on a separate
-line.
-\begin{equation}
-x + y = z
-\end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
-
-\begin{figure}
-\includegraphics[width=\textwidth]{fig1.eps}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
-\end{figure}
-
-\begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
-\end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
-\begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
-\end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
 %
 % ---- Bibliography ----
 %
 % BibTeX users should specify bibliography style 'splncs04'.
 % References will then be sorted and formatted in the correct style.
-%
-% \bibliographystyle{splncs04}
-% \bibliography{mybibliography}
-% https://en.wikipedia.org/wiki/Chess
-% https://erich-friedman.github.io/puzzle/chessnum/
 
 \begin{thebibliography}{8}
-\bibitem{ref_article1}
-Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
+\bibitem{chessnum}
+Chess-Num Puzzles, \url{https://erich-friedman.github.io/puzzle/chessnum/}. Último acesso a 3
+Jan 2021
 
-\bibitem{ref_lncs1}
-Author, F., Author, S.: Title of a proceedings paper. In: Editor,
-F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1--13.
-Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+\bibitem{chessmove}
+Chess Pieces and How they move, \url{https://www.wholesalechess.com/pages/new-to-chess/pieces.html}. Último acesso a 3
+Jan 2021
 
-\bibitem{ref_book1}
-Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher,
-Location (1999)
-
-\bibitem{ref_proc1}
-Author, A.-B.: Contribution title. In: 9th International Proceedings
-on Proceedings, pp. 1--2. Publisher, Location (2010)
-
-\bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}. Last accessed 4
-Oct 2017
 \end{thebibliography}
+
+\section{Anexos}
+
 \end{document}
