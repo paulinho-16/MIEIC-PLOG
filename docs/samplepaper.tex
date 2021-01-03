@@ -61,7 +61,7 @@ Este relatório procura explicar a nossa abordagem do problema de forma aprofund
 
 \section{Descrição do Problema}
 O nosso tema aborda um problema de otimização, que consiste na resolução de um tipo de puzzle envolvendo peças de xadrez. No tabuleiro vão existir casas numeradas, de 1 a 6. A solução consiste em colocar uma peça de cada tipo (Peão, Cavalo, Rei, Torre, Bispo, Rainha) no tabuleiro, de modo a que cada uma destas casas seja
-atacada N vezes, sendo N o número presenta na casa. As peças atacam como num jogo de xadrez normal:
+atacada N vezes, sendo N o número presente na casa. As peças atacam como num jogo de xadrez normal:
  - O peão ataca na diagonal, para cima. Ou seja, ataca 2 casas distintas.
  - O cavalo ataca em L, pelo que ataca 8 casas 
  - O bispo ataca todas as diagonais
@@ -102,7 +102,13 @@ as restrições impostas pelo programa sejam satisfeitas.
     Assim, as variáveis pertencem ao domínio [1, N] em que N é o tamanho do tabuleiro. Estes são os valores possíveis que a linha/coluna podem ser no tabuleiro.
     
 \subsection{Restrições}
-    Os elementos pertencentes à lista Position têm de estar a atacar uma determinada casa N vezes, como indicado no tabuleiro.
+    As restrições a definir devem garantir a solução do problema, isto é, que para cada casa numerada, esta seja atacada N vezes, sendo N o número que contém. Para isto, foi necessário definir a zona de ataque de cada tipo de peça.
+    Nos anexos, é possível observar estes predicados para cada tipo de peça (Peão, Cavalo, Rei, Torre, Bispo, Rainha). Em todos usamos restrições materializadas (reified), para que a variável Attack ficasse definida com o valor 1 no caso de as restrições que verificam se a célula é atacada por uma dada peça serem cumpridas, e 0 caso contrário.
+    Assim, após serem chamados todos os seis predicados, basta somar os seis ataques retornados nos predicados de cada peça, e o resultado será o número de vezes que a casa está atacada, que terá de ser igual ao número que essa casa contém.
+    Isto tudo é realizado no predicado cell\textunderscore attacks, que verifica estas condições para uma dada casa numerada. A verificação destas restrições para todas as casas numeradas é realizada no predicado principal, solve, com recurso ao predicado maplist, que aplica este predicado cell\textunderscore attacks a cada uma das casas numeradas, que foram reunidas numa lista, no início do programa, numa chamada ao predicado getCellsNumber.
+    É necessário ter em conta também os possíveis bloqueios de peças, nos casos da Torre, Bispo e Rainha. Para isto, criamos um predicado nothing\textunderscore between, que verifica se não há nenhuma peça a bloquear o caminho entre a Torre/Rainha e a casa numerada, na horizontal e vertical.
+    Da mesma forma, foi necessário criar o predicado nothing\textunderscore between\textunderscore diagonal, que verifica se não há nenhuma peça a bloquear o caminho entre Bispo/Rainha e a casa numerada, nas diagonais.
+    Estas duas funções que analisam os bloqueios podem também ser observadas nos anexos (METER IMAGEM)
 
 \section{Visualização da Solução}
 

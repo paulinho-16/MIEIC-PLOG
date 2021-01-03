@@ -239,7 +239,7 @@ problemEleven([
     BishopX #= 7, BishopY #= 6,
     QueenX #= 6, QueenY #= 3,*/
 
-    % ProblemEleven Solution: Works, but takes a lot of time...
+    % ProblemEleven Solution: (Time Taken: 6 sec)
     /*PawnX #= 6, PawnY #= 1,
     KnightX #= 1, KnightY #= 5,
     KingX #= 6, KingY #= 6,
