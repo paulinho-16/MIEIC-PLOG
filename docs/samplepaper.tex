@@ -5,6 +5,31 @@
 \documentclass[runningheads]{llncs}
 %
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+    
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 %
@@ -32,7 +57,7 @@ FEUP-PLOG, Turma 3MIEIC06, Grupo Chess-Num\textunderscore 2\\
 \begin{abstract}
 Estre projeto foi desenvolvido no âmbito da unidade curricular \emph{Programação em Lógica} e consiste na resolução de um problema
 de decisão, recorrendo ao uso de restrições em PROLOG através do uso da biblioteca CLPFD. O objetivo do nosso trabalho é resolver
-os puzzle de Xadrez de forma a que todas as casas numeradas do tabuleiro estarem a ser atacadas esse número de vezes.
+os puzzle de Xadrez de forma a que todas as casas numeradas com um número N no tabuleiro sejam atacadas N vezes.
 
 \keywords{Programação em Lógica  \and Prolog \and Restrições \and clpfd \and SICStus \and Problemas de Otimização \and Problemas de Decisão.}
 \end{abstract}
@@ -46,7 +71,7 @@ tal como problemas de escalonamento, geração de horários, alocação de recur
 
 Dada a sua distinção e eficiência, a Programação em Lógica com Restrições tem diversas aplicações industriais e comerciais na atualidade, 
 destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis, 
-e na Siemens, para verificação de circuitos. // Citar isto?
+e na Siemens, para verificação de circuitos.
 
 Neste trabalho, aplicaremos estas capacidades na resolução de puzzles Chess-Num, que consistem na colocação de uma peça de Xadrez de cada tipo [Peão, Torre, Bispo, Cavalo, Rainha, Rei] 
 num tabuleiro com casas numeradas, de modo a que todas as casas numeradas sejam atacadas N vezes, sendo N o número apresentado em cada uma dessas casas. 
@@ -71,11 +96,11 @@ No tabuleiro vão existir casas numeradas, de 1 a 6.
  A solução consiste em colocar uma peça de cada tipo [Peão, Cavalo, Rei, Torre, Bispo, Rainha] no tabuleiro, de modo a que cada uma destas casas seja
 atacada N vezes, sendo N o número presente na casa. O ataque das peças é identico ao do jogo Xadrez \cite{chessmove}:
 \begin{itemize}
-    \item  O peão ataca na diagonal, para cima atacando duas casas distintas.
-    \item  O cavalo ataca em L, pelo que ataca oito casas distintas. 
+    \item  O peão ataca na diagonal, para cima, atacando duas casas distintas.
+    \item  O cavalo ataca em L, atacando oito casas distintas. 
     \item  O bispo ataca todas as diagonais.
     \item  A torre ataca todas as verticais e horizontais.
-    \item  O rei ataca todas as casas à sua volta, num alcance de uma casa atacando oito casas distintas.
+    \item  O rei ataca todas as casas à sua volta, num alcance de uma casa, atacando oito casas distintas.
     \item  A rainha todas as diagonais, verticais e horizontais.
 \end{itemize}
 
@@ -136,6 +161,7 @@ Para uma melhor compreensão das soluções encontradas, decidimos implementar d
     Da mesma forma, é apresentado o tabuleiro do problema (apenas com as células numeradas) antes de se iniciar a procura da solução.
 \end{itemize}
 
+\newpage
 \section{Experiências e Resultados}
 \subsection{Análise Dimensional}
 Para o estudo do comportamento do programa face à dimensão do problema, consideramos dois tipos de testes: 
@@ -144,11 +170,13 @@ Para o estudo do comportamento do programa face à dimensão do problema, consid
     \item Variação do número de células numeradas.
 \end{itemize}
 
-(METER FIGURA)
+FIGURA ANEXOS
 É possível verificar os resultados para os testes do primeiro tipo, sendo que testamos, para um mesmo número de casas numeradas, distintos tamanhos para os tabuleiros.
 É possível verificar que o tempo de execução aumenta com a dimensão do tabuleiro, o que seria de esperar, uma vez que aumenta também o domínio das variáveis de decisão (é de 1 a N, sendo N o tamanho do tabuleiro, que é o valor mínimo e máximo que a Linha/Coluna da peça pode tomar, respetivamente), e portanto aumenta o número de testes efetuados pelas restrições.
 
-Quando à variação do número de células numeradas, testamos para um mesmo tabuleiro (8x8), diferentes valores, o que pode ser verificado nos anexos (METER FIGURA).
+
+FIGURA ANEXOS
+Quando à variação do número de células numeradas, testamos para um mesmo tabuleiro (8x8), diferentes valores, o que pode ser verificado na imagem acima.
 Como seria também de esperar, o tempo de execução aumenta com o número de casas numeradas, uma vez que aumenta também o número de restrições a ter em consideração, e, consequentemente, o número de tentativas a serem efetuadas pelo programa.
 
 \subsection{Estratégias de Pesquisa}
@@ -166,6 +194,7 @@ variável são decididos através de uma escolha binária entre X  \#$=<$ M e X 
 é o ponto médio do domínio de X (média entre valores mínimo e máximo do domínio de X, 
 com arredondamento para baixo).
 
+\newpage
 \section{Conclusões e Trabalho Futuro}
 
 A realização deste trabalho permitiu a resolução de um problema através da utilização de restrições lógicas na linguagem PROLOG,
@@ -185,7 +214,7 @@ com representação gráfica dos tabuleiros antes e após as soluções. Este pr
 %
 % BibTeX users should specify bibliography style 'splncs04'.
 % References will then be sorted and formatted in the correct style.
-
+\newpage
 \begin{thebibliography}{8}
 \bibitem{chessnum}
 Chess-Num Puzzles, \url{https://erich-friedman.github.io/puzzle/chessnum/}. Último acesso a 3
@@ -197,6 +226,132 @@ Jan 2021
 
 \end{thebibliography}
 
+\newpage
 \section{Anexos}
+\subsection{Gráficos}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{./images/tamanhotabuleiro.png}
+    \caption{Gráfico do tempo conforme o tamanho do tabuleiro} \label{fig1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{./images/casasnumeradas.png}
+    \caption{Gráfico do tempo conforme o número de casas numeradas} \label{fig2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{./images/solution.png}
+    \caption{Visualização gráfica} \label{fig2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{./images/text.png}
+    \caption{Visualização em texto} \label{fig2}
+\end{figure}
+
+\newpage
+\subsection{Código}
+\begin{lstlisting}[caption={Cell Attacks}]
+    cell_attacks([PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY],Number-Row-Column) :-
+    pawn([PawnX, PawnY], [Row, Column], PawnAttack),
+    PawnAttack #=< Number,
+    knight([KnightX, KnightY], [Row, Column], KnightAttack),
+    PawnAttack + KnightAttack #=< Number,
+    king([KingX, KingY], [Row, Column], KingAttack),
+    PawnAttack + KnightAttack + KingAttack #=< Number,
+    rook([RookX, RookY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], RookAttack),
+    PawnAttack + KnightAttack + KingAttack + RookAttack #=< Number,
+    bishop([BishopX, BishopY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], BishopAttack),
+    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack #=< Number,
+    queen([QueenX, QueenY], [Row, Column], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY], QueenAttack),
+    PawnAttack + KnightAttack + KingAttack + RookAttack + BishopAttack + QueenAttack #= Number.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Pawn Attack}]
+    pawn([X, Y], [X1, Y1], Attack) :-
+    (X1 #= X - 1 #/\ (Y1 #= Y + 1 #\/ Y1 #= Y - 1)) #<=> Attack.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Knight Attack}]
+    knight([X, Y], [X1, Y1], Attack) :-
+    ((X1 #= X + 2 #/\ Y1 #= Y + 1) #\/ 
+    (X1 #= X + 2 #/\ Y1 #= Y - 1) #\/ 
+    (X1 #= X - 2 #/\ Y1 #= Y + 1) #\/ 
+    (X1 #= X - 2 #/\ Y1 #= Y - 1) #\/ 
+    (X1 #= X + 1 #/\ Y1 #= Y + 2) #\/ 
+    (X1 #= X + 1 #/\ Y1 #= Y - 2) #\/ 
+    (X1 #= X - 1 #/\ Y1 #= Y + 2) #\/ 
+    (X1 #= X - 1 #/\ Y1 #= Y - 2)) #<=> Attack.
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}[caption={King Attack}]
+    king([X, Y], [X1, Y1], Attack) :-
+    ((X1 #= X - 1 #\/ X1 #= X + 1) #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y) #\/ (Y1 #= Y - 1))) #\/
+    ((X1 #= X) #/\ ((Y1 #= Y + 1) #\/ (Y1 #= Y - 1))) #<=> Attack.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Rook Attack}]
+    rook([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, _, _, BishopX, BishopY, QueenX, QueenY], Attack) :-
+    nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, BishopX, BishopY, QueenX, QueenY], [M1, M2, M3, M4, M5]),
+    (((X1 #= X) #\/ (Y1 #= Y)) #/\ M1 #/\ M2 #/\ M3 #/\ M4 #/\ M5) #<=> Attack.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Bishop Attack}]
+    bishop([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, _, _, QueenX, QueenY], Attack) :-
+    nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, QueenX, QueenY], [B1, B2, B3, B4, B5]),
+    ((abs(X1 - X) #= abs(Y1 - Y)) #/\ B1 #/\ B2 #/\ B3 #/\ B4 #/\ B5) #<=> Attack.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Queen Attack}]
+    queen([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, _, _], Attack) :-
+    nothing_between([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [Q1, Q2, Q3, Q4, Q5]),
+    nothing_between_diagonal([X, Y], [X1, Y1], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY], [QD1, QD2, QD3, QD4, QD5]),    
+    ((((X1 #= X) #\/ (Y1 #= Y)) #/\ Q1 #/\ Q2 #/\ Q3 #/\ Q4 #/\ Q5) #\/ (((abs(X1 - X) #= abs(Y1 - Y)) #/\ QD1 #/\ QD2 #/\ QD3 #/\ QD4 #/\ QD5))) #<=> Attack.
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}[caption={Nothing Between horizontal and vertical}]
+    nothing_between(_, _, [], []).
+    nothing_between([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
+        (
+        ((X #= X1) #/\ (PX #\= X1)) #\/ % Piece not in horizontal
+        ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #> Y) #/\ ((PY #< Y) #\/ (PY #> Y1))) #\/ % Check Horizontal Right
+        ((X #= X1) #/\ (PX #= X1) #/\ (Y1 #< Y) #/\ ((PY #< Y1) #\/ (PY #> Y))) #\/ % Check Horizontal Left
+        ((Y #= Y1) #/\ (PY #\= Y1)) #\/ % Piece not in vertical
+        ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #> X) #/\ ((PX #< X) #\/ (PX #> X1))) #\/ % Check Vertical Down
+        ((Y #= Y1) #/\ (PY #= Y1) #/\ (X1 #< X) #/\ ((PX #< X1) #\/ (PX #> X))) % Check Horizontal Up
+        )
+        #<=> M,
+        nothing_between([X, Y], [X1, Y1], Positions, Ms).
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Nothing Between horizontal and vertical}]
+    nothing_between_diagonal(_, _, [], []).
+    nothing_between_diagonal([X, Y], [X1, Y1], [PX, PY|Positions], [M|Ms]) :-
+        (
+            ((abs(X1 - X) #= abs(Y1 - Y)) #/\ (abs(X1 - PX) #\= abs(Y1 - PY))) #\/ % Piece not in diagonal
+            ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #> Y)) #/\ ((X1 #> PX) #\/ (Y1 #< PY) #\/ (PX #> X) #\/ (PY #< Y))) #\/ % Check Diagonal Top Right
+            ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #< X) #/\ (Y1 #< Y)) #/\ ((X1 #> PX) #\/ (Y1 #> PY) #\/ (PX #> X) #\/ (PY #> Y))) #\/ % Check Diagonal Top Left
+            ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #> Y)) #/\ ((X1 #< PX) #\/ (Y1 #< PY) #\/ (PX #< X) #\/ (PY #< Y))) #\/ % Check Diagonal Bottom Right
+            ((abs(X1 - X) #= abs(Y1 - Y)) #/\ ((X1 #> X) #/\ (Y1 #< Y)) #/\ ((X1 #< PX) #\/ (Y1 #> PY) #\/ (PX #< X) #\/ (PY #> Y))) % Check Diagonal Bottom Left
+        )
+        #<=> M,
+        nothing_between_diagonal([X, Y], [X1, Y1], Positions, Ms).
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}[caption={Nothing Between horizontal and vertical}]
+    show_results([], _).
+    show_results([X, Y|Positions], N) :-
+        piece(N, Piece),
+        write(Piece), write(' is at cell ['), write(X), write(', '), write(Y), write(']'), nl,
+        N1 is N + 1,
+        show_results(Positions, N1).
+\end{lstlisting}
 
 \end{document}
