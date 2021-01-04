@@ -15,17 +15,6 @@ print_time(Msg):-
     TS is ((T//10)*10)/1000, 
     nl, write(Msg), write(TS), write('s'), nl, nl.*/
 
-only_empty([], _).
-only_empty([_-X-Y | Cells], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]) :-
-    (PawnX #\= X #\/ PawnY #\= Y) #/\
-    (KnightX #\= X #\/ KnightY #\= Y) #/\
-    (KingX #\= X #\/ KingY #\= Y) #/\
-    (RookX #\= X #\/ RookY #\= Y) #/\
-    (BishopX #\= X #\/ BishopY #\= Y) #/\
-    (QueenX #\= X #\/ QueenY #\= Y),
-    only_empty(Cells, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]).
-
-
 % ------------------------------------------------------------------------------------------------------------------------- %
 %                                              Solve Problem                                                                %
 %   Prototype:                                                                                                              %
@@ -108,3 +97,26 @@ show_results([X, Y|Positions], N) :-
     write(Piece), write(' is at cell ['), write(X), write(', '), write(Y), write(']'), nl,
     N1 is N + 1,
     show_results(Positions, N1).
+
+% ------------------------------------------------------------------------------------------------------------------------- %
+%                                              No pieces on numbered cells                                                  %
+%   Prototype:                                                                                                              %
+%       only_empty(+Cells, +Positions)                                                                                      %
+%                                                                                                                           %
+%   Inputs:                                                                                                                 %
+%       Cells -> The numbered cells of the board, in the format Number-Row-Column                                           %
+%       Positions -> The positions of the chess pieces, in the format [Row, Column]                                         %
+%                                                                                                                           %
+%   Outputs:                                                                                                                %
+%       Adds restrictions so that no chess piece stands on a numbered cell                                                  %
+% ------------------------------------------------------------------------------------------------------------------------- %
+
+only_empty([], _).
+only_empty([_-X-Y | Cells], [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]) :-
+    (PawnX #\= X #\/ PawnY #\= Y) #/\
+    (KnightX #\= X #\/ KnightY #\= Y) #/\
+    (KingX #\= X #\/ KingY #\= Y) #/\
+    (RookX #\= X #\/ RookY #\= Y) #/\
+    (BishopX #\= X #\/ BishopY #\= Y) #/\
+    (QueenX #\= X #\/ QueenY #\= Y),
+    only_empty(Cells, [PawnX, PawnY, KnightX, KnightY, KingX, KingY, RookX, RookY, BishopX, BishopY, QueenX, QueenY]).
