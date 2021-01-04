@@ -70,8 +70,8 @@ As suas principais aplicações baseiam-se na resolução de problemas de pesqui
 tal como problemas de escalonamento, geração de horários, alocação de recursos, gestão de produção, entre outros.
 
 Dada a sua distinção e eficiência, a Programação em Lógica com Restrições tem diversas aplicações industriais e comerciais na atualidade, 
-destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis, 
-e na Siemens, para verificação de circuitos.
+destacando-se a sua utilização na Renault, para planeamento de produção a curto prazo, na Nokia, para configuração de software para telemóveis 
+e na Siemens, para verificação de circuitos \cite{slides1}.
 
 Neste trabalho, aplicaremos estas capacidades na resolução de puzzles Chess-Num, que consistem na colocação de uma peça de Xadrez de cada tipo [Peão, Torre, Bispo, Cavalo, Rainha, Rei] 
 num tabuleiro com casas numeradas, de modo a que todas as casas numeradas sejam atacadas N vezes, sendo N o número apresentado em cada uma dessas casas. 
@@ -85,7 +85,7 @@ Este relatório procura explicar a nossa abordagem do problema de forma aprofund
     \item \textbf{Abordagem}: Implementação do problema, com enumeração das variáveis de decisão e dos seus domínios.
     \item \textbf{Visualização da Solução}: Exploração dos predicados que permitem a visualização do problema resolvido e respetivas imagens exemplificativas.
     \item \textbf{Experiências e Resultados}: Análise dimensional do problema, para distintas quantidades de células numeradas e diferentes tamanhos do tabuleiro. 
-    \item \textbf{Conclusões e Trabalho Futuro}: Conclusões que retiramos deste projeto, com base nos resultados obtidos, e sugerir formas de melhorar o trabalho desenvolvido
+    \item \textbf{Conclusões e Trabalho Futuro}: Conclusões que retiramos deste projeto, com base nos resultados obtidos, e possíveis formas de melhorar o trabalho desenvolvido
     \item \textbf{Referências}: com enumeração das várias fontes bibliográficas que utilizamos para a procura de conhecimento
     \item \textbf{Anexos}: que contêm imagens explicativas de alguma secção do relatório, e imagens exemplificativas do programa em execução
 \end{itemize}
@@ -118,7 +118,7 @@ o tabuleiro de xadrez.
 
 \subsection{Variáveis de Decisão}
     A solução ao problema encontra-se nas seguintes variáveis listadas abaixo. As variáveis \emph{piece}X, \emph{piece}Y 
-    representam a posição X e Y no tabuleiro de xadrez da peça \emph{piece}.
+    representam os possíveis valores da linha e coluna das peças de xadrez \emph{piece}.
     
     \begin{itemize}
         \item PawnX, PawnY
@@ -131,7 +131,7 @@ o tabuleiro de xadrez.
     
     Estas variáveis de decisão são reunidas numa lista, Positions, que será depois utilizada ao efetuar o labeling.
     Cada par destas variáveis corresponde à posição de uma dada peça no tabuleiro, sendo o primeiro elemento do par a linha onde a peça se encontra, e o segundo elemento a coluna.
-    Assim, as variáveis pertencem ao domínio [1, N] em que N é o tamanho do tabuleiro. Estes são os valores possíveis que a linha/coluna podem ser no tabuleiro.
+    Assim, as variáveis pertencem ao domínio [1, N] em que N é o tamanho do tabuleiro. Estes são os valores possíveis que a linha/coluna pode assumir no tabuleiro.
     
 \subsection{Restrições}
     As restrições a definir devem garantir a solução do problema, isto é, que para cada casa numerada, esta seja atacada N vezes, sendo N o número que contém. Para isto, foi necessário definir a zona de ataque de cada tipo de peça.
@@ -149,7 +149,7 @@ Para uma melhor compreensão das soluções encontradas, decidimos implementar d
     \item \textbf{Forma Escrita}:
     Apresenta-se no ecrã as posições de cada uma das seis peças, no formato [Linha, Coluna].
     Isto é efetuado pelo predicado show\textunderscore results, que recebe a lista das posições das peças e o número da peça a que a próxima posição corresponde. Trata-se de um ciclo simples, e recorre ao predicado piece, que recebe o número da peça e retorna o respetivo nome.
-    Tanto a implementacão deste predicado como o seu funcionamento com o programa em execução podem ser visualizados nos anexos, nas figuras 4 e na secção de código, ponto 1.10.
+    Tanto a implementacão deste predicado como o seu funcionamento com o programa em execução podem ser visualizados nos anexos, na figura 4 e na secção de código, ponto 1.10.
     \item \textbf{Tabuleiro}:
     É apresentado um tabuleiro com as células numeradas e com as seis peças já colocadas conforme a solução encontrada, com uma respetiva legenda.
     Isto é efetuado pelo predicado display\textunderscore solution, que chama o predicado add\textunderscore pieces, responsável por substituir os valores das células dos tabuleiros contidos em Positions, pela peça de Xadrez correspondente. De seguida, é chamado o predicado display\textunderscore board, que representa visualmente o tabuleiro já preenchido. Um exemplo deste tipo de visualização pode ser observado na figura 3.
@@ -175,8 +175,6 @@ Como seria também de esperar, o tempo de execução aumenta com o número de ca
 
 De modo a detetar possíveis melhorias no tempo de resolução dos problemas, foram testadas diversas combinações para as opções de pesquisa do labeling. 
 
-Na (METER FIGURA) pode-se verificar os tempos de execução do programa para um mesmo problema (Problema 11), para diferentes combinações de opções de pesquisa.
-
 Após realizar estes testes, chegamos à conclusão que no nosso caso a melhor combinação de opções do labeling seriam a anti\textunderscore first\textunderscore fail e
  a bisect.
 A opção escolhida para a ordenação de variáveis (anti\textunderscore first\textunderscore fail) define que a próxima variável a ser escolhida na colocação 
@@ -192,7 +190,7 @@ com arredondamento para baixo).
 A realização deste trabalho permitiu a resolução de um problema através da utilização de restrições lógicas na linguagem PROLOG,
 através da utilização do módulo CLPFD.
 Durante a realização do mesmo foram encontradas diversas dificuldades, nomeadamente na elaboração dos ataques para a torre e para o bispo e rainha, devido aos possíveis bloqueios de peças que se encontrem entre estas peças e as casas numeradas.
-Com o tempo, descobrimos solução para esta dificuldade, recorrendo a restrições materializadas (reified).
+Com o tempo, descobrimos solução para esta dificuldade, recorrendo a restrições materializadas.
 
 Apesar de cumprir todos os requisitos pedidos no enunciado, há certos aspetos que poderiam ser melhorados futuramente, nomeadamente a questão da eficiência do programa, tendo em conta que o tempo de execução do programa
 é elevado no caso de tabuleiros com um elevado número de casas numeradas.
@@ -208,6 +206,12 @@ com representação gráfica dos tabuleiros antes e após as soluções. Este pr
 % References will then be sorted and formatted in the correct style.
 \newpage
 \begin{thebibliography}{8}
+\bibitem{slides1}
+Daniel Castro Silva, Programação em Lógicacom Restrições [PowerPoint Slides], \url{https://moodle.up.pt/}
+
+\bibitem{slides2}
+Daniel Castro Silva, Programação em Lógica com Restrições no SICStus Prolog [PowerPoint Slides], \url{https://moodle.up.pt/}
+
 \bibitem{chessnum}
 Chess-Num Puzzles, \url{https://erich-friedman.github.io/puzzle/chessnum/}. Último acesso a 3
 Jan 2021
