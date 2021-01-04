@@ -9,13 +9,13 @@ Ao contrário do xadrez, os peões podem ser colocados na primeira ou na última
 ### Windows
 - Abrir o SICStus Prolog
 - No menu Settings, escolher Font e selecionar tipo de letra Consolas.
-- No menu File, escolher Consult e selecionar o ficheiro [main.pl](./main.pl)
+- No menu File, escolher Consult e selecionar o ficheiro [main.pl](./source/main.pl)
 - Executar o comando "solve(Positions)." e selecionar o tipo de problema a resolver.
 - Os inputs não necessitam de terminar com um ponto final, uma vez que implementamos um predicado para facilitar a leitura de inputs.
 
 ### Linux
 - Executar o ficheiro sicstus (./sicstus), na pasta bin da instalação.
-- Usar o predicado consult(Path), em que Path é o caminho completo para o ficheiro [main.pl](./main.pl).
+- Usar o predicado consult(Path), em que Path é o caminho completo para o ficheiro [main.pl](./source/main.pl).
 - Executar o comando "solve(Positions)." e selecionar o tipo de problema a resolver.
 - Os inputs não necessitam de terminar com um ponto final, uma vez que implementamos um predicado para facilitar a leitura de inputs.
 
