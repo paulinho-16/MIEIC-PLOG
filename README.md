@@ -1,10 +1,27 @@
 # Num Chess Problem
 
 ### Puzzle
-Six chess pieces (one each of king, queen , rook, bishop, knight, and pawn) are hiding in each of the grids below. Each numbered square show how many times that square is attacked. Unlike chess, pawns can be placed on the first or last rank. No two pieces are on the same square, and no piece is on a numbered square. Here is an example of a solved puzzle
+Cada casa numerada no tabuleiro de xadrez mostra quantas vezes aquela casa é atacada. 
+Existem seis peças de xadrez que podem ser colocadas, uma de cada tipo, sendo elas o rei, rainha, torre, bispo, cavalo e peão. 
+Ao contrário do xadrez, os peões podem ser colocados na primeira ou na última fila. Não há duas peças na mesma casa e nenhuma peça está numa casa numerada.
+
+## Instalação e Execução
+### Windows
+- Abrir o SICStus Prolog
+- No menu Settings, escolher Font e selecionar tipo de letra Consolas.
+- No menu File, escolher Consult e selecionar o ficheiro [main.pl](./main.pl)
+- Executar o comando "solve(Positions)." e selecionar o tipo de problema a resolver.
+- Os inputs não necessitam de terminar com um ponto final, uma vez que implementamos um predicado para facilitar a leitura de inputs.
+
+### Linux
+- Executar o ficheiro sicstus (./sicstus), na pasta bin da instalação.
+- Usar o predicado consult(Path), em que Path é o caminho completo para o ficheiro [main.pl](./main.pl).
+- Executar o comando "solve(Positions)." e selecionar o tipo de problema a resolver.
+- Os inputs não necessitam de terminar com um ponto final, uma vez que implementamos um predicado para facilitar a leitura de inputs.
+
 ### Group Members
 - Diogo Samuel Fernandes, up201806250@fe.up.pt
-- Paulo Jorge Ribeiro, @up201806505@fe.up.pt
+- Paulo Jorge Ribeiro, up201806505@fe.up.pt
 
 ### Source
 ![ChessNum](https://erich-friedman.github.io/puzzle/chessnum/)
